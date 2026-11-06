@@ -2,7 +2,13 @@
 
 A fast car and an Arizona-inspired desert. Minimal native WebGL shapes, a low orange sun just before dusk, distant mountains, a future skyline, and 2,200 miles to cover. The coupe uses steel and gunmetal surfaces with restrained cyan underglow and warm rear light halos.
 
-Open `City-Fare-007.html` directly in a modern browser, or run `npm run dev` and visit `http://127.0.0.1:8766`. No dependencies, accounts, network assets or runtime API calls.
+## Play offline
+
+Download and extract this repository, then open the root `index.html` in a modern browser with WebGL support. The game is self-contained: no installation, server, account or internet connection is required.
+
+To regenerate the standalone game from the existing sources, run `node tools/bundle.mjs` from the repository root with Node.js installed, then open `City-Fare-007.html`. This generated file is excluded from Git. No dependency installation is needed.
+
+For local development, run `npm run dev` (requires npm and Python 3), then visit `http://127.0.0.1:8766`.
 
 ## Drive
 
