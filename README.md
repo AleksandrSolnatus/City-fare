@@ -8,7 +8,7 @@ Open `City-Fare-007.html` directly in a modern browser, or run `npm run dev` and
 
 W / Up accelerates; S / Down or Space brakes; A D / Left Right steer. P / Escape pauses. C changes camera; R restarts. Touch controls are available on small or coarse-pointer screens. Enable optional electric-motor audio in Pause; adjust volume there. Gentle steering, reduced camera motion and lower resolution are available.
 
-The car tops out at approximately 180 mph. Driving distance is integrated from speed in metres per second and simulation seconds, then converted with 1 mile = 1609.344 metres. Completion is an odometer challenge: all driven distance counts, including turns and off-road travel. Exactly 2,200 accumulated miles ends the drive. At full speed, the trip takes over 12 hours. No progress is saved. A new page load starts at mile zero; pause only holds the current run while this page remains open.
+The car tops out at approximately 180 mph. A light peripheral blur fades in above 70 mph and the camera gently widens with speed; reduced motion disables both. Driving distance is integrated from speed in metres per second and simulation seconds, then converted with 1 mile = 1609.344 metres. Completion is an odometer challenge: all driven distance counts, including turns and off-road travel. Exactly 2,200 accumulated miles ends the drive. At full speed, the trip takes over 12 hours. No progress is saved. A new page load starts at mile zero; pause only holds the current run while this page remains open.
 
 The last 2,500 metres gradually fade the scene; completion presents a quiet end screen and restart button. The skyline is a stylized progress cue whose apparent distance shrinks, not an accurately simulated urban map.
 
