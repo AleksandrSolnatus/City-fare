@@ -1,6 +1,6 @@
 # City Fare · Sonoran Run
 
-A fast car and an Arizona-inspired desert. Minimal native WebGL shapes, an orange sun, distant mountains, a future skyline, and 2,200 miles to cover.
+A fast car and an Arizona-inspired desert. Minimal native WebGL shapes, a low orange sun just before dusk, distant mountains, a future skyline, and 2,200 miles to cover. The coupe uses steel and gunmetal surfaces with restrained cyan underglow and warm rear light halos.
 
 Open `City-Fare-007.html` directly in a modern browser, or run `npm run dev` and visit `http://127.0.0.1:8766`. No dependencies, accounts, network assets or runtime API calls.
 
