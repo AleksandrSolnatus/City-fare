@@ -1,245 +1,229 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0c171e"><meta name="description" content="City Fare: an independent, original top-down driving game. Pick up passengers, drive the city, and earn your next fare."><title>City Fare — Playable Prototype 002 PRO</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect rx='15' width='64' height='64' fill='%23ffd17b'/%3E%3Cpath d='M18 24h28v21H18zm5-7h18v7H23z' fill='%2314242d'/%3E%3C/svg%3E"><style>:root{color-scheme:dark;--bg:#0c171e;--panel:#14242d;--line:#2a3c45;--ink:#edf4ee;--muted:#93a9ae;--mint:#84e8be;--gold:#ffd17b;--active:var(--mint)}
-*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden}body{background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;height:100vh;height:100dvh;display:flex;flex-direction:column;overscroll-behavior:none}body[data-phase="dropoff"]{--active:var(--gold)}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible{outline:3px solid var(--mint);outline-offset:3px}button:disabled{opacity:.55;cursor:wait}header{padding:18px 28px;display:flex;align-items:center;gap:18px;border-bottom:1px solid var(--line);padding-top:max(18px,env(safe-area-inset-top));flex:none}.brand{display:flex;align-items:center;gap:12px;margin-right:auto}.brand-mark{width:36px;height:36px;background:var(--gold);border-radius:10px;color:#1a2b32;display:grid;place-items:center;font-size:23px;font-weight:900}.brand h1{font-size:23px;letter-spacing:-.04em;line-height:1.1;margin:0}.eyebrow{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}.brand .eyebrow{margin-top:5px}.stats{display:flex;gap:28px;padding-right:12px}.stat{min-width:74px}.stat span{display:block;font-size:9px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}.stat b{font-size:24px;line-height:1.3;font-variant-numeric:tabular-nums;font-weight:650}.stat:last-child b{color:var(--gold)}.reset{background:transparent;border:1px solid #40525a;border-radius:10px;padding:10px 14px;min-height:44px;font-size:12px}.reset:hover{background:#23343d}main{width:100%;max-width:1600px;min-height:0;flex:1;display:flex;margin:0 auto;padding:20px;gap:20px}.dispatch{width:244px;flex:none;display:flex;flex-direction:column;gap:18px;padding:8px 4px}.dispatch-top{display:flex;justify-content:space-between;align-items:center}.live{font-size:10px;color:var(--mint);letter-spacing:.09em}.live:before{content:"";display:inline-block;width:6px;height:6px;background:var(--mint);border-radius:50%;margin-right:6px}.mission{padding:20px 18px;border:1px solid var(--line);border-radius:16px;background:var(--panel);position:relative;overflow:hidden}.mission:before{content:"";position:absolute;left:0;top:20px;width:3px;height:32px;border-radius:3px;background:var(--active)}.phase{font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--active);text-transform:uppercase}.mission h2{font-size:27px;line-height:1.1;letter-spacing:-.045em;margin:12px 0 8px}.mission p{font-size:12px;color:#b6c7c9;margin:0;min-height:36px}.fare-line{border-top:1px solid #31434c;margin-top:20px;padding-top:14px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted)}.fare-line b{font-size:22px;color:var(--gold)}.trip{font-size:12px;display:grid;grid-template-columns:12px 1fr;gap:13px 9px;color:#c9d6d6;padding:2px 10px}.trip i{margin-top:4px;height:8px;width:8px;border:2px solid var(--mint);border-radius:50%;position:relative}.trip i:first-child:after{content:"";position:absolute;width:1px;height:30px;top:9px;left:1px;background:var(--line)}.trip i.end{border-color:var(--gold);border-radius:2px}.trip small{display:block;color:var(--muted);font-size:9px;letter-spacing:.1em;margin-bottom:3px;text-transform:uppercase}.help{margin-top:auto;border-top:1px solid var(--line);padding:18px 10px 0;color:var(--muted);font-size:11px}.help strong{display:block;color:var(--ink);margin-bottom:8px;font-size:12px;font-weight:600}.help p{margin:8px 0}.keys{display:flex;gap:4px}.keys kbd{font:11px system-ui;display:inline-block;padding:4px 7px;border:1px solid #40525a;border-bottom-width:3px;border-radius:5px;color:#d2dedc}.stage{min-width:0;flex:1;position:relative;overflow:hidden;border-radius:20px;border:1px solid #435650;background:#486552;isolation:isolate;touch-action:none}canvas{display:block;width:100%;height:100%;touch-action:none}.scene-label{position:absolute;left:20px;top:18px;pointer-events:none;display:flex;gap:8px;align-items:center;background:#10232ddc;border:1px solid #4b625d;border-radius:30px;padding:7px 12px;color:#dae8df;font-size:9px;letter-spacing:.15em}.scene-label em{font-style:normal;color:var(--mint);font-size:12px}.speed{position:absolute;left:20px;bottom:112px;background:#11222dda;border:1px solid #50625d;border-radius:12px;padding:8px 12px;min-width:70px;text-align:center;pointer-events:none}.speed b{display:block;font-size:22px;line-height:1.1;font-variant-numeric:tabular-nums}.speed span{font-size:8px;color:#b6c6c2;letter-spacing:.1em}.distance{position:absolute;top:57px;left:21px;font-size:10px;letter-spacing:.05em;background:#10232ddc;border:1px solid #4b625d;border-radius:7px;padding:5px 9px;color:var(--active);pointer-events:none}.controls{position:absolute;left:18px;right:18px;bottom:max(18px,env(safe-area-inset-bottom));display:flex;justify-content:space-between;align-items:end;gap:10px;pointer-events:none}.controls-group{display:flex;align-items:end;gap:9px}.control{touch-action:none;pointer-events:auto;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;border:1px solid #93aca388;border-bottom:4px solid #0b1d28;border-radius:15px;background:#19333bea;color:#f1f6e8;width:60px;height:64px;font-size:29px;display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 4px 14px #0c181c30;transition:background .08s}.control small{font-size:8px;letter-spacing:.09em}.control.pressed{background:#4d7461;border-bottom-width:1px;transform:translateY(2px)}.drive{height:84px;width:88px;color:#15302b;background:var(--mint);border-color:#a8f3d0;border-bottom-color:#38745c;font-size:25px}.drive small{font-size:12px;font-weight:800;letter-spacing:.08em}.drive.pressed{background:#b2f7d8}.reverse{font-size:19px;width:54px;height:55px}.toast{position:absolute;left:50%;top:20%;transform:translateX(-50%);max-width:calc(100% - 32px);width:max-content;z-index:3;padding:12px 18px;border:1px solid #e9c379;border-radius:13px;background:#15262df2;box-shadow:0 8px 28px #09182055;font-size:13px;font-weight:600;pointer-events:none;text-align:center}.toast[hidden]{display:none}.toast b{color:var(--gold)}.startup{position:absolute;inset:20% 20px auto;z-index:10;max-width:540px;margin:auto;padding:22px;border-radius:15px;border:1px solid var(--gold);background:#14232ef7;line-height:1.6;box-shadow:0 15px 80px #0005}.startup strong{display:block;color:var(--gold);font-size:17px;margin-bottom:8px}.startup[hidden]{display:none}.startup code{font-size:12px;overflow-wrap:anywhere}.startup button{border:1px solid #73888d;border-radius:8px;background:#273f48;padding:8px 12px;margin-top:12px}.footer{padding:0 26px 12px;display:flex;justify-content:space-between;gap:12px;font-size:9px;color:#82999f;letter-spacing:.04em;flex:none}.footer b{font-weight:500;color:#b4c5c5}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@media(min-width:1600px){header{padding-left:calc((100vw - 1548px)/2);padding-right:calc((100vw - 1548px)/2)}}
-@media(max-width:760px){header{padding:12px 14px;padding-top:max(12px,env(safe-area-inset-top));gap:10px}.brand{gap:8px}.brand-mark{width:30px;height:32px;font-size:21px;border-radius:8px}.brand h1{font-size:20px}.brand .eyebrow{font-size:7px;letter-spacing:.09em}.stats{gap:15px;padding-right:0}.stat{min-width:35px}.stat span{font-size:7px}.stat b{font-size:21px}.reset{padding:8px 10px;font-size:11px;min-width:44px}.reset span{display:none}main{padding:0 8px 8px;gap:8px;flex-direction:column}.dispatch{width:100%;padding:0;display:block;flex:none}.dispatch-top,.trip,.help{display:none}.mission{padding:9px 12px;border-radius:10px;display:grid;grid-template-columns:1fr 55px;gap:0 8px;min-height:77px}.mission:before{top:13px;height:27px;width:2px}.phase{font-size:8px}.mission h2{margin:3px 0 2px;font-size:19px;grid-column:1;line-height:1.2}.mission p{font-size:10px;min-height:0;grid-column:1}.fare-line{grid-column:2;grid-row:1 / 4;margin:0;padding:0 0 0 8px;border-top:0;border-left:1px solid #31434c;flex-direction:column;justify-content:center;font-size:8px}.fare-line b{font-size:19px}.stage{border-radius:12px;min-height:150px}.scene-label{top:12px;left:12px;padding:6px 9px;font-size:8px}.distance{top:47px;left:13px;font-size:9px}.speed{bottom:109px;left:12px;padding:7px 8px;min-width:53px}.speed b{font-size:18px}.controls{left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom))}.controls-group{gap:7px}.control{width:54px;height:61px;font-size:26px;border-radius:13px}.drive{width:78px;height:81px}.reverse{width:45px;height:53px;font-size:18px}.footer{padding:0 14px max(7px,env(safe-area-inset-bottom));font-size:8px}.footer .extra{display:none}.toast{top:27%;font-size:12px;padding:10px 13px}.startup{inset:15% 14px auto;font-size:12px;padding:18px}}
-@media(max-width:360px){.brand .eyebrow{display:none}.brand h1{font-size:18px}.brand-mark{display:none}.stats{gap:14px}.controls-group{gap:5px}.control{width:49px}.drive{width:70px}.reverse{width:43px}.scene-label{font-size:7px}}
-@media(max-height:500px) and (min-width:600px){header{padding:6px 18px;min-height:51px}.brand h1{font-size:19px}.brand-mark{width:29px;height:29px}.brand .eyebrow{font-size:7px}.stat b{font-size:20px}.reset{min-height:36px;padding:6px 11px}main{flex-direction:row;padding:8px 12px;gap:12px}.dispatch{display:flex;flex-direction:column;width:194px;gap:10px;padding:0}.dispatch-top,.trip,.help{display:none}.mission{display:block;padding:13px;min-height:0}.mission h2{font-size:23px;margin:7px 0}.mission p{font-size:11px}.fare-line{display:flex;flex-direction:row;border-left:0;border-top:1px solid #31434c;margin-top:13px;padding-top:9px;font-size:10px}.fare-line b{font-size:22px}.controls{bottom:9px;left:10px;right:10px}.control{width:49px;height:47px;border-radius:11px;font-size:23px}.drive{width:68px;height:58px;font-size:20px}.drive small{font-size:10px}.reverse{width:42px;height:42px}.speed{display:none}.scene-label{top:8px;left:10px}.distance{top:42px;left:11px}.toast{top:32%}.footer{padding:0 16px 6px}.footer .extra{display:none}}
-@media(prefers-reduced-motion:reduce){.control{transition:none}}
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#e4bb84"><meta name="description" content="A fast car. The Sonoran desert. A 2,200-mile drive toward a distant future city."><title>City Fare · Sonoran Run</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23efb84f'/%3E%3Cpath d='M15 27h34v22H15zm6-12h22l6 12H15z' fill='%232f5357'/%3E%3C/svg%3E"><style>:root{color-scheme:light;--ink:#243d40;--cream:#fff3d8;--gold:#ffd16e}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#c7b58c;color:var(--cream);font-family:Arial,Helvetica,sans-serif;user-select:none;-webkit-user-select:none}canvas{display:block;width:100%;height:100%;touch-action:none}.vignette{position:fixed;inset:0;pointer-events:none;background:linear-gradient(180deg,#182f3525,transparent 23%,transparent 62%,#182c3b80)}header{position:fixed;z-index:3;top:max(28px,env(safe-area-inset-top));left:max(32px,env(safe-area-inset-left));right:max(32px,env(safe-area-inset-right));display:flex;align-items:start;justify-content:space-between}.brand{color:var(--ink);text-decoration:none;font-size:24px;font-weight:900;letter-spacing:-1px;line-height:1}.brand span{display:block;font-size:9px;letter-spacing:3.7px;margin-top:8px;font-weight:700}.topright{display:flex;align-items:center;gap:27px}.location{font-size:10px;letter-spacing:2px;font-weight:bold;color:var(--ink);line-height:1.5}.location span{display:block;font-size:8px;opacity:.7;letter-spacing:2.8px}.location i{display:inline-block;background:#426c53;width:6px;height:6px;border-radius:50%;margin-right:6px}button{font:inherit;cursor:pointer;border:0;color:var(--ink);touch-action:manipulation}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1c738a;outline-offset:5px}#pause{background:#fff3d866;border:1px solid #fff3d888;padding:12px 17px;border-radius:30px;font-size:13px;font-weight:700;backdrop-filter:blur(8px)}#pause span{margin-left:7px}#welcome{position:absolute;top:24%;left:7%;max-width:530px;transition:opacity .3s,transform .3s;color:var(--ink);text-shadow:0 1px 22px #e9d3ac55}.eyebrow{font-size:10px;letter-spacing:2.5px;font-weight:bold}h1{font-size:clamp(48px,6.8vw,104px);line-height:.95;letter-spacing:-6px;font-weight:900;margin:23px 0}h1 em{font-family:Georgia,serif;font-weight:400;letter-spacing:-6px}#welcome p{font-size:14px;line-height:1.8;margin:20px 0 28px}.primary{display:flex;justify-content:space-between;align-items:center;gap:50px;background:var(--ink);color:var(--cream);padding:18px 23px;border-radius:6px;font-size:14px;font-weight:bold;box-shadow:0 5px 16px #20333118}.primary span{font-size:23px}.primary:hover{background:#36575a}.keys{display:flex;align-items:center;gap:4px;margin-top:22px;font-size:10px}.keys span{margin-left:7px;opacity:.85}kbd{font:10px Arial;display:inline-grid;place-items:center;border:1px solid currentColor;border-radius:4px;min-width:19px;height:21px;opacity:.65}.drivehud{position:absolute;bottom:max(38px,env(safe-area-inset-bottom));left:34px;right:34px;display:flex;align-items:end;justify-content:space-between;gap:25px;pointer-events:none}.speedometer{min-width:155px}.speedometer strong{font-size:64px;font-weight:400;letter-spacing:-3px;font-variant-numeric:tabular-nums;line-height:1}.speedometer span{font-size:10px;letter-spacing:2px;margin-left:10px}.speedline{height:3px;background:#fff3d84a;width:155px;margin:12px 0}.speedline i{display:block;height:100%;width:0;background:var(--gold)}.speedometer small{font-size:8px;letter-spacing:1.8px}.journey{width:290px;margin-bottom:3px}.journey>div:first-child{display:flex;justify-content:space-between;font-size:9px;letter-spacing:1.5px}.journey b{font-weight:400}.route{height:2px;background:#fff3d855;margin:14px 0}.route i{display:block;width:1%;height:100%;background:var(--gold);position:relative}.route i:after{content:'';position:absolute;width:7px;height:7px;background:var(--gold);border-radius:50%;right:-3px;top:-2.5px}.journey small{font-size:9px;opacity:.8}.viewbutton{display:flex;align-items:center;gap:10px;background:#fff3d819;color:var(--cream);border:1px solid #fff3d866;border-radius:30px;padding:11px 15px;font-size:12px;pointer-events:auto}.viewbutton>span{font-size:10px}.viewbutton kbd{font-size:9px}.intro .drivehud,.intro .controls{opacity:0;pointer-events:none}.playing #welcome{opacity:0;transform:translateY(10px);pointer-events:none}.playing #welcome button{visibility:hidden}.controls{display:none;position:fixed;bottom:max(22px,env(safe-area-inset-bottom));left:max(20px,env(safe-area-inset-left));right:max(20px,env(safe-area-inset-right));justify-content:space-between;pointer-events:none}.group{display:flex;gap:10px}.drive{pointer-events:auto;border:1px solid #fff3d888;background:#263f4780;color:var(--cream);border-radius:16px;width:64px;height:64px;touch-action:none;font-size:24px;backdrop-filter:blur(7px)}.drive.gas{width:94px;background:#f1c46bbd;color:#243d40;font-size:13px;font-weight:bold}.drive.brake{font-size:10px;width:62px}.drive.on{background:#fff3d8;color:#243d40;transform:translateY(2px)}.overlay{position:fixed;inset:0;z-index:5;background:#203a4380;backdrop-filter:blur(8px);display:grid;place-items:center;padding:20px}.overlay[hidden],#error[hidden]{display:none}.pausebox{width:min(420px,100%);max-height:90dvh;overflow:auto;background:#fff0d7;color:var(--ink);padding:32px;border-radius:12px;box-shadow:0 25px 80px #16303d33}.pausebox h2{font:italic 34px Georgia;letter-spacing:-1px;margin:15px 0}.pausebox p{font-size:12px;line-height:1.8;opacity:.8}.pausebox .primary{width:100%;margin:23px 0}.settings{display:grid;gap:13px;font-size:13px}.settings label{display:flex;align-items:center;gap:9px}.settings input[type=range]{width:130px;accent-color:#42686a}.settings input[type=checkbox]{accent-color:#42686a;width:17px;height:17px}#sound{background:#e2d8bc;text-align:left;padding:12px;border-radius:5px}.textbutton{padding:16px 0;background:none;font-size:12px;text-decoration:underline}.pausebox>small{display:block;font-size:10px;opacity:.7}#toast{position:absolute;top:110px;left:50%;transform:translateX(-50%);background:#fff0d7eb;color:#243d40;padding:12px 20px;border-radius:30px;font-size:12px;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}#toast.show{opacity:1}#error{position:fixed;inset:20%;z-index:10;background:#fff0d7;color:#243d40;border-radius:10px;padding:25px}#error button{padding:12px 20px;background:#243d40;color:#fff0d7}
+@media(pointer:coarse),(max-width:700px){.controls{display:flex}.drivehud{bottom:110px;left:22px;right:22px}.speedometer strong{font-size:42px}.speedometer{min-width:100px}.speedline{width:100px}.journey{width:180px}.journey small{display:none}.viewbutton{padding:10px}.viewbutton span,.viewbutton kbd{display:none}.location{display:none}header{left:22px;right:22px;top:24px}.brand{font-size:22px}.brand span{font-size:8px}.topright{gap:10px}#welcome{top:23%;left:7%;max-width:85%}h1{font-size:66px;letter-spacing:-3px}h1 em{letter-spacing:-3px}.keys{max-width:300px;flex-wrap:wrap}#welcome p{font-size:12px}#pause span{display:none}#toast{top:90px;font-size:10px}.journey>div:first-child{font-size:8px;letter-spacing:.5px}}
+@media(max-width:400px){.drive{width:52px;height:58px}.drive.gas{width:80px}.drive.brake{width:54px}.group{gap:7px}.journey{width:155px}.drivehud{gap:12px}.viewbutton{display:none}h1{font-size:58px}}
+@media(max-height:530px){header{top:15px}#welcome{top:22%;left:6%}h1{font-size:50px;margin:12px 0}h1 em{letter-spacing:-3px}#welcome p{margin:10px 0;font-size:11px}.primary{padding:10px 20px}.keys{margin-top:10px}.drivehud{bottom:24px}.controls~*{font-size:12px}.journey{display:none}.controls{bottom:15px}.drivehud .speedometer{position:absolute;left:45%;bottom:0}.viewbutton{display:none}.controls .drive{height:52px}.pausebox{padding:20px}.intro #welcome{max-width:50%}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.intro #pause{visibility:hidden}
+
+/* Sonoran Run: minimal interface, cool metal, orange sun. */
+:root{--ink:#263f46;--cream:#f0eadd;--gold:#ffc28b}#welcome{top:auto;bottom:15%;left:7%}#welcome .eyebrow{letter-spacing:4px}h1{font:800 clamp(46px,6vw,86px) Arial,sans-serif;letter-spacing:-3px;line-height:1;margin:14px 0}#welcome p{font-size:13px;letter-spacing:1.2px;margin:14px 0 25px}.keys{opacity:.75}.location{letter-spacing:3px}.brand{letter-spacing:-1.5px}.journey{width:250px}.journey>div:first-child{justify-content:flex-end}#chapter,#surface,#hint{display:none}.speedometer strong{font-size:52px}.speedline{height:2px;width:130px}.viewbutton kbd,.viewbutton span{display:none}.viewbutton{padding:10px 14px}.drivehud{bottom:32px}.drive.gas{background:#bfd8d4c9}.intro .brand{visibility:hidden}#finish-fade{position:fixed;inset:0;background:#172e36;opacity:0;pointer-events:none;z-index:4}#finish{position:fixed;inset:0;z-index:5;display:grid;place-content:center;text-align:center;color:#e6e4d9}#finish[hidden]{display:none}#finish p{letter-spacing:4px;font-size:11px}#finish h2{font-size:50px;font-weight:400;margin:14px 0 35px}#finish button{background:transparent;color:#e6e4d9;border:1px solid #e6e4d966;padding:15px 25px;border-radius:4px}.finished header,.finished .drivehud,.finished .controls{visibility:hidden}@media(max-width:700px),(pointer:coarse){.drivehud{bottom:110px}#welcome{top:auto;bottom:17%}h1{font-size:52px;letter-spacing:-2px}.speedometer strong{font-size:42px}.speedline{width:100px}.journey{width:170px}}@media(max-height:530px){#welcome{bottom:11%;top:auto}h1{font-size:48px}.drivehud{bottom:22px}}
 </style></head>
-<body data-phase="pickup">
-<header><div class="brand"><div class="brand-mark" aria-hidden="true">↗</div><div><h1>City Fare<span class="sr-only"> driving game</span></h1><div class="eyebrow">Independent game study · 002 PRO</div></div></div><div class="stats" aria-label="Shift totals"><div class="stat"><span>Fares</span><b id="fares">0</b></div><div class="stat"><span>Earned</span><b id="cash">$0</b></div></div><button class="reset" id="reset" aria-label="Reset game and earnings" title="Reset game and earnings">↻ <span>Reset shift</span></button></header>
-<main><aside class="dispatch" aria-label="Current fare"><div class="dispatch-top"><span class="eyebrow">Your dispatch</span><span class="live">ON SHIFT</span></div><section class="mission"><div class="phase" id="phase">01 · PICKUP</div><h2 id="mission-title">Pick up Maya</h2><p id="mission-hint">Hold DRIVE. Your first passenger is straight ahead.</p><div class="fare-line"><span>FARE VALUE</span><b id="fare-value">$24</b></div></section><div class="trip"><i></i><div><small>Pickup</small><span id="pickup-name">Garden Avenue</span></div><i class="end"></i><div><small>Destination</small><span id="drop-name">Cedar Square</span></div></div><div class="help"><strong>A small city. A fresh start.</strong><p>No timer. No rush. Follow the colored route to your next stop.</p><div class="keys" aria-hidden="true"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><kbd>↑↓←→</kbd></div><p>Drive and steer with the arrow keys or WASD. Space brakes. On touch, hold DRIVE and a steering arrow together. REV brakes, then reverses.</p><p>Pickups and drop-offs happen automatically when you reach the marker.</p></div></aside>
-<section class="stage" id="stage" aria-label="Playable city"><canvas id="game" tabindex="0" aria-label="City driving game. Use arrow keys or WASD to drive. Space to brake. Follow the mint pickup marker, then the amber destination.">Canvas is required to display City Fare.</canvas><div class="scene-label"><em>●</em> SEABROOK <span> / DAY SHIFT</span></div><div class="distance" id="distance">Passenger · 185 m</div><div class="speed"><b id="speed">0</b><span>KM/H · ARCADE</span></div><div class="toast" id="toast" role="status" aria-live="polite" hidden></div><div class="controls" aria-label="Hold controls to drive"><div class="controls-group"><button class="control" data-control="left" aria-label="Steer left" aria-pressed="false">←<small>LEFT</small></button><button class="control" data-control="right" aria-label="Steer right" aria-pressed="false">→<small>RIGHT</small></button></div><div class="controls-group"><button class="control reverse" data-control="down" aria-label="Brake then reverse" aria-pressed="false">↓<small>REV</small></button><button class="control drive" data-control="up" aria-label="Accelerate" aria-pressed="false">↑<small>DRIVE</small></button></div></div><div class="startup" id="startup" role="status"><strong>Starting City Fare…</strong><div id="startup-message">This game needs JavaScript and Canvas 2D. This notice stays until the first scene is drawn. Attachment previews may not run the game; use the hosted webpage in Safari or Chrome.</div><button id="reload" type="button">Reload page</button><noscript><p>JavaScript is disabled in this viewer. Open the game in a JavaScript-capable browser.</p></noscript></div></section></main>
-<footer class="footer"><span><b>Original playable prototype</b><span class="extra"> · Canvas 2D · No accounts or downloads required</span></span><span>002 PRO / SESSION ONLY</span></footer><div class="sr-only" role="status" aria-live="polite" id="announcement"></div>
-<script>/* City Fare 002 PRO. Recovered from City Fare 001/002; independent portfolio work.
-   All artwork is drawn locally. No libraries, network, persistence, or client assets.
-   CityFare.inspect() returns a detached read-only diagnostic snapshot; no state setters. */
-(() => {
-  'use strict';
-  const el = id => document.getElementById(id);
-  const startup = el('startup');
-  let failed = false, frameHandle = 0, firstFrame = false;
-  function fail(error) {
-    failed = true;
-    if (frameHandle) cancelAnimationFrame(frameHandle);
-    startup.hidden = false;
-    startup.querySelector('strong').textContent = 'City Fare could not run';
-    el('startup-message').textContent = String(error && error.message || error) + '. Reload in a normal Safari or Chrome tab. If this persists, include this message in your report.';
-    document.body.dataset.status = 'error';
+<body class="intro"><canvas id="view" aria-label="Third-person view of a yellow car on an Arizona-inspired desert highway"></canvas><div class="vignette" aria-hidden="true"></div>
+<header><a class="brand" href="#" aria-label="City Fare home">CITY FARE</a><div class="topright"><div class="location"><i></i> SONORAN RUN</div><button id="pause" aria-label="Pause and settings">Ⅱ <span>Pause</span></button></div></header>
+<main id="welcome"><div class="eyebrow">SONORAN RUN</div><h1>CITY FARE</h1><p>2,200 miles. One road.</p><button class="primary" id="start">Drive <span>↗</span></button><div class="keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>/ ARROWS</span></div></main>
+<div class="drivehud" id="drivehud" inert><section class="speedometer" aria-label="Speed"><div><strong id="speed">0</strong><span>MPH</span></div><div class="speedline"><i id="speedbar"></i></div><small id="surface"></small></section><section class="journey"><div><span id="chapter">TO THE CITY</span><span><b id="distance">2,200.0</b> MI TO GO</span></div><div class="route"><i id="progress"></i></div><small id="hint"></small></section><button class="viewbutton" id="camera" aria-label="Change chase camera">⌑ <span>Chase cam</span><kbd>C</kbd></button></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<div class="controls" inert><div class="group"><button class="drive steer" data-key="left" aria-label="Steer left">←</button><button class="drive steer" data-key="right" aria-label="Steer right">→</button></div><div class="group"><button class="drive brake" data-key="brake" aria-label="Brake">BRAKE</button><button class="drive gas" data-key="gas" aria-label="Accelerate">DRIVE ↑</button></div></div>
+<div class="overlay" id="overlay" hidden><section class="pausebox" role="dialog" aria-modal="true" aria-labelledby="pause-title"><div class="eyebrow">SONORAN RUN</div><h2 id="pause-title">Paused.</h2><p>W / ↑ drive · S / ↓ brake · A D / ← → steer<br>P / Esc pause · C camera · R reset</p><button id="resume" class="primary">Continue <span>↗</span></button><div class="settings"><button id="sound">Sound: Off</button><label>Volume <input id="volume" type="range" min="0" max="1" step="0.05" value="0.25"></label><label><input id="gentle" type="checkbox"> Gentle steering</label><label><input id="motion" type="checkbox"> Reduced camera motion</label><label><input id="quality" type="checkbox"> Lower resolution</label></div><button id="restart" class="textbutton">Start the drive again</button><small>Progress saves on this device.</small></section></div>
+<div id="finish-fade" aria-hidden="true"></div><section id="finish" hidden><p>SONORAN RUN</p><h2>2,200 miles.</h2><button id="again">Drive again ↗</button></section><div id="error" role="alert" hidden><h2>A quick pit stop.</h2><p id="error-message">The drive could not continue. Reload to try again.</p><button onclick="location.reload()">Reload</button></div><script type="module">
+// City Fare: 006's metre/second driving and smoothed inputs, extended to Sonoran Run.
+// Deterministic road anchors are generated on demand; 2200 miles means integrated travel.
+const ROUTE_LENGTH = 2200 * 1609.344;
+const TUNE = Object.freeze({
+  maxSpeed: 80.4672, acceleration: 7.5, brake: 12, coast: 1.1,
+  shoulderDrag: 2.8, sandSpeedFactor: .78, steerRate: 4.5, turnRate: .42,
+  roadHalf: 3.6, shoulder: 1.7, carHalf: .82,
+  lateralLimit: 32, boundaryStart: 24, maxDt: .1,
+});
+
+const TAU = Math.PI * 2;
+const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
+const smooth = value => { const t = clamp(value, 0, 1); return t * t * (3 - 2 * t); };
+const quintic = t => t * t * t * (t * (t * 6 - 15) + 10);
+const quinticSlope = t => 30 * t * t * (t - 1) * (t - 1);
+
+function bump(z, start, length, amount) {
+  const u = (z - start) / length;
+  return u <= 0 || u >= 1 ? 0 : amount * (1 - Math.cos(TAU * u)) / 2;
+}
+
+function hash(index, salt) {
+  let value = Math.imul(index | 0, 0x45d9f3b) ^ salt;
+  value = Math.imul(value ^ (value >>> 16), 0x45d9f3b);
+  value = Math.imul(value ^ (value >>> 16), 0x45d9f3b);
+  return ((value ^ (value >>> 16)) >>> 0) / 4294967296;
+}
+
+function anchor(index, hills) {
+  if (!hills) return (hash(index, 0x73a4c971) * 2 - 1) * 90;
+  return hash(index, 0x561724ad) < .26 ? 4 + hash(index, 0x291ab53f) * 8 : 0;
+}
+
+function profile(z, hills) {
+  const index = Math.floor(z / 1800), t = z / 1800 - index;
+  const a = anchor(index, hills), delta = anchor(index + 1, hills) - a;
+  const value = a + delta * quintic(t), derivative = delta * quinticSlope(t) / 1800;
+  // A flat 400 m departure eases into the procedural road without a tangent jump.
+  const start = clamp((z - 400) / 1400, 0, 1), blend = quintic(start);
+  const blendSlope = start > 0 && start < 1 ? quinticSlope(start) / 1400 : 0;
+  return [value * blend, derivative * blend + value * blendSlope];
+}
+
+function center(z) { return profile(z, false)[0]; }
+function elevation(z) { return profile(z, true)[0]; }
+function heading(z) { return Math.atan(profile(z, false)[1]); }
+
+// Vertical grade, distinct from the horizontal tangent returned by heading().
+function slope(z) { return profile(z, true)[1]; }
+
+function terrainHeight(x, z) {
+  const lateral = Math.abs(x - center(z));
+  const blend = smooth((lateral - 20) / 75);
+  const phase = TAU * z / 12000;
+  const rolls = 1.2 * Math.sin(x * .04 + phase * 5)
+    + .65 * Math.sin(x * .075 - phase * 9)
+    + .4 * Math.cos(x * .022 + phase * 3);
+  return elevation(z) - .05 + blend * rolls;
+}
+
+function fresh() {
+  const z = 0;
+  return { x: center(z) + 1.8, z, v: 0, steer: 0, angle: heading(z), distance: 0, finished: false };
+}
+
+// Mutates and returns state. x/z are world coordinates; angle is absolute yaw,
+// with zero along +z and positive toward +x. Angles remain continuous for camera interpolation.
+function step(state, input = {}, dt = 0, prefs = {}) {
+  if (state.finished || state.distance >= ROUTE_LENGTH) {
+    state.finished = true; state.distance = ROUTE_LENGTH; state.v = 0; return state;
   }
-  window.addEventListener('error', event => fail(event.message || 'JavaScript error'));
-  window.addEventListener('unhandledrejection', event => fail(event.reason || 'Unhandled script rejection'));
-  el('reload').addEventListener('click', () => window.location.reload());
-  try {
-    const canvas = el('game'), ctx = canvas.getContext('2d', {alpha:false}), stage = el('stage');
-    if (!ctx) throw new Error('Canvas 2D context is unavailable');
-    if (typeof requestAnimationFrame !== 'function') throw new Error('Animation frames are unavailable');
-    const WORLD = 1600, ROAD = 104, roads = [210,505,800,1095,1390];
-    const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
-    const hypot = (a,b) => Math.hypot(a[0]-b[0],a[1]-b[1]);
-    const nearRoad = n => roads.reduce((a,b) => Math.abs(b-n)<Math.abs(a-n)?b:a);
-    const car = {x:505,y:1095,angle:-Math.PI/2,speed:0};
-    const jobs = [
-      {name:'Maya',pickup:[505,910],drop:[505,505],fare:24,from:'Garden Avenue',to:'Cedar Square'},
-      {name:'Eli',pickup:[505,210],drop:[1095,210],fare:36,from:'North Station',to:'Harbor Library'},
-      {name:'Noor',pickup:[1390,505],drop:[1390,1095],fare:31,from:'East Market',to:'Garden Gallery'},
-      {name:'Leo',pickup:[1095,1390],drop:[210,1390],fare:29,from:'South Arcade',to:'Old Town'}
-    ];
-    let W=1,H=1,dpr=1,zoom=1,job=0,passenger=false,cash=0,fares=0,arrive=0;
-    let camera={x:0,y:0},last=performance.now(),clock=0,accumulator=0,frames=0,elapsed=0,toastUntil=0,hudTime=0;
-    let route=[],routeDistance=0,collisionCount=0;
-    const events=[],held=new Map(),keys={up:false,down:false,left:false,right:false,brake:false};
-    const buttons=Array.from(document.querySelectorAll('[data-control]'));
-    const reducedMotion=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const record=(type,extra={})=>{events.push({type,time:+elapsed.toFixed(3),x:+car.x.toFixed(2),y:+car.y.toFixed(2),...extra});if(events.length>80)events.shift();};
-    function sync() {
-      for(const k of Object.keys(keys)) keys[k]=Array.from(held.values()).includes(k);
-      buttons.forEach(b=>{const on=keys[b.dataset.control];b.classList.toggle('pressed',on);b.setAttribute('aria-pressed',String(on));});
-    }
-    function clearInputs(stop=false) {held.clear();sync();if(stop)car.speed=0;}
-    const mapping={ArrowUp:'up',KeyW:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right',Space:'brake'};
-    const textMapping={ArrowUp:'up',w:'up',ArrowDown:'down',s:'down',ArrowLeft:'left',a:'left',ArrowRight:'right',d:'right',' ':'brake'};
-    document.addEventListener('keydown',e=>{
-      if(e.metaKey||e.ctrlKey||e.altKey)return;
-      const focused=e.target.closest && e.target.closest('button');
-      if(focused && (e.code==='Space'||e.code==='Enter')) {
-        if(focused.dataset.control){e.preventDefault();held.set('button:'+e.code,focused.dataset.control);sync();}
-        return;
-      }
-      const k=mapping[e.code]||textMapping[e.key];if(!k)return;
-      e.preventDefault();held.set('key:'+(e.code||e.key),k);sync();
-    });
-    document.addEventListener('keyup',e=>{held.delete('key:'+(e.code||e.key));held.delete('button:'+e.code);sync();});
-    function release(e){held.delete('pointer:'+e.pointerId);sync();}
-    if(window.PointerEvent){
-      buttons.forEach(b=>{
-        b.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;e.preventDefault();held.set('pointer:'+e.pointerId,b.dataset.control);sync();try{b.setPointerCapture(e.pointerId);}catch(_){/* Window release remains active. */}});
-        ['pointerup','pointercancel','lostpointercapture'].forEach(t=>b.addEventListener(t,release));
-      });
-      window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);
-    }else{
-      /* Legacy touch/mouse path; do not register it together with Pointer Events. */
-      buttons.forEach(b=>{
-        b.addEventListener('touchstart',e=>{e.preventDefault();for(const t of e.changedTouches)held.set('touch:'+t.identifier,b.dataset.control);sync();},{passive:false});
-        b.addEventListener('mousedown',e=>{if(e.button!==0)return;e.preventDefault();held.set('mouse',b.dataset.control);sync();});
-      });
-      const endTouch=e=>{for(const t of e.changedTouches)held.delete('touch:'+t.identifier);sync();};
-      window.addEventListener('touchend',endTouch);window.addEventListener('touchcancel',endTouch);window.addEventListener('mouseup',()=>{held.delete('mouse');sync();});
-    }
-    stage.addEventListener('contextmenu',e=>e.preventDefault());
-    window.addEventListener('blur',()=>clearInputs(true));
-    window.addEventListener('pagehide',()=>clearInputs(true));
-    document.addEventListener('visibilitychange',()=>{clearInputs(true);last=performance.now();accumulator=0;});
-    function rounded(c,x,y,w,h,r,fill){c.fillStyle=fill;c.beginPath();r=Math.min(r,w/2,h/2);c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath();c.fill();}
-    function circle(c,x,y,r,color){c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fillStyle=color;c.fill();}
-    function label(c,text,x,y,size,color,align='center'){c.font='600 '+size+'px system-ui,-apple-system,sans-serif';c.textAlign=align;c.fillStyle=color;c.fillText(text,x,y);}
-    const scenery=document.createElement('canvas');scenery.width=WORLD;scenery.height=WORLD;
-    const sc=scenery.getContext('2d');if(!sc)throw new Error('City artwork canvas is unavailable');
-    const buildings=[];
-    function tree(x,y,r=14){circle(sc,x+5,y+6,r+1,'#263f3860');circle(sc,x,y,r,'#345e46');circle(sc,x-3,y-3,r*.74,'#598058');circle(sc,x-5,y-5,r*.34,'#749869');}
-    function building(x,y,w,h,tone,type){
-      buildings.push({x,y,w,h});rounded(sc,x+9,y+11,w,h,6,'#263e3b50');rounded(sc,x,y,w,h,5,'#50635b');rounded(sc,x,y,w,h-8,5,tone);
-      rounded(sc,x+7,y+7,w-14,h-25,3,type%2?'#b7b3a0':'#b0c1b9');
-      if(type%2){for(let q=0;q<3;q++){sc.fillStyle='#829b9380';sc.fillRect(x+13,y+16+q*18,w-26,7);}}
-      else{for(let q=0;q<3;q++){sc.fillStyle='#526f74';sc.fillRect(x+14+q*(w-28)/3,y+14,(w-38)/3,18);}}
-      rounded(sc,x+w-29,y+h-45,16,14,2,'#72817a');sc.fillStyle='#d1d5be';sc.fillRect(x+11,y+h-13,w-22,4);
-    }
-    function buildScenery(){
-      sc.fillStyle='#657c5a';sc.fillRect(0,0,WORLD,WORLD);
-      for(const r of roads){sc.fillStyle='#b1b99e';sc.fillRect(r-ROAD/2-12,0,ROAD+24,WORLD);sc.fillRect(0,r-ROAD/2-12,WORLD,ROAD+24);}
-      for(const r of roads){sc.fillStyle='#35484b';sc.fillRect(r-ROAD/2,0,ROAD,WORLD);sc.fillRect(0,r-ROAD/2,WORLD,ROAD);}
-      for(const r of roads){
-        sc.strokeStyle='#dacb9a99';sc.lineWidth=2;sc.setLineDash([16,19]);sc.beginPath();sc.moveTo(r,0);sc.lineTo(r,WORLD);sc.moveTo(0,r);sc.lineTo(WORLD,r);sc.stroke();sc.setLineDash([]);
-      }
-      for(const x of roads)for(const y of roads){
-        sc.fillStyle='#35484b';sc.fillRect(x-49,y-49,98,98);
-        sc.fillStyle='#c3cbb19c';for(let k=-32;k<38;k+=12){sc.fillRect(x+k,y-63,7,14);sc.fillRect(x+k,y+49,7,14);sc.fillRect(x-63,y+k,14,7);sc.fillRect(x+49,y+k,14,7);}
-        for(const dx of [-66,66])for(const dy of [-66,66]){circle(sc,x+dx,y+dy,4,'#657263');circle(sc,x+dx-1,y+dy-1,2,'#f3d7a2');}
-      }
-      for(let i=0;i<4;i++)for(let j=0;j<4;j++){
-        const x=roads[i]+70,y=roads[j]+70,sz=155;
-        rounded(sc,x-2,y-2,sz+4,sz+4,12,'#749068');
-        if((i===2&&j===2)||(i===0&&j===0)){
-          rounded(sc,x+9,y+9,137,137,12,'#7e986b');sc.fillStyle='#b8ba8c';sc.fillRect(x+68,y+7,17,140);sc.fillRect(x+7,y+68,140,17);
-          circle(sc,x+78,y+78,27,'#cbd0a1');circle(sc,x+78,y+78,21,'#6c9e9a');circle(sc,x+78,y+78,13,'#93bab0');
-          for(const dx of [25,125])for(const dy of [28,127])tree(x+dx,y+dy,19);
-        }else{
-          const tones=['#d2bc96','#95afa8','#c39e80','#9da9a1'];
-          building(x+9,y+10,132,89,tones[(i+j)%4],i+j);building(x+9,y+111,77,34,'#c8b997',1);
-          for(let k=0;k<3;k++)tree(x+107+k*13,y+126,11);
-        }
-        for(const t of [0,1,2]){tree(x-12,y+20+t*52,10);tree(x+sz+12,y+20+t*52,10);}
-      }
-      const names=['NORTH ST','CEDAR AVE','MARKET ST','GARDEN AVE','SOUTH ST'];
-      roads.forEach((y,i)=>{label(sc,names[i],650,y+34,10,'#b9c8bd88');label(sc,names[i],1240,y+34,10,'#b9c8bd88');});
-      for(let i=0;i<roads.length;i++){
-        sc.save();sc.translate(roads[i]-31,690);sc.rotate(-Math.PI/2);label(sc,['OLD TOWN','WILLOW ST','CENTRAL','HARBOR ST','EAST WALK'][i],0,0,10,'#b9c8bd88');sc.restore();
-      }
-      for(let i=0;i<5;i++){const x=roads[i]+36;for(const y of [342,655,951,1241]){rounded(sc,x-9,y-17,18,34,4,['#829e99','#bca98b','#a97962'][i%3]);rounded(sc,x-7,y-8,14,11,2,'#4b6d73');}}
-      label(sc,'SEABROOK',800,95,30,'#d0d3aa');label(sc,'CITY LIMIT',800,119,11,'#c0cda7');
-    }
-    buildScenery();
-    function cameraUpdate(){camera.x=clamp(car.x-W/(2*zoom),0,Math.max(0,WORLD-W/zoom));camera.y=clamp(car.y-H/(2*zoom),0,Math.max(0,WORLD-H/zoom));}
-    function resize(){
-      clearInputs(true);const rect=stage.getBoundingClientRect();W=Math.max(1,Math.floor(rect.width));H=Math.max(1,Math.floor(rect.height));dpr=clamp(window.devicePixelRatio||1,1,2);
-      canvas.width=Math.max(1,Math.floor(W*dpr));canvas.height=Math.max(1,Math.floor(H*dpr));ctx.setTransform(dpr,0,0,dpr,0,0);
-      zoom=W<500?.78:H<330?.74:Math.min(1.12,Math.max(.9,W/1050));cameraUpdate();
-      if(firstFrame&&!failed)draw();
-    }
-    window.addEventListener('resize',resize);window.addEventListener('orientationchange',resize);
-    if(window.visualViewport)window.visualViewport.addEventListener('resize',resize);
-    if(window.ResizeObserver)new ResizeObserver(resize).observe(stage);
-    const target=()=>passenger?jobs[job].drop:jobs[job].pickup;
-    function makeRoute(){
-      const t=target(),cx=nearRoad(car.x),cy=nearRoad(car.y),tx=nearRoad(t[0]),ty=nearRoad(t[1]);
-      route=[[car.x,car.y]];
-      if(Math.abs(car.x-cx)<Math.abs(car.y-cy)){
-        route.push([cx,car.y]);if(Math.abs(t[0]-cx)<1)route.push([cx,t[1]]);else{route.push([cx,ty],[t[0],ty]);}
-      }else{
-        route.push([car.x,cy]);if(Math.abs(t[1]-cy)<1)route.push([t[0],cy]);else{route.push([tx,cy],[tx,t[1]]);}
-      }
-      route.push(t);route=route.filter((p,i)=>!i||hypot(p,route[i-1])>.1);
-      routeDistance=route.slice(1).reduce((n,p,i)=>n+hypot(p,route[i]),0);
-    }
-    function mission(){
-      const j=jobs[job];document.body.dataset.phase=passenger?'dropoff':'pickup';
-      el('phase').textContent=passenger?'02 · DROP-OFF':'01 · PICKUP';
-      el('mission-title').textContent=passenger?'To '+j.to:'Pick up '+j.name;
-      el('mission-hint').textContent=passenger?(job===0?'Keep driving straight. The amber marker is ahead.':'Follow the amber route. Drop-off is automatic.'):(fares===0?'Hold DRIVE. Your first passenger is straight ahead.':'Follow the mint route to your next passenger.');
-      el('fare-value').textContent='$'+j.fare;el('pickup-name').textContent=j.from;el('drop-name').textContent=j.to;el('fares').textContent=fares;el('cash').textContent='$'+cash;
-      makeRoute();
-    }
-    function toast(message){el('toast').textContent=message;el('toast').hidden=false;toastUntil=elapsed+2.5;el('announcement').textContent=message;}
-    function blocked(x,y){return buildings.some(b=>x+13>b.x&&x-13<b.x+b.w&&y+13>b.y&&y-13<b.y+b.h);}
-    function update(dt){
-      elapsed+=dt;clock+=dt;arrive=Math.max(0,arrive-dt);
-      if(arrive===0){
-        const accel=keys.brake?0:keys.up?235:keys.down?(car.speed>8?-480:-155):0;
-        car.speed+=accel*dt;
-        const street=Math.min(Math.abs(car.x-nearRoad(car.x)),Math.abs(car.y-nearRoad(car.y)))<ROAD/2+7;
-        car.speed=clamp(car.speed,-82,street?232:98);
-        if(keys.brake){car.speed*=Math.exp(-12*dt);if(Math.abs(car.speed)<2)car.speed=0;}
-        else if(!keys.up&&!keys.down){car.speed*=Math.exp(-4.2*dt);if(Math.abs(car.speed)<1)car.speed=0;}
-        const steering=Number(keys.right)-Number(keys.left);car.angle+=steering*dt*2.2*clamp(Math.abs(car.speed)/65,0,1)*(car.speed<0?-1:1);
-        const nx=clamp(car.x+Math.cos(car.angle)*car.speed*dt,22,WORLD-22),ny=clamp(car.y+Math.sin(car.angle)*car.speed*dt,22,WORLD-22);
-        if(!blocked(nx,ny)){car.x=nx;car.y=ny;}else{car.speed=-car.speed*.15;collisionCount++;}
-        if(car.x===22||car.x===WORLD-22||car.y===22||car.y===WORLD-22)car.speed=0;
-        if(hypot([car.x,car.y],target())<33){
-          car.speed=0;arrive=.55;
-          if(!passenger){passenger=true;record('pickup',{job});toast(jobs[job].name+' is aboard. Follow the amber route.');}
-          else{const earned=jobs[job].fare;cash+=earned;fares++;record('dropoff',{job,earned,cash,fares});job=(job+1)%jobs.length;passenger=false;toast('Fare complete · +$'+earned+'  /  '+fares+' delivered');}
-          mission();
-        }
-      }
-      cameraUpdate();
-      if(!el('toast').hidden&&elapsed>toastUntil)el('toast').hidden=true;
-      hudTime+=dt;if(hudTime>.1){hudTime=0;makeRoute();el('speed').textContent=Math.round(Math.abs(car.speed)*.22);el('distance').textContent=(passenger?'Destination':'Passenger')+' · '+Math.round(routeDistance)+' m';}
-    }
-    function drawMiniMap(){
-      const size=W<500?82:H<330?78:118,x=W-size-14,y=14,s=(size-12)/WORLD;
-      rounded(ctx,x,y,size,size,12,'#142a30ed');ctx.save();ctx.translate(x+6,y+6);ctx.scale(s,s);
-      ctx.strokeStyle='#80988a';ctx.lineWidth=22;
-      for(const r of roads){ctx.beginPath();ctx.moveTo(r,40);ctx.lineTo(r,WORLD-40);ctx.moveTo(40,r);ctx.lineTo(WORLD-40,r);ctx.stroke();}
-      const t=target();circle(ctx,t[0],t[1],70,passenger?'#ffd17b':'#84e8be');circle(ctx,car.x,car.y,70,'#f4f3dd');circle(ctx,car.x,car.y,31,'#f0b952');ctx.restore();
-      label(ctx,'N',x+size/2,y+size+12,8,'#e7eedc');
-    }
-    function draw(){
-      ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#657c5a';ctx.fillRect(0,0,W,H);
-      ctx.save();ctx.scale(zoom,zoom);ctx.translate(-camera.x,-camera.y);ctx.drawImage(scenery,0,0);
-      const tint=passenger?'#ffd17b':'#84e8be';
-      if(route.length>1){ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle=passenger?'#d29a4838':'#81e9b936';ctx.lineWidth=16;ctx.beginPath();route.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();ctx.strokeStyle=tint+'c9';ctx.lineWidth=3;ctx.setLineDash([6,13]);ctx.stroke();ctx.setLineDash([]);}
-      const t=target(),pulse=reducedMotion?1:1+Math.sin(clock*4)*.1;
-      circle(ctx,t[0],t[1],40*pulse,tint+'22');ctx.strokeStyle=tint;ctx.lineWidth=3;ctx.beginPath();ctx.arc(t[0],t[1],30,0,Math.PI*2);ctx.stroke();
-      if(passenger){rounded(ctx,t[0]-10,t[1]-10,20,20,3,tint);label(ctx,'✓',t[0],t[1]+6,17,'#263d33');}
-      else{circle(ctx,t[0],t[1]-8,6,'#f0d0aa');rounded(ctx,t[0]-6,t[1],12,14,4,tint);ctx.fillStyle='#17333b';ctx.fillRect(t[0]-5,t[1]+11,4,10);ctx.fillRect(t[0]+1,t[1]+11,4,10);}
-      rounded(ctx,t[0]-41,t[1]-57,82,20,8,'#15313bea');label(ctx,passenger?'DROP OFF':'PICKUP',t[0],t[1]-43,9,tint);
-      ctx.save();ctx.translate(car.x+4,car.y+5);ctx.rotate(car.angle+Math.PI/2);rounded(ctx,-17,-28,34,56,9,'#16282977');ctx.restore();
-      ctx.save();ctx.translate(car.x,car.y);ctx.rotate(car.angle+Math.PI/2);
-      ctx.fillStyle='#192b32';ctx.fillRect(-18,-18,5,12);ctx.fillRect(13,-18,5,12);ctx.fillRect(-18,13,5,12);ctx.fillRect(13,13,5,12);
-      rounded(ctx,-15,-28,30,56,7,'#d49739');rounded(ctx,-14,-27,28,51,7,'#f7c663');rounded(ctx,-12,-15,24,18,3,'#537d89');rounded(ctx,-11,-4,22,15,3,'#f2c775');rounded(ctx,-10,13,20,7,2,'#63868a');
-      rounded(ctx,-7,-2,14,5,1,passenger?'#84e8be':'#fff6c8');ctx.fillStyle='#fff7cf';ctx.fillRect(-11,-27,7,4);ctx.fillRect(4,-27,7,4);ctx.fillStyle='#bc6350';ctx.fillRect(-11,23,5,3);ctx.fillRect(6,23,5,3);ctx.restore();ctx.restore();
-      drawMiniMap();
-      const tx=(t[0]-camera.x)*zoom,ty=(t[1]-camera.y)*zoom;
-      if(tx<18||tx>W-18||ty<18||ty>H-90){
-        const sx=(car.x-camera.x)*zoom,sy=(car.y-camera.y)*zoom,a=Math.atan2(ty-sy,tx-sx);
-        const px=clamp(sx+Math.cos(a)*75,22,W-22),py=clamp(sy+Math.sin(a)*75,84,H-110);
-        circle(ctx,px,py,17,'#143039eb');ctx.save();ctx.translate(px,py);ctx.rotate(a);ctx.fillStyle=tint;ctx.beginPath();ctx.moveTo(9,0);ctx.lineTo(-6,-6);ctx.lineTo(-3,0);ctx.lineTo(-6,6);ctx.closePath();ctx.fill();ctx.restore();
-      }
-      frames++;
-    }
-    function reset(){clearInputs(true);car.x=505;car.y=1095;car.angle=-Math.PI/2;car.speed=0;job=0;passenger=false;cash=0;fares=0;arrive=0;elapsed=0;accumulator=0;collisionCount=0;events.length=0;record('reset');el('toast').hidden=true;mission();cameraUpdate();last=performance.now();draw();el('speed').textContent='0';el('distance').textContent='Passenger · 185 m';el('announcement').textContent='Shift reset. Hold DRIVE for the first passenger.';canvas.focus({preventScroll:true});}
-    el('reset').addEventListener('click',reset);
-    function loop(t){
-      if(failed)return;
-      try{
-        const dt=clamp((t-last)/1000,0,.12);last=t;
-        if(!document.hidden){accumulator+=dt;while(accumulator>=1/120){update(1/120);accumulator-=1/120;}draw();}
-        frameHandle=requestAnimationFrame(loop);
-      }catch(error){fail(error);}
-    }
-    Object.defineProperty(window,'CityFare',{value:Object.freeze({version:'002-pro.1',inspect:()=>({version:'002-pro.1',firstFrame,failed,frames,phase:passenger?'dropoff':'pickup',job,cash,fares,car:{...car},target:target().slice(),keys:{...keys},held:held.size,canvas:{cssWidth:W,cssHeight:H,width:canvas.width,height:canvas.height,dpr,zoom},route:route.map(p=>p.slice()),collisionCount,events:events.map(e=>({...e}))})}),writable:false});
-    resize();mission();cameraUpdate();draw();firstFrame=true;startup.hidden=true;document.body.dataset.status='running';record('first-frame');last=performance.now();frameHandle=requestAnimationFrame(loop);
-  }catch(error){fail(error);}
-})();
+  if (!Number.isFinite(dt) || dt <= 0) return state;
+  const duration = Math.min(dt, TUNE.maxDt);
+  const count = Math.ceil(duration * 120);
+  const h = duration / count;
+  const target = (input.right ? 1 : 0) - (input.left ? 1 : 0);
+
+  for (let i = 0; i < count; i++) {
+    const oldSteer = state.steer;
+    state.steer += (target - state.steer) * (1 - Math.exp(-TUNE.steerRate * h));
+    const oldSpeed = state.v;
+    const lateral = state.x - center(state.z);
+    const shoulder = smooth((Math.abs(lateral) + TUNE.carHalf - TUNE.roadHalf) / TUNE.shoulder);
+    const sandLimit = TUNE.maxSpeed * (1 - (1 - TUNE.sandSpeedFactor) * shoulder);
+    const drive = TUNE.acceleration * clamp((sandLimit - oldSpeed) / 4, 0, 1);
+    let acceleration = input.brake ? -TUNE.brake : input.gas ? drive : -TUNE.coast;
+    // Speed-dependent drag keeps a stopped vehicle able to return from the desert.
+    acceleration -= TUNE.shoulderDrag * shoulder * Math.min(1, oldSpeed / 12);
+    state.v = clamp(oldSpeed + acceleration * h, 0, TUNE.maxSpeed);
+    const speed = (oldSpeed + state.v) / 2;
+    const remaining = ROUTE_LENGTH - (state.distance || 0);
+    const travel = Math.min(speed * h, remaining);
+    const fraction = speed > 0 ? travel / (speed * h) : 1;
+    const yawChange = (oldSteer + state.steer) / 2 * TUNE.turnRate
+      * (prefs.gentle ? .68 : 1) * speed / (speed + 8)
+      / Math.max(1, speed / 45) * h * fraction;
+    const midAngle = state.angle + yawChange / 2;
+    let dx = travel * Math.sin(midAngle);
+    const dz = travel * Math.cos(midAngle);
+
+    // A gradual boundary only at the outer desert margin; there is no lane-follow assist.
+    if (dx * lateral > 0) dx *= 1 - smooth((Math.abs(lateral) - TUNE.boundaryStart)
+      / (TUNE.lateralLimit - TUNE.boundaryStart));
+    state.z = Math.max(0, state.z + dz);
+    state.angle += yawChange;
+    state.x = clamp(state.x + dx, center(state.z) - TUNE.lateralLimit,
+      center(state.z) + TUNE.lateralLimit);
+    state.distance = Math.min(ROUTE_LENGTH, (state.distance || 0) + travel);
+    if (state.distance >= ROUTE_LENGTH) { state.finished = true; state.v = 0; break; }
+  }
+  return state;
+}
+
+// Native WebGL: world metres -> orthonormal camera frame -> perspective.
+// No textures, network assets, game engine, or screen-space imitation of 3D.
+const hex=s=>[parseInt(s.slice(1,3),16)/255,parseInt(s.slice(3,5),16)/255,parseInt(s.slice(5,7),16)/255];
+const sub=(a,b)=>a.map((v,i)=>v-b[i]);
+const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const norm=a=>{const n=Math.hypot(...a)||1;return a.map(v=>v/n)};
+const rand=n=>{const x=Math.sin(n*127.1+311.7)*43758.5453;return x-Math.floor(x)};
+function tri(out,a,b,c,color,shade=1){let n=norm(cross(sub(b,a),sub(c,a))); if(n[1]<0)n=n.map(v=>-v);let light=(.72+.28*Math.max(0,dot(n,norm([-.6,1,-.35]))))*shade;let col=typeof color==='string'?hex(color):color;for(const p of [a,b,c])out.push(...p,...col.map(v=>v*light))}
+function quad(o,a,b,c,d,col,shade=1){tri(o,a,b,c,col,shade);tri(o,a,c,d,col,shade)}
+function box(o,x,y,z,sx,sy,sz,col){let v=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]].map(p=>[x+p[0]*sx/2,y+p[1]*sy/2,z+p[2]*sz/2]);for(const [ids,k] of [[[0,1,2,3],.9],[[4,7,6,5],1],[[0,4,5,1],.8],[[3,2,6,7],1],[[1,5,6,2],.92],[[0,3,7,4],.8]])quad(o,...ids.map(i=>v[i]),col,k)}
+function column(o,x,y,z,r,height,col,segments=7){for(let i=0;i<segments;i++){let a=i/segments*Math.PI*2,b=(i+1)/segments*Math.PI*2;let p=[x+r*Math.cos(a),y,z+r*Math.sin(a)],q=[x+r*Math.cos(b),y,z+r*Math.sin(b)],u=[q[0],y+height,q[2]],v=[p[0],y+height,p[2]];quad(o,p,q,u,v,col);tri(o,v,u,[x,y+height,z],col)}}
+function cactus(o,x,z,seed){let y=terrainHeight(x,z),h=2.8+rand(seed)*2.5,r=.19+rand(seed+1)*.08;column(o,x,y,z,r,h,'#527864');for(let s of [-1,1]){let arm=.6+rand(seed+s+4)*.5,at=y+h*(s<0?.48:.62);box(o,x+s*arm/2,at,z,arm,.24,.27,'#557c62');column(o,x+s*arm,at-.1,z,r*.72,h*.3,'#567e64')}}
+function mesa(o,x,z,r,h,seed,base=-2){let rings=[],N=9;for(let j=0;j<4;j++){let rad=[1,.72,.48,.42][j]*r,yy=[0,.32,.86,1][j]*h;let ring=[];for(let i=0;i<N;i++){let a=i/N*Math.PI*2;let q=.83+rand(seed+i)*.25;ring.push([x+Math.cos(a)*rad*q,yy+base,z+Math.sin(a)*rad*q])}rings.push(ring)}let colors=['#bb7552','#cb8157','#dd9365'];for(let j=0;j<3;j++)for(let i=0;i<N;i++)quad(o,rings[j][i],rings[j][(i+1)%N],rings[j+1][(i+1)%N],rings[j+1][i],colors[j],.86+rand(seed+i+j)*.2);for(let i=0;i<N;i++)tri(o,rings[3][i],rings[3][(i+1)%N],[x,h+base,z],'#e7aa78')}
+function roadPoint(z,lateral,y=.04){let a=heading(z);return [center(z)+Math.cos(a)*lateral,elevation(z)+y,z-Math.sin(a)*lateral]}
+function stripe(o,z,z2,left,right,color,y){quad(o,roadPoint(z,left,y),roadPoint(z,right,y),roadPoint(z2,right,y),roadPoint(z2,left,y),color)}
+function chunk(start){let o=[],end=start+600, xs=[-2600,-1800,-1100,-650,-350,-160,-70,-28,-12,-5.5,0,5.5,12,28,70,160,350,650,1100,1800,2600];for(let z=start;z<end;z+=30)for(let i=0;i<xs.length-1;i++){let a=xs[i],b=xs[i+1],cc=center(z),cd=center(z+30);let p=[a+cc,terrainHeight(a+cc,z),z],q=[b+cc,terrainHeight(b+cc,z),z],r=[b+cd,terrainHeight(b+cd,z+30),z+30],s=[a+cd,terrainHeight(a+cd,z+30),z+30];let colors=['#d8ad7d','#dfb786','#d5a675','#dfb282'];quad(o,p,q,r,s,colors[Math.floor(rand(z+i*71)*4)])}
+for(let z=start;z<end;z+=6){stripe(o,z,z+6,-5.4,5.4,'#d8b78d',.02);stripe(o,z,z+6,-3.6,3.6,'#626569',.06);for(let side of [-1,1])stripe(o,z,z+6,side*3.35-.055,side*3.35+.055,'#f5e7cc',.073);if(Math.floor(z/6)%3!==2)stripe(o,z,z+6,-.065,.065,'#f8ca6d',.08)}
+for(let z=start+30;z<end;z+=60)for(let s of [-1,1]){let x=center(z)+s*5.6,y=terrainHeight(x,z);box(o,x,y+.47,z,.09,.95,.09,'#eee3c7');box(o,x,y+.84,z,.12,.1,.13,s<0?'#eccd89':'#dc8052');for(let j=0;j<2;j++){let zz=z+j*23,xx=center(zz)+s*(38+rand(z+s+j)*120);cactus(o,xx,zz,z+s+j)}let rockx=center(z)+s*(37+rand(z+81)*35);mesa(o,rockx,z+17,1+rand(z)*2,.6+rand(z+21),z,terrainHeight(rockx,z+17))}
+if(Math.floor(start/600)%4===0)for(let s of [-1,1]){let z=start+250,x=s*(1700+rand(z+s)*1300);mesa(o,x,z,180+rand(z)*280,90+rand(z+4)*130,z+s)}
+// Store local chunk coordinates to avoid float jitter millions of metres into the drive.
+for(let i=2;i<o.length;i+=6)o[i]-=start;
+return o}
+function carMesh(brake,steer,spin){let o=[];
+// Original 003 identity: warm yellow body, teal glass, dark wheels, roof marker.
+box(o,0,.47,0,1.82,.3,4.12,'#253738');box(o,0,.76,0,1.92,.46,4.25,'#bfd8d4');box(o,0,1.01,1.26,1.85,.12,1.55,'#e2ebe0');box(o,0,.99,-1.58,1.84,.13,.91,'#abc9c6');
+let a=[-.83,1.02,-1.03],b=[.83,1.02,-1.03],c=[.65,1.48,-.52],d=[-.65,1.48,-.52];quad(o,a,b,c,d,'#245965');quad(o,[-.83,1.02,.94],[-.65,1.48,.43],[.65,1.48,.43],[.83,1.02,.94],'#396e79');
+for(let s of [-1,1]){quad(o,[s*.83,1.02,-.99],[s*.65,1.48,-.49],[s*.65,1.48,.40],[s*.83,1.02,.9],'#326b73');box(o,s*.85,1.08,-.04,.06,.12,1.87,'#bfd8d4');box(o,s*.74,1.36,-.05,.055,.57,.075,'#b4d0ca');box(o,s*1.02,1.03,.65,.22,.13,.26,'#c7dcd4');box(o,s*.98,.72,0,.035,.09,2.65,'#79e3db');box(o,s*.95,.97,-.28,.025,.045,.22,'#35474b')}
+box(o,0,1.50,-.03,1.35,.08,1.02,'#d2e4db');box(o,0,.54,-2.17,1.97,.13,.12,'#c7d2c8');box(o,0,.58,2.17,1.92,.12,.12,'#c7d2c8');box(o,0,.78,-2.15,.4,.15,.025,'#cadbcd');box(o,0,.88,-2.19,1.65,.065,.035,brake?'#ff654d':'#ff9a66');box(o,0,.82,2.14,.7,.18,.04,'#283c40');for(let s of [-1,1]){box(o,s*.67,.82,-2.145,.36,.17,.06,brake?'#ff573c':'#ac4937');box(o,s*.68,.84,2.14,.4,.2,.055,'#fff2c0')}
+for(let x of [-.94,.94])for(let z of [-1.35,1.35]){let tire=[],N=12;for(let i=0;i<N;i++){let a=i/N*Math.PI*2+spin,b=(i+1)/N*Math.PI*2+spin;let p=[x-.14,.39+Math.sin(a)*.39,z+Math.cos(a)*.39],q=[x+.14,p[1],p[2]],r=[x+.14,.39+Math.sin(b)*.39,z+Math.cos(b)*.39],s=[x-.14,r[1],r[2]];quad(tire,p,q,r,s,'#253135');tri(tire,q,r,[x+.145,.39,z],'#2d393b');tri(tire,p,s,[x-.145,.39,z],'#2d393b');for(let side of [-1,1])tri(tire,[x+side*.15,.39+Math.sin(a)*.23,z+Math.cos(a)*.23],[x+side*.15,.39+Math.sin(b)*.23,z+Math.cos(b)*.23],[x+side*.15,.39,z],i%3===0?'#e8ddbf':'#849695')}
+if(z>0){let ang=steer*.16;for(let i=0;i<tire.length;i+=6){let xx=tire[i]-x,zz=tire[i+2]-z;tire[i]=x+xx*Math.cos(ang)+zz*Math.sin(ang);tire[i+2]=z-xx*Math.sin(ang)+zz*Math.cos(ang)}}o.push(...tire)}return o}
+const vertex=`attribute vec3 position;attribute vec3 color;uniform mat4 camera;uniform vec3 shift;varying vec3 vColor;varying float depth;void main(){gl_Position=camera*vec4(position+shift,1.);depth=gl_Position.w;vColor=color;}`;
+const fragment=`precision mediump float;varying vec3 vColor;varying float depth;uniform float opacity;void main(){float haze=smoothstep(700.,6200.,depth);gl_FragColor=vec4(mix(vColor,vec3(.84,.77,.65),haze),opacity);}`;
+function program(gl,v,f){function shader(type,src){let s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s}let p=gl.createProgram();gl.attachShader(p,shader(gl.VERTEX_SHADER,v));gl.attachShader(p,shader(gl.FRAGMENT_SHADER,f));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(p));return p}
+function cameraMatrix(eye,target,aspect,fov){let f=norm(sub(target,eye)),r=norm(cross([0,1,0],f)),u=cross(f,r);let v=[r[0],u[0],f[0],0,r[1],u[1],f[1],0,r[2],u[2],f[2],0,-dot(r,eye),-dot(u,eye),-dot(f,eye),1];let t=1/Math.tan(fov/2),n=.15,far=8500,p=[t/aspect,0,0,0,0,t,0,0,0,0,(far+n)/(far-n),1,0,0,-2*far*n/(far-n),0],out=new Float32Array(16);for(let c=0;c<4;c++)for(let row=0;row<4;row++)for(let k=0;k<4;k++)out[c*4+row]+=p[k*4+row]*v[c*4+k];return out}
+class Renderer{
+constructor(canvas){this.canvas=canvas;const gl=this.gl=canvas.getContext('webgl',{alpha:false,antialias:true,powerPreference:'low-power'});if(!gl)throw Error('This drive needs WebGL. Try enabling graphics acceleration or another browser.');this.p=program(gl,vertex,fragment);this.pos=gl.getAttribLocation(this.p,'position');this.col=gl.getAttribLocation(this.p,'color');this.cam=gl.getUniformLocation(this.p,'camera');this.shift=gl.getUniformLocation(this.p,'shift');this.opacity=gl.getUniformLocation(this.p,'opacity');this.chunks=new Map();this.car=this.mesh([]);this.shadow=this.mesh([]);this.dustMesh=this.mesh([]);this.city=this.mesh([]);this.dust=[];this.dustClock=0;this.yaw=null;this.frames=0;this.drawCalls=0;this.origin=0;
+this.sky=program(gl,`attribute vec2 position;varying vec2 uv;void main(){uv=position;gl_Position=vec4(position,.9999,1.);}`,`precision mediump float;varying vec2 uv;uniform float aspect;uniform float yaw;void main(){float t=smoothstep(-.15,1.,uv.y);vec3 c=mix(vec3(.91,.77,.60),vec3(.30,.51,.60),t);vec2 sun=vec2(.40-sin(yaw)*1.4,.46);float d=length((uv-sun)*vec2(aspect,1.));c+=vec3(.14,.09,.015)*exp(-d*5.);c=mix(c,vec3(1.,.48,.13),1.-smoothstep(.059,.065,d));gl_FragColor=vec4(c,1.);}`);this.skybuf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,this.skybuf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);gl.enable(gl.DEPTH_TEST);}
+mesh(data){let gl=this.gl,b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);return {buffer:b,count:data.length/6}}
+update(mesh,data){let gl=this.gl;gl.bindBuffer(gl.ARRAY_BUFFER,mesh.buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.DYNAMIC_DRAW);mesh.count=data.length/6}
+resize(low){let d=Math.min(devicePixelRatio||1,low?1:1.6,1800/innerWidth);this.canvas.width=Math.round(innerWidth*d);this.canvas.height=Math.round(innerHeight*d);this.gl.viewport(0,0,this.canvas.width,this.canvas.height)}
+render(s,prefs,dt,input={}){const gl=this.gl;this.origin=Math.floor(s.z/600)*600;const origin=this.origin;for(let z=origin-3000;z<=origin+6600;z+=600)if(!this.chunks.has(z))this.chunks.set(z,{z,...this.mesh(chunk(z))});for(let [z,c] of this.chunks)if(z<origin-3600||z>origin+7200){gl.deleteBuffer(c.buffer);this.chunks.delete(z)}let yaw=s.angle;if(this.yaw===null||prefs.motion)this.yaw=yaw;else this.yaw+=(yaw-this.yaw)*(1-Math.exp(-5*Math.min(dt,.05)));yaw=this.yaw;let far=prefs.camera==='wide',dist=far?16:11.5,height=far?7:4.7;let ground=terrainHeight(s.x,s.z)+.05,eye=[s.x-Math.sin(yaw)*dist,ground+height,s.z-Math.cos(yaw)*dist],target=[s.x+Math.sin(yaw)*14,ground+1.15,s.z+Math.cos(yaw)*14];eye[1]=Math.max(eye[1],terrainHeight(eye[0],eye[2])+1.8);eye[2]-=origin;target[2]-=origin;let matrix=cameraMatrix(eye,target,this.canvas.width/this.canvas.height,Math.PI/3.1);
+gl.clearColor(.65,.75,.74,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.disable(gl.DEPTH_TEST);gl.useProgram(this.sky);let a=gl.getAttribLocation(this.sky,'position');gl.bindBuffer(gl.ARRAY_BUFFER,this.skybuf);gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);gl.uniform1f(gl.getUniformLocation(this.sky,'aspect'),this.canvas.width/this.canvas.height);gl.uniform1f(gl.getUniformLocation(this.sky,'yaw'),yaw);gl.drawArrays(gl.TRIANGLES,0,3);gl.disableVertexAttribArray(a);gl.enable(gl.DEPTH_TEST);gl.useProgram(this.p);gl.uniform1f(this.opacity,1);gl.uniformMatrix4fv(this.cam,false,matrix);gl.enableVertexAttribArray(this.pos);gl.enableVertexAttribArray(this.col);this.drawCalls=1;
+const draw=(m,z=0)=>{gl.bindBuffer(gl.ARRAY_BUFFER,m.buffer);gl.vertexAttribPointer(this.pos,3,gl.FLOAT,false,24,0);gl.vertexAttribPointer(this.col,3,gl.FLOAT,false,24,12);gl.uniform3f(this.shift,0,0,z);gl.drawArrays(gl.TRIANGLES,0,m.count);this.drawCalls++};
+for(let c of this.chunks.values())draw(c,c.z-origin);
+// The far city is a stylized journey-progress cue, not a simulated city map.
+let city=[],progress=Math.min(1,s.distance/ROUTE_LENGTH),cityDist=4400-3500*Math.pow(progress,5),cityZ=s.z+cityDist,cityX=center(s.z+300)+500;for(let i=0;i<19;i++){let x=cityX+(i-9)*33,z=cityZ+rand(i+901)*180,y=elevation(s.z);let hh=65+rand(i+12)*160;box(city,x,y+hh/2,z,18+rand(i)*20,hh,22,'#789493');box(city,x,y+hh*.73,z-11.2,2,hh*.45,.3,'#a5e5d8');if(i%4===0)box(city,x,y+hh+18,z,2,36,2,'#c0cebb')}for(let i=2;i<city.length;i+=6)city[i]-=origin;this.update(this.city,city);draw(this.city);
+let car=carMesh(input.brake,s.steer,s.distance/.39),pitch=Math.atan((terrainHeight(s.x+Math.sin(s.angle),s.z+Math.cos(s.angle))-terrainHeight(s.x-Math.sin(s.angle),s.z-Math.cos(s.angle)))/2),roll=prefs.motion?0:-s.steer*Math.min(s.v/80.4672,1)*.035;for(let i=0;i<car.length;i+=6){let x=car[i],y=car[i+1],z=car[i+2];let yy=y*Math.cos(pitch)+z*Math.sin(pitch)+x*Math.sin(roll),zz=z*Math.cos(pitch)-y*Math.sin(pitch);car[i]=s.x+x*Math.cos(s.angle)+zz*Math.sin(s.angle);car[i+1]=ground+yy+.055;car[i+2]=s.z+zz*Math.cos(s.angle)-x*Math.sin(s.angle)}for(let i=2;i<car.length;i+=6)car[i]-=origin;this.update(this.car,car);
+let shadow=[];const shadowPoint=a=>{let x=s.x+Math.cos(a)*1.25*Math.cos(s.angle)+Math.sin(a)*2.5*Math.sin(s.angle),z=s.z+Math.sin(a)*2.5*Math.cos(s.angle)-Math.cos(a)*1.25*Math.sin(s.angle);return [x,terrainHeight(x,z)+.135,z]};for(let i=0;i<20;i++)tri(shadow,[s.x,ground+.085,s.z],shadowPoint(i/20*Math.PI*2),shadowPoint((i+1)/20*Math.PI*2),'#504f46');for(let i=2;i<shadow.length;i+=6)shadow[i]-=origin;this.update(this.shadow,shadow);draw(this.shadow);draw(this.car);
+let delta=Math.min(.05,Math.max(0,dt));for(let d of this.dust){d.age+=delta;d.x+=delta*.8;d.y+=delta*.45}this.dust=this.dust.filter(d=>d.age<1.8);this.dustClock+=delta;if(s.v>4&&Math.abs(s.x-center(s.z))>2.8&&this.dustClock>.035){this.dustClock=0;for(let side of [-1,1])this.dust.push({x:s.x-Math.sin(s.angle)*2+Math.cos(s.angle)*side*.85,y:ground+.18,z:s.z-Math.cos(s.angle)*2-Math.sin(s.angle)*side*.85,age:0})}if(this.dust.length>100)this.dust.splice(0,this.dust.length-100);let dust=[];for(let d of this.dust){let r=.16+d.age*.55;for(let i=0;i<7;i++){let a=i/7*Math.PI*2,b=(i+1)/7*Math.PI*2;tri(dust,[d.x,d.y,d.z-origin],[d.x+Math.cos(a)*r*Math.cos(yaw),d.y+Math.sin(a)*r,d.z-origin-Math.cos(a)*r*Math.sin(yaw)],[d.x+Math.cos(b)*r*Math.cos(yaw),d.y+Math.sin(b)*r,d.z-origin-Math.cos(b)*r*Math.sin(yaw)],'#e7bb88')}}this.update(this.dustMesh,dust);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);gl.uniform1f(this.opacity,.17);draw(this.dustMesh);gl.depthMask(true);gl.disable(gl.BLEND);gl.uniform1f(this.opacity,1);
+gl.disableVertexAttribArray(this.pos);gl.disableVertexAttribArray(this.col);this.frames++;}
+inspect(){return {renderer:'native WebGL perspective + depth buffer',frames:this.frames,drawCalls:this.drawCalls,residentChunks:this.chunks.size,worldTriangles:[...this.chunks.values()].reduce((s,c)=>s+c.count/3,0),glError:this.gl.getError()}}
+}
+
+// Input, fixed-step loop, pause/focus handling, preferences and sound evolve 006.
+const $=s=>document.querySelector(s), canvas=$('#view'),speedEl=$('#speed'),pause=$('#pause'),overlay=$('#overlay');
+let renderer,fatal=false;function fail(message){fatal=true;$('#error-message').textContent=message;$('#error').hidden=false;release();if(raf)cancelAnimationFrame(raf);raf=0;state.paused=true;quietAudio()}
+let preferences={gentle:false,motion:matchMedia('(prefers-reduced-motion: reduce)').matches,quality:false,volume:.18,camera:'chase'};
+try{let p=JSON.parse(localStorage.getItem('cityFarePrefs')||'{}');for(let k of ['gentle','motion','quality'])if(typeof p[k]==='boolean')preferences[k]=p[k];if(Number.isFinite(p.volume))preferences.volume=Math.max(0,Math.min(1,p.volume));if(p.camera==='wide')preferences.camera='wide'}catch(e){}
+const STEP=1/60,MAX_STEPS=5,MPH=2.236936;let state=fresh(),previous={...state},held=new Set(),pointers=new Map(),last=0,accumulator=0,raf=0,started=false,overloads=0,lastChapter=-1,toastTimer;
+const keyMap={ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right',ArrowUp:'gas',KeyW:'gas',ArrowDown:'brake',KeyS:'brake',Space:'brake'};
+function actions(){const a={left:false,right:false,gas:false,brake:false};for(const code of held)if(keyMap[code])a[keyMap[code]]=true;for(const action of pointers.values())a[action]=true;return a}
+function paintInputs(){const a=actions();document.querySelectorAll('.drive').forEach(b=>b.classList.toggle('on',!!a[b.dataset.key]))}
+function release(){held.clear();pointers.clear();paintInputs()}
+function notify(text){$('#toast').textContent=text;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),3200)}
+function saveDrive(){try{localStorage.setItem('cityFareSonoranSave007',JSON.stringify({x:state.x,z:state.z,angle:state.angle,distance:state.distance,finished:!!state.finished}))}catch(e){}}
+try{let saved=JSON.parse(localStorage.getItem('cityFareSonoranSave007')||'null');if(saved&&['x','z','angle','distance'].every(k=>Number.isFinite(saved[k]))&&saved.distance>=0&&saved.distance<ROUTE_LENGTH&&saved.z>=0&&saved.z<=ROUTE_LENGTH+100&&Math.abs(saved.x-center(saved.z))<=TUNE.lateralLimit+.1){state={...fresh(),...saved,v:0,steer:0,finished:false};previous={...state};$('#start').innerHTML='Continue <span>↗</span>'}}catch(e){}
+let saveClock=0;
+function savePreferences(){try{localStorage.setItem('cityFarePrefs',JSON.stringify(preferences))}catch(e){}}
+function render(interpolate=false,dt=STEP){if(!renderer)return;let visible=state;if(interpolate){let a=accumulator/STEP;visible={...state};for(let k of ['x','v','steer','angle','distance'])visible[k]=previous[k]+(state[k]-previous[k])*a;visible.z=previous.z+(state.z-previous.z)*a}renderer.render(visible,preferences,dt,actions());speedEl.textContent=Math.round(state.v*MPH);$('#speedbar').style.width=(state.v/TUNE.maxSpeed*100)+'%';$('#distance').textContent=Math.max(0,(ROUTE_LENGTH-state.distance)/1609.344).toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1});$('#progress').style.width=(state.distance/ROUTE_LENGTH*100)+'%';let fade=Math.max(0,Math.min(1,(state.distance-(ROUTE_LENGTH-2500))/2500));$('#finish-fade').style.opacity=state.finished?1:Math.pow(fade,1.7)*.85;if(state.finished){release();quietAudio();document.body.classList.add('finished');$('#finish').hidden=false;saveDrive()}updateAudio()}
+function frame(t){raf=0;if(!started||state.paused)return;if(!last)last=t;let elapsed=(t-last)/1000;last=t;if(elapsed>.35){setPaused(true);return}accumulator+=Math.max(0,elapsed);let steps=0;while(accumulator>=STEP&&steps<MAX_STEPS){previous={...state};step(state,actions(),STEP,preferences);accumulator-=STEP;steps++}if(accumulator>=STEP){overloads++;accumulator%=STEP}render(true,elapsed);saveClock+=elapsed;if(saveClock>5){saveDrive();saveClock=0}if(!state.finished)raf=requestAnimationFrame(frame)}
+function setPaused(value){if(!started||fatal||state.finished)return;state.paused=value;overlay.hidden=!value;pause.innerHTML=value?'▶ <span>Resume</span>':'Ⅱ <span>Pause</span>';pause.setAttribute('aria-label',value?'Resume drive':'Pause and settings');release();last=0;accumulator=0;previous={...state};if(value){quietAudio();if(raf)cancelAnimationFrame(raf);raf=0;render();$('#resume').focus()}else{if(!raf)raf=requestAnimationFrame(frame);pause.focus()}}
+function toggle(){if(started)setPaused(!state.paused)}
+function start(){if(started||fatal)return;started=true;state.paused=false;document.body.classList.remove('intro');document.body.classList.add('playing');$('#welcome').inert=true;$('#drivehud').inert=false;$('.controls').inert=false;last=0;raf=requestAnimationFrame(frame);pause.focus()}
+function resetDrive(){if(fatal)return;document.body.classList.remove('finished');$('#finish').hidden=true;$('#finish-fade').style.opacity=0;state=fresh();saveDrive();previous={...state};renderer.yaw=null;lastChapter=-1;release();if(!started)start();setPaused(false);render();}
+$('#again').onclick=resetDrive;$('#start').onclick=start;pause.onclick=toggle;$('#resume').onclick=()=>setPaused(false);$('#restart').onclick=resetDrive;$('.brand').onclick=e=>{e.preventDefault();if(started)setPaused(true)};
+$('#camera span').textContent=preferences.camera==='wide'?'Wide cam':'Chase cam';
+$('#camera').onclick=()=>{preferences.camera=preferences.camera==='wide'?'chase':'wide';savePreferences();$('#camera span').textContent=preferences.camera==='wide'?'Wide cam':'Chase cam';render();};
+for(const name of ['gentle','motion','quality']){let el=$('#'+name);el.checked=preferences[name];el.onchange=()=>{preferences[name]=el.checked;savePreferences();if(name==='quality')renderer.resize(preferences.quality);render()}}
+let volume=$('#volume');volume.value=preferences.volume;volume.oninput=()=>{preferences.volume=Number(volume.value);savePreferences();updateAudio()};
+
+// Gesture-started electric motor: soft sine pair and filtered air, no gear drone.
+let audio=null,osc=null,gain=null,wind=null,windGain=null,harmonic=null,soundOn=false;
+function quietAudio(){if(audio&&gain){gain.gain.setTargetAtTime(0,audio.currentTime,.08);windGain.gain.setTargetAtTime(0,audio.currentTime,.08)}}
+function updateAudio(){if(!audio)return;let active=soundOn&&!state.paused&&!state.finished&&started,a=actions(),ratio=state.v/TUNE.maxSpeed;osc.frequency.setTargetAtTime(55+state.v*1.65+(a.gas?4:0),audio.currentTime,.25);harmonic.frequency.setTargetAtTime(110+state.v*3.3,audio.currentTime,.3);gain.gain.setTargetAtTime(active?preferences.volume*(.008+ratio*.025):0,audio.currentTime,.16);windGain.gain.setTargetAtTime(active?preferences.volume*ratio*.045:0,audio.currentTime,.3)}
+$('#sound').onclick=async()=>{try{if(!audio){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('unavailable');audio=new AC();gain=audio.createGain();gain.gain.value=0;gain.connect(audio.destination);osc=audio.createOscillator();osc.type='sine';osc.connect(gain);osc.start();harmonic=audio.createOscillator();harmonic.type='sine';let hg=audio.createGain();hg.gain.value=.16;harmonic.connect(hg);hg.connect(gain);harmonic.start();let buffer=audio.createBuffer(1,audio.sampleRate*2,audio.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=Math.random()*2-1;wind=audio.createBufferSource();wind.buffer=buffer;wind.loop=true;let filter=audio.createBiquadFilter();filter.type='lowpass';filter.frequency.value=380;windGain=audio.createGain();windGain.gain.value=0;wind.connect(filter);filter.connect(windGain);windGain.connect(audio.destination);wind.start()}soundOn=!soundOn;if(soundOn)await audio.resume();$('#sound').textContent='Sound: '+(soundOn?'On':'Off');if(!soundOn)quietAudio()}catch(e){soundOn=false;$('#sound').textContent='Sound unavailable'}};
+window.addEventListener('keydown',e=>{if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;if(e.code==='Tab'&&!overlay.hidden){let items=[...overlay.querySelectorAll('button,input')],first=items[0],last=items.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}return}if(keyMap[e.code]){e.preventDefault();if(started&&!state.paused){held.add(e.code);paintInputs()}}if(!e.repeat){if(e.code==='KeyP'||e.code==='Escape')toggle();if(e.code==='KeyC'&&started&&overlay.hidden)$('#camera').click();if(e.code==='KeyR'&&started&&overlay.hidden)resetDrive()}});
+window.addEventListener('keyup',e=>{if(keyMap[e.code]){held.delete(e.code);paintInputs()}});
+document.querySelectorAll('.drive').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();if(!started||state.paused)return;b.setPointerCapture(e.pointerId);pointers.set(e.pointerId,b.dataset.key);paintInputs()});function up(e){pointers.delete(e.pointerId);paintInputs()}for(const event of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(event,up)});
+window.addEventListener('blur',()=>{release();if(started&&!state.paused)setPaused(true)});window.addEventListener('pagehide',()=>{saveDrive();release();if(started&&!state.paused)setPaused(true)});document.addEventListener('visibilitychange',()=>{if(document.hidden){release();if(started&&!state.paused)setPaused(true)}});
+canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();fail('The graphics connection was interrupted. Reload to restart the drive.')});window.addEventListener('error',e=>fail('The drive stopped unexpectedly. Please reload.'));window.addEventListener('resize',()=>{if(renderer){renderer.resize(preferences.quality);render()}});
+try{renderer=new Renderer(canvas);renderer.resize(preferences.quality);render()}catch(e){fail(e.message)}
+// Read-only diagnostics. No debug teleport/control mutations are exposed.
+window.CityFare=Object.freeze({inspect:()=>({version:'007-Sonoran-Run',fatal,state:{...state},input:actions(),preferences:{...preferences},started,overloads,graphics:renderer?.inspect()||null})});
+
 </script></body></html>
