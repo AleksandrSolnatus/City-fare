@@ -1,0 +1,10 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import {dirname,resolve} from 'node:path';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+let html=readFileSync(resolve(root,'dist/index.html'),'utf8');
+const css=readFileSync(resolve(root,'dist/style.css'),'utf8');
+const js=['road.js','renderer.js','game.js'].map(name=>readFileSync(resolve(root,'dist',name),'utf8').replace(/^import .*;\n/gm,'').replace(/^export /gm,'')).join('\n');
+html=html.replace('<link rel="stylesheet" href="style.css">',()=>'<style>'+css+'</style>').replace('<script type="module" src="game.js"></script>',()=>'<script type="module">\n'+js+'\n</script>');
+writeFileSync(resolve(root,'City-Fare-007.html'),html);
+console.log('Built City-Fare-007.html ('+Buffer.byteLength(html)+' bytes)');
