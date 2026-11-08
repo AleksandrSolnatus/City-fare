@@ -21,7 +21,7 @@ jobs:
       - name: Run existing and new driving tests
         run: npm test
       - name: Capture deterministic replay
-        run: npm run benchmark > city-fare-replay.json
+        run: npm run benchmark | tee city-fare-replay.json
       - name: Preserve replay artifact
         uses: actions/upload-artifact@v4
         with:
