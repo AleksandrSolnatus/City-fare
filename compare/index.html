@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Play two original City Fare checkpoints and follow the Rising Tide development trail.">
+  <title>City Fare | Compare the Builds</title>
+  <style>
+    :root{--ink:#283a35;--sand:#f6efdf;--light:#fffbf2;--clay:#a45a3b;--line:#d6c9b4}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--sand);color:var(--ink);font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    a{color:inherit}a:focus-visible{outline:3px solid var(--clay);outline-offset:5px}
+    main{max-width:1080px;margin:auto;padding:48px 25px 85px}
+    .eyebrow{color:var(--clay);font-weight:800;letter-spacing:.2em;font-size:.76rem;text-transform:uppercase}
+    h1{font-size:clamp(2.8rem,7vw,5.8rem);line-height:1.02;letter-spacing:-.07em;max-width:850px;margin:18px 0 26px}
+    .lead{font-size:1.18rem;max-width:680px;color:#506257;margin-bottom:52px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+    article{background:var(--light);border:1px solid var(--line);border-radius:18px;padding:34px;display:flex;flex-direction:column;min-height:330px}
+    .version{font-size:.73rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--clay)}
+    h2{font-size:2.05rem;line-height:1.08;letter-spacing:-.04em;margin:18px 0}
+    article p{max-width:39ch;color:#59695f}
+    .play{display:inline-block;margin-top:auto;align-self:flex-start;padding:14px 20px;background:var(--ink);border-radius:9px;text-decoration:none;color:white;font-weight:700}
+    .play:hover{background:#465b50}
+    .notes{margin-top:35px;border-top:1px solid var(--line);padding:25px 0}
+    .notes h2{font-size:1.4rem;margin:0 0 10px}
+    footer{margin-top:42px;font-size:.9rem;color:#64736a;display:flex;gap:20px;flex-wrap:wrap}
+    @media(max-width:700px){main{padding:32px 19px 65px}.grid{grid-template-columns:1fr}article{min-height:270px;padding:27px}h1{letter-spacing:-.06em}}
+  </style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">City Fare / Build Archive</p>
+  <h1>Two roads.<br>One history.</h1>
+  <p class="lead">Play the original fare-driving prototype and the later Sonoran desert-driving game. Both builds are preserved as they were—not remade for this page.</p>
+  <div class="grid" role="group" aria-label="Playable archived versions">
+    <article>
+      <span class="version">Version 002 PRO &middot; October 2026</span>
+      <h2>The city and its fares.</h2>
+      <p>Drive a small city, pick up passengers, take them to their destinations, and collect fares. The original arcade prototype.</p>
+      <a class="play" href="../versions/002-pro/">Play original City Fare <span aria-hidden="true">↗</span></a>
+    </article>
+    <article>
+      <span class="version">Version 007 &middot; November 2026</span>
+      <h2>Sonoran Run.</h2>
+      <p>Follow a procedural desert road toward a faraway skyline in a third-person coupe, with mountains, dusk light, and 2,200 miles ahead.</p>
+      <a class="play" href="../versions/007-sonoran-run/">Play Sonoran Run 007 <span aria-hidden="true">↗</span></a>
+    </article>
+  </div>
+  <section class="notes" aria-labelledby="research">
+    <h2 id="research">What the comparison shows</h2>
+    <p>The design changed from a taxi-fare loop to open-road driving. We retained earlier lessons and source checkpoints. This is a historical comparison, not proof of a speedup. A separate Rising Tide record tracks identical-input replays, code reuse, test results, measurements, and failures across future revisions.</p>
+    <p>Each game works best in its own full window. They are original archived HTML builds, not modernized copies.</p>
+  </section>
+  <footer>
+    <a href="https://github.com/AleksandrSolnatus/City-fare/issues/2">Development record</a>
+    <a href="https://github.com/AleksandrSolnatus/City-fare">Source and historical commits</a>
+  </footer>
+</main>
+</body>
+</html>
