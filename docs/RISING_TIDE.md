@@ -15,6 +15,18 @@ GitHub: https://github.com/AleksandrSolnatus/City-fare
 
 The checkpoint commits above identify exact immutable source states. Archive branches are human-readable pointers to those commits and must **not** be rebased, moved or deleted. Neither snapshot is a new public game deployment.
 
+## Prepared playable comparison paths — not yet published
+
+The work branch now holds **exact source copies** of each historical standalone game, checked by original Git blob SHA-1 and guarded by `tests/archive.test.mjs`:
+
+- `versions/002-pro/index.html`: exactly `3e30e181ca3203a33bcfa8dcec7d65748d4d568d`.
+- `versions/007-sonoran-run/index.html`: exactly `a29f1bfaa2b8daa9e6ecaf84703ca2b91a18aa30`.
+- `compare/index.html`: a simple index linking to the two archive folders.
+
+These paths become directly playable on a static host only **after the owner separately approves a production deployment**. Do not describe the future paths as currently public.
+
+**Deployment caution:** GitHub `main` already contains Sonoran Run 007, but the existing Cloudflare production site still serves City Fare 002 PRO. A future merge/rebuild of `main` could cause Cloudflare to publish 007 at the root. **Do not merge this preparation PR or reconfigure hosting simply to make archive links public without approval.** A documented rollback to the old 002 commit is retained.
+
 ## Two different comparisons — do not confuse them
 
 1. **Historical, playable comparison:** original taxi-fare game versus third-person Sonoran Run. These have different goals, rules, and rendering engines. They show how the design changed, **not** a controlled speedup.
