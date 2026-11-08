@@ -2,6 +2,10 @@
 
 **Started:** 2026-11-08. **Status:** Living experiment, not a claimed speedup or a new game release.
 
+## Current working instruction — 2026-11-08
+
+Amar clarified: **save the versions and keep building; do not slow development with ongoing measurements.** Preserve the playable checkpoints and carry useful code and lessons forward. A normal source commit and a short change description are enough continuity. Run only ordinary development checks justified by the change. There is no required timing study, effort ledger, fresh control build, replay report, or per-increment Rising Tide analysis. The prepared comparison tools and protocols below remain available for a later, explicitly requested study; they are not development gates. Rising Tide comparisons can wait until they are useful.
+
 ## Original evidence preserved
 
 | Checkpoint | What it is | Exact source | Status |
@@ -49,7 +53,9 @@ The benchmark uses a fixed 1/60-second step, with four prescribed cases: departu
 
 **What these numbers do not prove:** actual browser FPS, WebGL stability, mobile touch behavior, subjective car handling, road or mountain appearance, hours of uninterrupted play, or engineering effort saved. Only physical play-testing and separately logged work effort can evaluate those.
 
-## Log for every new increment
+## Optional record for a later measurement study
+
+This template is retained for reference only. Do not fill it out during ordinary game development under the current working instruction.
 
 - **Question and exact change:** one primary improvement per increment; e.g. “Does this steering/camera revision make the coupe feel more responsive without destabilizing the road?”
 - **References:** base commit, new commit/PR, reused artifacts and original version; each attempt kept distinct.
@@ -65,10 +71,10 @@ The benchmark uses a fixed 1/60-second step, with four prescribed cases: departu
 
 Order:
 1. Preserve baseline 007 exactly (completed).
-2. Add repeatable replay/CI instrumentation (in progress).
-3. Play the archived 007 on desktop and phone; record a small list of real handling problems.
-4. Adjust *one* parameter or camera behavior on the work branch; replay the four cases and inspect the visual result.
-5. Record retained work, tradeoffs, failures and the checks; only then ask whether to promote a version to the original City Fare address.
+2. Retain the already prepared replay/CI tools for relevant checks or later comparisons; do not expand them now.
+3. Inspect or play the current build where available and choose one real handling or presentation problem. Physical-phone feedback may remain an explicitly unverified limitation.
+4. Make a useful change on the work branch and perform the ordinary checks needed for that change.
+5. Save the version with a brief normal change note. A reviewable candidate can later be promoted to the original address after the owner's approval; ongoing research measurements are not required.
 
 ## Boundaries
 
