@@ -1,0 +1,38 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> city-fare-sonoran-run@0.8.0 test
+> node --test tests/*.test.mjs
+
+✔ the title screen never writes over an existing trip on idle or background events (45.588349ms)
+✔ a transient re-read failure during Resume retains the last valid trip (4.280896ms)
+✔ R restart cancellation keeps progress and modal focus; confirmation replaces the trip (3.974114ms)
+✔ denied restart writes preserve old saved bytes and never claim the new run is saved (11.390622ms)
+✔ completion writes once, survives reload, and does not award mileage from elapsed wall time (10.677062ms)
+✔ background saving clears input; another tab changing the slot blocks stale resume and writes (7.559494ms)
+✔ 2200-mile procedural route is deterministic, bounded, and has consistent tangents (3.877275ms)
+✔ terrain is flat near the road and gently bounded outside (1.009974ms)
+✔ fresh starts in the right lane and stationary steering cannot rotate the car (3.110339ms)
+✔ straight world motion matches constant-acceleration mathematics (0.403442ms)
+✔ absolute yaw drives world x/z without road-follow steering (0.59407ms)
+✔ brake overrides gas, speed stays bounded, and dt is bounded (1.728446ms)
+✔ frame cadence agrees and releasing caller inputs recentres steering (5.182695ms)
+✔ off-road drag starts at tire edge while recovery remains possible (1.329709ms)
+✔ world z does not wrap or finish the odometer challenge (0.523067ms)
+✔ the exact 2200-mile odometer endpoint stops motion permanently (0.491952ms)
+✔ round trip keeps off-road position, continuous yaw and true odometer, then parks (3.85814ms)
+✔ driving backward retains cumulative travel rather than replacing it with world z (0.925436ms)
+✔ elapsed wall time adds no mileage and a completed journey remains completed (0.425301ms)
+✔ invalid runtime state is rejected before any existing checkpoint is changed (0.622444ms)
+✔ malformed, incompatible and impossible stored records survive automatic writes (0.94905ms)
+✔ valid boundary values allow harmless rounding but never relocate the car (1.592732ms)
+✔ missing, denied and quota-full storage fail without throwing or losing the baseline (0.66891ms)
+✔ two tabs detect an intervening write or deletion, while an explicit restart replaces (0.376371ms)
+✔ unobserved occupied slots require loading, and unrelated prototype data is untouched (0.587252ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 243.646636
