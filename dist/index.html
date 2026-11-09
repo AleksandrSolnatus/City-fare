@@ -1,10 +1,38 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#293e50"><meta name="description" content="A fast car. The Sonoran desert. A 2,200-mile drive toward a distant future city."><title>City Fare · Sonoran Run</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%233b5262'/%3E%3Cpath d='M15 27h34v22H15zm6-12h22l6 12H15z' fill='%239ce8de'/%3E%3C/svg%3E"><link rel="stylesheet" href="style.css"></head>
-<body class="intro"><canvas id="view" aria-label="Third-person view of a steel and gunmetal car on an Arizona-inspired desert highway"></canvas><div id="speedfx" aria-hidden="true"></div><div class="vignette" aria-hidden="true"></div>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#293e50"><meta name="description" content="A fast car. The Sonoran desert. A 2,200-mile drive you can return to.">
+<title>City Fare · Sonoran Run</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%233b5262'/%3E%3Cpath d='M15 27h34v22H15zm6-12h22l6 12H15z' fill='%239ce8de'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="intro">
+<canvas id="view" tabindex="-1" aria-label="Third-person view of a steel and gunmetal car on an Arizona-inspired desert highway"></canvas>
+<div id="speedfx" aria-hidden="true"></div><div class="vignette" aria-hidden="true"></div>
 <header><a class="brand" href="#" aria-label="City Fare home">CITY FARE</a><div class="topright"><div class="location"><i></i> SONORAN RUN</div><button id="pause" aria-label="Pause and settings">Ⅱ <span>Pause</span></button></div></header>
-<main id="welcome"><div class="eyebrow">SONORAN RUN</div><h1>CITY FARE</h1><p>2,200 miles. One road.</p><button class="primary" id="start">Drive <span>↗</span></button><div class="keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>/ ARROWS</span></div></main>
-<div class="drivehud" id="drivehud" inert><section class="speedometer" aria-label="Speed"><div><strong id="speed">0</strong><span>MPH</span></div><div class="speedline"><i id="speedbar"></i></div><small id="surface"></small></section><section class="journey"><div><span id="chapter">TO THE CITY</span><span><b id="distance">2,200.0</b> MI TO GO</span></div><div class="route"><i id="progress"></i></div><small id="hint"></small></section><button class="viewbutton" id="camera" aria-label="Change chase camera">⌑ <span>Chase cam</span><kbd>C</kbd></button></div>
+<main id="welcome">
+<div class="eyebrow">SONORAN RUN</div><h1>CITY FARE</h1><p>2,200 miles. One road.</p><p id="trip-summary"></p>
+<div class="start-actions"><button class="primary" id="start"><span id="start-label">Drive</span><span aria-hidden="true">↗</span></button><button class="textbutton" id="new-drive" hidden>New drive</button></div>
+<small id="trip-note">Your progress stays in this browser.</small><div class="keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>/ ARROWS</span></div>
+</main>
+<div class="drivehud" id="drivehud" inert>
+<section class="speedometer" aria-label="Speed"><div><strong id="speed">0</strong><span>MPH</span></div><div class="speedline"><i id="speedbar"></i></div><small id="surface"></small></section>
+<section class="journey"><div><span id="chapter">TO THE CITY</span><span><b id="distance">2,200.0</b> MI TO GO</span></div><div class="route"><i id="progress"></i></div><small id="hint"></small></section>
+<button class="viewbutton" id="camera" aria-label="Change chase camera">⌑ <span>Chase cam</span><kbd>C</kbd></button>
+</div>
 <div id="toast" role="status" aria-live="polite"></div>
 <div class="controls" inert><div class="group"><button class="drive steer" data-key="left" aria-label="Steer left">←</button><button class="drive steer" data-key="right" aria-label="Steer right">→</button></div><div class="group"><button class="drive brake" data-key="brake" aria-label="Brake">BRAKE</button><button class="drive gas" data-key="gas" aria-label="Accelerate">DRIVE ↑</button></div></div>
-<div class="overlay" id="overlay" hidden><section class="pausebox" role="dialog" aria-modal="true" aria-labelledby="pause-title"><div class="eyebrow">SONORAN RUN</div><h2 id="pause-title">Paused.</h2><p>W / ↑ drive · S / ↓ brake · A D / ← → steer<br>P / Esc pause · C camera · R reset</p><button id="resume" class="primary">Continue <span>↗</span></button><div class="settings"><button id="sound">Sound: Off</button><label>Volume <input id="volume" type="range" min="0" max="1" step="0.05" value="0.25"></label><label><input id="gentle" type="checkbox"> Gentle steering</label><label><input id="motion" type="checkbox"> Reduced camera motion</label><label><input id="quality" type="checkbox"> Lower resolution</label></div><button id="restart" class="textbutton">Start the drive again</button><small>One run. 2,200 miles.</small></section></div>
-<div id="finish-fade" aria-hidden="true"></div><section id="finish" hidden><p>SONORAN RUN</p><h2>2,200 miles.</h2><button id="again">Drive again ↗</button></section><div id="error" role="alert" hidden><h2>A quick pit stop.</h2><p id="error-message">The drive could not continue. Reload to try again.</p><button onclick="location.reload()">Reload</button></div><script type="module" src="game.js"></script></body></html>
+<div class="overlay" id="overlay" hidden><section class="pausebox" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+<div class="eyebrow">SONORAN RUN</div><h2 id="pause-title">Paused.</h2><p>W / ↑ drive · S / ↓ brake · A D / ← → steer<br>P / Esc pause · C camera · R restart</p>
+<button id="resume" class="primary">Continue <span aria-hidden="true">↗</span></button>
+<button id="save-exit" class="secondary">Save &amp; return to title</button>
+<p id="save-status" class="save-status" role="status" aria-live="polite"></p><button id="reload-save" class="secondary" hidden>Reload saved drive</button>
+<div class="settings"><button id="sound">Sound: Off</button><label>Volume <input id="volume" type="range" min="0" max="1" step="0.05" value="0.18"></label><label><input id="gentle" type="checkbox"> Gentle steering</label><label><input id="motion" type="checkbox"> Reduced camera motion</label><label><input id="quality" type="checkbox"> Lower resolution</label></div>
+<button id="restart" class="textbutton">Start the drive again</button><small>Saves belong to this browser. Clearing site data removes them.</small>
+</section></div>
+<dialog id="restart-dialog" class="restart-dialog" aria-labelledby="restart-title" aria-describedby="restart-note"><h2 id="restart-title">Start a new drive?</h2><p id="restart-note">This replaces your saved trip and returns you to mile zero.</p><div class="restart-actions"><button id="cancel-restart" class="secondary" autofocus>Keep this drive</button><button id="confirm-restart" class="primary">Start over</button></div></dialog>
+<div id="finish-fade" aria-hidden="true"></div><section id="finish" hidden><p>SONORAN RUN</p><h2>2,200 miles.</h2><small id="finish-save-status"></small><button id="again">Drive again ↗</button></section>
+<div id="error" role="alert" hidden><h2>A quick pit stop.</h2><p id="error-message">The drive could not continue. Reload to try again.</p><button onclick="location.reload()">Reload</button></div>
+<script type="module" src="game.js"></script>
+</body></html>

@@ -1,0 +1,26 @@
+name: Sonoran checkpoint checks
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out proposed source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check driving and saved-trip behavior
+        run: npm test
+      - name: Rebuild the portable game
+        run: npm run build
+      - name: Require root game to match its sources
+        run: git diff --exit-code -- index.html

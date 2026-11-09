@@ -1,5 +1,11 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#293e50"><meta name="description" content="A fast car. The Sonoran desert. A 2,200-mile drive toward a distant future city."><title>City Fare · Sonoran Run</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%233b5262'/%3E%3Cpath d='M15 27h34v22H15zm6-12h22l6 12H15z' fill='%239ce8de'/%3E%3C/svg%3E"><style>:root{color-scheme:light;--ink:#243d40;--cream:#fff3d8;--gold:#ffd16e}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#c7b58c;color:var(--cream);font-family:Arial,Helvetica,sans-serif;user-select:none;-webkit-user-select:none}canvas{display:block;width:100%;height:100%;touch-action:none}.vignette{position:fixed;inset:0;pointer-events:none;background:linear-gradient(180deg,#182f3525,transparent 23%,transparent 62%,#182c3b80)}header{position:fixed;z-index:3;top:max(28px,env(safe-area-inset-top));left:max(32px,env(safe-area-inset-left));right:max(32px,env(safe-area-inset-right));display:flex;align-items:start;justify-content:space-between}.brand{color:var(--ink);text-decoration:none;font-size:24px;font-weight:900;letter-spacing:-1px;line-height:1}.brand span{display:block;font-size:9px;letter-spacing:3.7px;margin-top:8px;font-weight:700}.topright{display:flex;align-items:center;gap:27px}.location{font-size:10px;letter-spacing:2px;font-weight:bold;color:var(--ink);line-height:1.5}.location span{display:block;font-size:8px;opacity:.7;letter-spacing:2.8px}.location i{display:inline-block;background:#426c53;width:6px;height:6px;border-radius:50%;margin-right:6px}button{font:inherit;cursor:pointer;border:0;color:var(--ink);touch-action:manipulation}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1c738a;outline-offset:5px}#pause{background:#fff3d866;border:1px solid #fff3d888;padding:12px 17px;border-radius:30px;font-size:13px;font-weight:700;backdrop-filter:blur(8px)}#pause span{margin-left:7px}#welcome{position:absolute;top:24%;left:7%;max-width:530px;transition:opacity .3s,transform .3s;color:var(--ink);text-shadow:0 1px 22px #e9d3ac55}.eyebrow{font-size:10px;letter-spacing:2.5px;font-weight:bold}h1{font-size:clamp(48px,6.8vw,104px);line-height:.95;letter-spacing:-6px;font-weight:900;margin:23px 0}h1 em{font-family:Georgia,serif;font-weight:400;letter-spacing:-6px}#welcome p{font-size:14px;line-height:1.8;margin:20px 0 28px}.primary{display:flex;justify-content:space-between;align-items:center;gap:50px;background:var(--ink);color:var(--cream);padding:18px 23px;border-radius:6px;font-size:14px;font-weight:bold;box-shadow:0 5px 16px #20333118}.primary span{font-size:23px}.primary:hover{background:#36575a}.keys{display:flex;align-items:center;gap:4px;margin-top:22px;font-size:10px}.keys span{margin-left:7px;opacity:.85}kbd{font:10px Arial;display:inline-grid;place-items:center;border:1px solid currentColor;border-radius:4px;min-width:19px;height:21px;opacity:.65}.drivehud{position:absolute;bottom:max(38px,env(safe-area-inset-bottom));left:34px;right:34px;display:flex;align-items:end;justify-content:space-between;gap:25px;pointer-events:none}.speedometer{min-width:155px}.speedometer strong{font-size:64px;font-weight:400;letter-spacing:-3px;font-variant-numeric:tabular-nums;line-height:1}.speedometer span{font-size:10px;letter-spacing:2px;margin-left:10px}.speedline{height:3px;background:#fff3d84a;width:155px;margin:12px 0}.speedline i{display:block;height:100%;width:0;background:var(--gold)}.speedometer small{font-size:8px;letter-spacing:1.8px}.journey{width:290px;margin-bottom:3px}.journey>div:first-child{display:flex;justify-content:space-between;font-size:9px;letter-spacing:1.5px}.journey b{font-weight:400}.route{height:2px;background:#fff3d855;margin:14px 0}.route i{display:block;width:1%;height:100%;background:var(--gold);position:relative}.route i:after{content:'';position:absolute;width:7px;height:7px;background:var(--gold);border-radius:50%;right:-3px;top:-2.5px}.journey small{font-size:9px;opacity:.8}.viewbutton{display:flex;align-items:center;gap:10px;background:#fff3d819;color:var(--cream);border:1px solid #fff3d866;border-radius:30px;padding:11px 15px;font-size:12px;pointer-events:auto}.viewbutton>span{font-size:10px}.viewbutton kbd{font-size:9px}.intro .drivehud,.intro .controls{opacity:0;pointer-events:none}.playing #welcome{opacity:0;transform:translateY(10px);pointer-events:none}.playing #welcome button{visibility:hidden}.controls{display:none;position:fixed;bottom:max(22px,env(safe-area-inset-bottom));left:max(20px,env(safe-area-inset-left));right:max(20px,env(safe-area-inset-right));justify-content:space-between;pointer-events:none}.group{display:flex;gap:10px}.drive{pointer-events:auto;border:1px solid #fff3d888;background:#263f4780;color:var(--cream);border-radius:16px;width:64px;height:64px;touch-action:none;font-size:24px;backdrop-filter:blur(7px)}.drive.gas{width:94px;background:#f1c46bbd;color:#243d40;font-size:13px;font-weight:bold}.drive.brake{font-size:10px;width:62px}.drive.on{background:#fff3d8;color:#243d40;transform:translateY(2px)}.overlay{position:fixed;inset:0;z-index:5;background:#203a4380;backdrop-filter:blur(8px);display:grid;place-items:center;padding:20px}.overlay[hidden],#error[hidden]{display:none}.pausebox{width:min(420px,100%);max-height:90dvh;overflow:auto;background:#fff0d7;color:var(--ink);padding:32px;border-radius:12px;box-shadow:0 25px 80px #16303d33}.pausebox h2{font:italic 34px Georgia;letter-spacing:-1px;margin:15px 0}.pausebox p{font-size:12px;line-height:1.8;opacity:.8}.pausebox .primary{width:100%;margin:23px 0}.settings{display:grid;gap:13px;font-size:13px}.settings label{display:flex;align-items:center;gap:9px}.settings input[type=range]{width:130px;accent-color:#42686a}.settings input[type=checkbox]{accent-color:#42686a;width:17px;height:17px}#sound{background:#e2d8bc;text-align:left;padding:12px;border-radius:5px}.textbutton{padding:16px 0;background:none;font-size:12px;text-decoration:underline}.pausebox>small{display:block;font-size:10px;opacity:.7}#toast{position:absolute;top:110px;left:50%;transform:translateX(-50%);background:#fff0d7eb;color:#243d40;padding:12px 20px;border-radius:30px;font-size:12px;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}#toast.show{opacity:1}#error{position:fixed;inset:20%;z-index:10;background:#fff0d7;color:#243d40;border-radius:10px;padding:25px}#error button{padding:12px 20px;background:#243d40;color:#fff0d7}
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#293e50"><meta name="description" content="A fast car. The Sonoran desert. A 2,200-mile drive you can return to.">
+<title>City Fare · Sonoran Run</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%233b5262'/%3E%3Cpath d='M15 27h34v22H15zm6-12h22l6 12H15z' fill='%239ce8de'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;--ink:#243d40;--cream:#fff3d8;--gold:#ffd16e}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#c7b58c;color:var(--cream);font-family:Arial,Helvetica,sans-serif;user-select:none;-webkit-user-select:none}canvas{display:block;width:100%;height:100%;touch-action:none}.vignette{position:fixed;inset:0;pointer-events:none;background:linear-gradient(180deg,#182f3525,transparent 23%,transparent 62%,#182c3b80)}header{position:fixed;z-index:3;top:max(28px,env(safe-area-inset-top));left:max(32px,env(safe-area-inset-left));right:max(32px,env(safe-area-inset-right));display:flex;align-items:start;justify-content:space-between}.brand{color:var(--ink);text-decoration:none;font-size:24px;font-weight:900;letter-spacing:-1px;line-height:1}.brand span{display:block;font-size:9px;letter-spacing:3.7px;margin-top:8px;font-weight:700}.topright{display:flex;align-items:center;gap:27px}.location{font-size:10px;letter-spacing:2px;font-weight:bold;color:var(--ink);line-height:1.5}.location span{display:block;font-size:8px;opacity:.7;letter-spacing:2.8px}.location i{display:inline-block;background:#426c53;width:6px;height:6px;border-radius:50%;margin-right:6px}button{font:inherit;cursor:pointer;border:0;color:var(--ink);touch-action:manipulation}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1c738a;outline-offset:5px}#pause{background:#fff3d866;border:1px solid #fff3d888;padding:12px 17px;border-radius:30px;font-size:13px;font-weight:700;backdrop-filter:blur(8px)}#pause span{margin-left:7px}#welcome{position:absolute;top:24%;left:7%;max-width:530px;transition:opacity .3s,transform .3s;color:var(--ink);text-shadow:0 1px 22px #e9d3ac55}.eyebrow{font-size:10px;letter-spacing:2.5px;font-weight:bold}h1{font-size:clamp(48px,6.8vw,104px);line-height:.95;letter-spacing:-6px;font-weight:900;margin:23px 0}h1 em{font-family:Georgia,serif;font-weight:400;letter-spacing:-6px}#welcome p{font-size:14px;line-height:1.8;margin:20px 0 28px}.primary{display:flex;justify-content:space-between;align-items:center;gap:50px;background:var(--ink);color:var(--cream);padding:18px 23px;border-radius:6px;font-size:14px;font-weight:bold;box-shadow:0 5px 16px #20333118}.primary span{font-size:23px}.primary:hover{background:#36575a}.keys{display:flex;align-items:center;gap:4px;margin-top:22px;font-size:10px}.keys span{margin-left:7px;opacity:.85}kbd{font:10px Arial;display:inline-grid;place-items:center;border:1px solid currentColor;border-radius:4px;min-width:19px;height:21px;opacity:.65}.drivehud{position:absolute;bottom:max(38px,env(safe-area-inset-bottom));left:34px;right:34px;display:flex;align-items:end;justify-content:space-between;gap:25px;pointer-events:none}.speedometer{min-width:155px}.speedometer strong{font-size:64px;font-weight:400;letter-spacing:-3px;font-variant-numeric:tabular-nums;line-height:1}.speedometer span{font-size:10px;letter-spacing:2px;margin-left:10px}.speedline{height:3px;background:#fff3d84a;width:155px;margin:12px 0}.speedline i{display:block;height:100%;width:0;background:var(--gold)}.speedometer small{font-size:8px;letter-spacing:1.8px}.journey{width:290px;margin-bottom:3px}.journey>div:first-child{display:flex;justify-content:space-between;font-size:9px;letter-spacing:1.5px}.journey b{font-weight:400}.route{height:2px;background:#fff3d855;margin:14px 0}.route i{display:block;width:1%;height:100%;background:var(--gold);position:relative}.route i:after{content:'';position:absolute;width:7px;height:7px;background:var(--gold);border-radius:50%;right:-3px;top:-2.5px}.journey small{font-size:9px;opacity:.8}.viewbutton{display:flex;align-items:center;gap:10px;background:#fff3d819;color:var(--cream);border:1px solid #fff3d866;border-radius:30px;padding:11px 15px;font-size:12px;pointer-events:auto}.viewbutton>span{font-size:10px}.viewbutton kbd{font-size:9px}.intro .drivehud,.intro .controls{opacity:0;pointer-events:none}.playing #welcome{opacity:0;transform:translateY(10px);pointer-events:none}.playing #welcome button{visibility:hidden}.controls{display:none;position:fixed;bottom:max(22px,env(safe-area-inset-bottom));left:max(20px,env(safe-area-inset-left));right:max(20px,env(safe-area-inset-right));justify-content:space-between;pointer-events:none}.group{display:flex;gap:10px}.drive{pointer-events:auto;border:1px solid #fff3d888;background:#263f4780;color:var(--cream);border-radius:16px;width:64px;height:64px;touch-action:none;font-size:24px;backdrop-filter:blur(7px)}.drive.gas{width:94px;background:#f1c46bbd;color:#243d40;font-size:13px;font-weight:bold}.drive.brake{font-size:10px;width:62px}.drive.on{background:#fff3d8;color:#243d40;transform:translateY(2px)}.overlay{position:fixed;inset:0;z-index:5;background:#203a4380;backdrop-filter:blur(8px);display:grid;place-items:center;padding:20px}.overlay[hidden],#error[hidden]{display:none}.pausebox{width:min(420px,100%);max-height:90dvh;overflow:auto;background:#fff0d7;color:var(--ink);padding:32px;border-radius:12px;box-shadow:0 25px 80px #16303d33}.pausebox h2{font:italic 34px Georgia;letter-spacing:-1px;margin:15px 0}.pausebox p{font-size:12px;line-height:1.8;opacity:.8}.pausebox .primary{width:100%;margin:23px 0}.settings{display:grid;gap:13px;font-size:13px}.settings label{display:flex;align-items:center;gap:9px}.settings input[type=range]{width:130px;accent-color:#42686a}.settings input[type=checkbox]{accent-color:#42686a;width:17px;height:17px}#sound{background:#e2d8bc;text-align:left;padding:12px;border-radius:5px}.textbutton{padding:16px 0;background:none;font-size:12px;text-decoration:underline}.pausebox>small{display:block;font-size:10px;opacity:.7}#toast{position:absolute;top:110px;left:50%;transform:translateX(-50%);background:#fff0d7eb;color:#243d40;padding:12px 20px;border-radius:30px;font-size:12px;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}#toast.show{opacity:1}#error{position:fixed;inset:20%;z-index:10;background:#fff0d7;color:#243d40;border-radius:10px;padding:25px}#error button{padding:12px 20px;background:#243d40;color:#fff0d7}
 @media(pointer:coarse),(max-width:700px){.controls{display:flex}.drivehud{bottom:110px;left:22px;right:22px}.speedometer strong{font-size:42px}.speedometer{min-width:100px}.speedline{width:100px}.journey{width:180px}.journey small{display:none}.viewbutton{padding:10px}.viewbutton span,.viewbutton kbd{display:none}.location{display:none}header{left:22px;right:22px;top:24px}.brand{font-size:22px}.brand span{font-size:8px}.topright{gap:10px}#welcome{top:23%;left:7%;max-width:85%}h1{font-size:66px;letter-spacing:-3px}h1 em{letter-spacing:-3px}.keys{max-width:300px;flex-wrap:wrap}#welcome p{font-size:12px}#pause span{display:none}#toast{top:90px;font-size:10px}.journey>div:first-child{font-size:8px;letter-spacing:.5px}}
 @media(max-width:400px){.drive{width:52px;height:58px}.drive.gas{width:80px}.drive.brake{width:54px}.group{gap:7px}.journey{width:155px}.drivehud{gap:12px}.viewbutton{display:none}h1{font-size:58px}}
 @media(max-height:530px){header{top:15px}#welcome{top:22%;left:6%}h1{font-size:50px;margin:12px 0}h1 em{letter-spacing:-3px}#welcome p{margin:10px 0;font-size:11px}.primary{padding:10px 20px}.keys{margin-top:10px}.drivehud{bottom:24px}.controls~*{font-size:12px}.journey{display:none}.controls{bottom:15px}.drivehud .speedometer{position:absolute;left:45%;bottom:0}.viewbutton{display:none}.controls .drive{height:52px}.pausebox{padding:20px}.intro #welcome{max-width:50%}}
@@ -15,15 +21,53 @@
 
 /* Quiet peripheral motion at speed; the centre and controls stay clear. */
 #speedfx{position:fixed;inset:0;pointer-events:none;opacity:0;-webkit-backdrop-filter:blur(2.8px);backdrop-filter:blur(2.8px);-webkit-mask-image:linear-gradient(90deg,#000,transparent 29%,transparent 71%,#000);mask-image:linear-gradient(90deg,#000,transparent 29%,transparent 71%,#000);transition:opacity .2s linear}@media(prefers-reduced-motion:reduce){#speedfx{display:none}}
-</style></head>
-<body class="intro"><canvas id="view" aria-label="Third-person view of a steel and gunmetal car on an Arizona-inspired desert highway"></canvas><div id="speedfx" aria-hidden="true"></div><div class="vignette" aria-hidden="true"></div>
+
+/* Persistent trip controls in the existing dusk palette. */
+[hidden]{display:none!important}
+#welcome{max-width:min(560px,86vw)}
+#welcome #trip-summary{font-size:13px;letter-spacing:.3px;line-height:1.5;margin:0 0 14px;color:#c5e3df}#trip-summary:empty{display:none}
+.start-actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap}#start-label{font-size:14px}
+#trip-note{display:block;max-width:350px;font-size:11px;line-height:1.6;margin-top:13px;color:#cfddde}
+.secondary{display:block;width:100%;padding:13px 16px;border:1px solid #9bbec066;background:#304a59;color:#e1eeeb;border-radius:6px;font-size:13px;min-height:44px}.secondary:hover{background:#3c5968}
+button:disabled{opacity:.45;cursor:default}.pausebox #resume{margin-bottom:12px}
+.pausebox .save-status{opacity:1;color:#b8ded7;font-size:11px;line-height:1.6;margin:13px 0 20px}#reload-save{margin-bottom:20px}
+.restart-dialog{width:min(430px,calc(100vw - 36px));max-height:90dvh;padding:28px;background:#273c4b;color:#e2e9e5;border:1px solid #a9cad366;border-radius:12px;box-shadow:0 20px 70px #10232b88}.restart-dialog::backdrop{background:#142730bb;backdrop-filter:blur(6px)}
+.restart-dialog h2{font-size:25px;margin:0 0 16px;line-height:1.2}.restart-dialog p{font-size:14px;line-height:1.6;margin:0 0 24px}
+.restart-actions{display:flex;gap:12px}.restart-actions button{flex:1;justify-content:center;padding:14px 10px;white-space:nowrap}
+#finish-save-status{max-width:320px;margin:0 auto 24px;line-height:1.6;color:#b8d8d3}
+#toast{z-index:7;max-width:calc(100vw - 32px);white-space:normal;text-align:center}
+@media(max-width:700px){#welcome{bottom:16%}#welcome #trip-summary{font-size:11px}#trip-note{font-size:10px;max-width:290px}.start-actions{gap:18px}.start-actions .primary{padding:15px 19px}.pausebox{max-height:calc(100dvh - 36px)}}
+@media(max-height:530px){#welcome{bottom:9%;max-width:65vw}#welcome .eyebrow{font-size:8px}#welcome h1{font-size:38px;margin:9px 0}#welcome p{margin:7px 0 13px}#welcome #trip-summary{margin-bottom:8px;font-size:11px}#trip-note{margin-top:8px;font-size:10px}.start-actions .primary{padding:10px 18px}.start-actions .textbutton{padding:10px 0}.keys{margin-top:10px}.pausebox{max-height:calc(100dvh - 24px)}.restart-dialog{padding:22px}}
+</style>
+</head>
+<body class="intro">
+<canvas id="view" tabindex="-1" aria-label="Third-person view of a steel and gunmetal car on an Arizona-inspired desert highway"></canvas>
+<div id="speedfx" aria-hidden="true"></div><div class="vignette" aria-hidden="true"></div>
 <header><a class="brand" href="#" aria-label="City Fare home">CITY FARE</a><div class="topright"><div class="location"><i></i> SONORAN RUN</div><button id="pause" aria-label="Pause and settings">Ⅱ <span>Pause</span></button></div></header>
-<main id="welcome"><div class="eyebrow">SONORAN RUN</div><h1>CITY FARE</h1><p>2,200 miles. One road.</p><button class="primary" id="start">Drive <span>↗</span></button><div class="keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>/ ARROWS</span></div></main>
-<div class="drivehud" id="drivehud" inert><section class="speedometer" aria-label="Speed"><div><strong id="speed">0</strong><span>MPH</span></div><div class="speedline"><i id="speedbar"></i></div><small id="surface"></small></section><section class="journey"><div><span id="chapter">TO THE CITY</span><span><b id="distance">2,200.0</b> MI TO GO</span></div><div class="route"><i id="progress"></i></div><small id="hint"></small></section><button class="viewbutton" id="camera" aria-label="Change chase camera">⌑ <span>Chase cam</span><kbd>C</kbd></button></div>
+<main id="welcome">
+<div class="eyebrow">SONORAN RUN</div><h1>CITY FARE</h1><p>2,200 miles. One road.</p><p id="trip-summary"></p>
+<div class="start-actions"><button class="primary" id="start"><span id="start-label">Drive</span><span aria-hidden="true">↗</span></button><button class="textbutton" id="new-drive" hidden>New drive</button></div>
+<small id="trip-note">Your progress stays in this browser.</small><div class="keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>/ ARROWS</span></div>
+</main>
+<div class="drivehud" id="drivehud" inert>
+<section class="speedometer" aria-label="Speed"><div><strong id="speed">0</strong><span>MPH</span></div><div class="speedline"><i id="speedbar"></i></div><small id="surface"></small></section>
+<section class="journey"><div><span id="chapter">TO THE CITY</span><span><b id="distance">2,200.0</b> MI TO GO</span></div><div class="route"><i id="progress"></i></div><small id="hint"></small></section>
+<button class="viewbutton" id="camera" aria-label="Change chase camera">⌑ <span>Chase cam</span><kbd>C</kbd></button>
+</div>
 <div id="toast" role="status" aria-live="polite"></div>
 <div class="controls" inert><div class="group"><button class="drive steer" data-key="left" aria-label="Steer left">←</button><button class="drive steer" data-key="right" aria-label="Steer right">→</button></div><div class="group"><button class="drive brake" data-key="brake" aria-label="Brake">BRAKE</button><button class="drive gas" data-key="gas" aria-label="Accelerate">DRIVE ↑</button></div></div>
-<div class="overlay" id="overlay" hidden><section class="pausebox" role="dialog" aria-modal="true" aria-labelledby="pause-title"><div class="eyebrow">SONORAN RUN</div><h2 id="pause-title">Paused.</h2><p>W / ↑ drive · S / ↓ brake · A D / ← → steer<br>P / Esc pause · C camera · R reset</p><button id="resume" class="primary">Continue <span>↗</span></button><div class="settings"><button id="sound">Sound: Off</button><label>Volume <input id="volume" type="range" min="0" max="1" step="0.05" value="0.25"></label><label><input id="gentle" type="checkbox"> Gentle steering</label><label><input id="motion" type="checkbox"> Reduced camera motion</label><label><input id="quality" type="checkbox"> Lower resolution</label></div><button id="restart" class="textbutton">Start the drive again</button><small>One run. 2,200 miles.</small></section></div>
-<div id="finish-fade" aria-hidden="true"></div><section id="finish" hidden><p>SONORAN RUN</p><h2>2,200 miles.</h2><button id="again">Drive again ↗</button></section><div id="error" role="alert" hidden><h2>A quick pit stop.</h2><p id="error-message">The drive could not continue. Reload to try again.</p><button onclick="location.reload()">Reload</button></div><script type="module">
+<div class="overlay" id="overlay" hidden><section class="pausebox" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+<div class="eyebrow">SONORAN RUN</div><h2 id="pause-title">Paused.</h2><p>W / ↑ drive · S / ↓ brake · A D / ← → steer<br>P / Esc pause · C camera · R restart</p>
+<button id="resume" class="primary">Continue <span aria-hidden="true">↗</span></button>
+<button id="save-exit" class="secondary">Save &amp; return to title</button>
+<p id="save-status" class="save-status" role="status" aria-live="polite"></p><button id="reload-save" class="secondary" hidden>Reload saved drive</button>
+<div class="settings"><button id="sound">Sound: Off</button><label>Volume <input id="volume" type="range" min="0" max="1" step="0.05" value="0.18"></label><label><input id="gentle" type="checkbox"> Gentle steering</label><label><input id="motion" type="checkbox"> Reduced camera motion</label><label><input id="quality" type="checkbox"> Lower resolution</label></div>
+<button id="restart" class="textbutton">Start the drive again</button><small>Saves belong to this browser. Clearing site data removes them.</small>
+</section></div>
+<dialog id="restart-dialog" class="restart-dialog" aria-labelledby="restart-title" aria-describedby="restart-note"><h2 id="restart-title">Start a new drive?</h2><p id="restart-note">This replaces your saved trip and returns you to mile zero.</p><div class="restart-actions"><button id="cancel-restart" class="secondary" autofocus>Keep this drive</button><button id="confirm-restart" class="primary">Start over</button></div></dialog>
+<div id="finish-fade" aria-hidden="true"></div><section id="finish" hidden><p>SONORAN RUN</p><h2>2,200 miles.</h2><small id="finish-save-status"></small><button id="again">Drive again ↗</button></section>
+<div id="error" role="alert" hidden><h2>A quick pit stop.</h2><p id="error-message">The drive could not continue. Reload to try again.</p><button onclick="location.reload()">Reload</button></div>
+<script type="module">
 // City Fare: 006's metre/second driving and smoothed inputs, extended to Sonoran Run.
 // Deterministic road anchors are generated on demand; 2200 miles means integrated travel.
 const ROUTE_LENGTH = 2200 * 1609.344;
@@ -200,29 +244,210 @@ gl.disableVertexAttribArray(this.pos);gl.disableVertexAttribArray(this.col);this
 inspect(){return {renderer:'native WebGL perspective + depth buffer',frames:this.frames,drawCalls:this.drawCalls,residentChunks:this.chunks.size,worldTriangles:[...this.chunks.values()].reduce((s,c)=>s+c.count/3,0),glError:this.gl.getError()}}
 }
 
-// Input, fixed-step loop, pause/focus handling, preferences and sound evolve 006.
-const $=s=>document.querySelector(s), canvas=$('#view'),speedEl=$('#speed'),pause=$('#pause'),overlay=$('#overlay'),speedFX=$('#speedfx');
-let renderer,fatal=false;function fail(message){fatal=true;if(speedFX)speedFX.style.opacity='0';$('#error-message').textContent=message;$('#error').hidden=false;release();if(raf)cancelAnimationFrame(raf);raf=0;state.paused=true;quietAudio()}
+
+const TRIP_SAVE_KEY = 'cityFareTrip:sonoran-007:v1';
+const tripSaveRoute = 'sonoran-007';
+const tripSaveTolerance = 1e-6;
+
+function tripSaveState(value, requireMatchingFinish = false) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)
+    || !['x', 'z', 'angle', 'distance'].every(key => Number.isFinite(value[key]))
+    || typeof value.finished !== 'boolean') return null;
+  const { x, z, angle, distance } = value;
+  if (z < 0 || distance < 0 || distance > ROUTE_LENGTH
+    || z > distance + tripSaveTolerance
+    || Math.abs(x - center(z)) > TUNE.lateralLimit + tripSaveTolerance) return null;
+  const finished = distance === ROUTE_LENGTH;
+  if (requireMatchingFinish && value.finished !== finished) return null;
+  // Only journey coordinates survive. Resuming never restores motion or held controls.
+  return { x, z, angle, distance, finished, v: 0, steer: 0, paused: true };
+}
+
+function tripSaveDecode(raw) {
+  if (raw === null) return { status: 'empty' };
+  let record;
+  try { record = JSON.parse(raw); } catch { return { status: 'invalid', reason: 'malformed' }; }
+  if (!record || typeof record !== 'object' || Array.isArray(record)
+    || record.version !== 1 || record.route !== tripSaveRoute
+    || record.routeLength !== ROUTE_LENGTH) return { status: 'invalid', reason: 'incompatible' };
+  const state = tripSaveState(record.state, true);
+  if (!state || !Number.isSafeInteger(record.savedAt) || record.savedAt < 0)
+    return { status: 'invalid', reason: 'invalid-checkpoint' };
+  return { status: 'saved', checkpoint: { state, savedAt: record.savedAt } };
+}
+
+// One local slot. Exact raw comparison detects a tab that wrote since our last
+// load/save. Web Storage has no atomic compare-and-swap; this is best-effort protection.
+class TripSave {
+  #storage;
+  #raw;
+
+  constructor(storage) { this.#storage = storage; }
+
+  load() {
+    let raw;
+    try { raw = this.#storage.getItem(TRIP_SAVE_KEY); }
+    catch { return { status: 'unavailable', reason: 'storage-read' }; }
+    this.#raw = raw;
+    return tripSaveDecode(raw);
+  }
+
+  save(value, { replace = false } = {}) {
+    const state = tripSaveState(value);
+    if (!state) return { status: 'invalid', reason: 'invalid-state' };
+    let current;
+    try { current = this.#storage.getItem(TRIP_SAVE_KEY); }
+    catch { return { status: 'unavailable', reason: 'storage-read' }; }
+    if (!replace) {
+      const existing = tripSaveDecode(current);
+      if (existing.status === 'invalid') return existing;
+      // An unobserved occupied slot also needs a load before automatic writes.
+      if (this.#raw === undefined ? current !== null : current !== this.#raw)
+        return { status: 'conflict' };
+    }
+    const savedAt = Date.now();
+    const { x, z, angle, distance, finished } = state;
+    const raw = JSON.stringify({ version: 1, route: tripSaveRoute,
+      routeLength: ROUTE_LENGTH, savedAt, state: { x, z, angle, distance, finished } });
+    try { this.#storage.setItem(TRIP_SAVE_KEY, raw); }
+    catch { return { status: 'unavailable', reason: 'storage-write' }; }
+    this.#raw = raw;
+    return { status: 'saved', checkpoint: { state, savedAt } };
+  }
+}
+
+
+const $=s=>document.querySelector(s);
+const canvas=$('#view'),speedEl=$('#speed'),pause=$('#pause'),overlay=$('#overlay'),speedFX=$('#speedfx');
+let renderer,fatal=false;
 let preferences={gentle:false,motion:matchMedia('(prefers-reduced-motion: reduce)').matches,quality:false,volume:.18,camera:'chase'};
-try{let p=JSON.parse(localStorage.getItem('cityFarePrefs')||'{}');for(let k of ['gentle','motion','quality'])if(typeof p[k]==='boolean')preferences[k]=p[k];if(Number.isFinite(p.volume))preferences.volume=Math.max(0,Math.min(1,p.volume));if(p.camera==='wide')preferences.camera='wide'}catch(e){}
-const STEP=1/60,MAX_STEPS=5,MPH=2.236936;let state=fresh(),previous={...state},held=new Set(),pointers=new Map(),last=0,accumulator=0,raf=0,started=false,overloads=0,lastChapter=-1,toastTimer;
+let storage=null;
+try{storage=window.localStorage}catch(e){}
+try{let p=JSON.parse(storage?.getItem('cityFarePrefs')||'{}');for(let k of ['gentle','motion','quality'])if(typeof p[k]==='boolean')preferences[k]=p[k];if(Number.isFinite(p.volume))preferences.volume=Math.max(0,Math.min(1,p.volume));if(p.camera==='wide')preferences.camera='wide'}catch(e){}
+const STEP=1/60,MAX_STEPS=5,MPH=2.236936,SAVE_INTERVAL=15;
+let state=fresh(),previous={...state},held=new Set(),pointers=new Map(),last=0,accumulator=0,raf=0,started=false,overloads=0,toastTimer;
+const tripSave=new TripSave(storage);
+let saveResult=tripSave.load(),savedCheckpoint=saveResult.checkpoint||null,secondsSinceSave=0,finishedSaved=false,restartFocus=null;
 const keyMap={ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right',ArrowUp:'gas',KeyW:'gas',ArrowDown:'brake',KeyS:'brake',Space:'brake'};
+const miles=value=>(value/1609.344).toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1});
+
 function actions(){const a={left:false,right:false,gas:false,brake:false};for(const code of held)if(keyMap[code])a[keyMap[code]]=true;for(const action of pointers.values())a[action]=true;return a}
 function paintInputs(){const a=actions();document.querySelectorAll('.drive').forEach(b=>b.classList.toggle('on',!!a[b.dataset.key]))}
 function release(){held.clear();pointers.clear();paintInputs()}
 function notify(text){$('#toast').textContent=text;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),3200)}
-// A new launch always starts at mile zero; remove the superseded prototype save.
-try{localStorage.removeItem('cityFareSonoranSave007')}catch(e){}
-function savePreferences(){try{localStorage.setItem('cityFarePrefs',JSON.stringify(preferences))}catch(e){}}
-function render(interpolate=false,dt=STEP){if(!renderer)return;let visible=state;if(interpolate){let a=accumulator/STEP;visible={...state};for(let k of ['x','v','steer','angle','distance'])visible[k]=previous[k]+(state[k]-previous[k])*a;visible.z=previous.z+(state.z-previous.z)*a}renderer.render(visible,preferences,dt,actions());speedFX.style.opacity=started&&!state.paused&&!state.finished&&!preferences.motion?String(.58*Math.max(0,Math.min(1,(state.v-31.2928)/(TUNE.maxSpeed-31.2928)))):'0';speedEl.textContent=Math.round(state.v*MPH);$('#speedbar').style.width=(state.v/TUNE.maxSpeed*100)+'%';$('#distance').textContent=Math.max(0,(ROUTE_LENGTH-state.distance)/1609.344).toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1});$('#progress').style.width=(state.distance/ROUTE_LENGTH*100)+'%';let fade=Math.max(0,Math.min(1,(state.distance-(ROUTE_LENGTH-2500))/2500));$('#finish-fade').style.opacity=state.finished?1:Math.pow(fade,1.7)*.85;if(state.finished){release();quietAudio();document.body.classList.add('finished');$('#finish').hidden=false}updateAudio()}
-function frame(t){raf=0;if(!started||state.paused)return;if(!last)last=t;let elapsed=(t-last)/1000;last=t;if(elapsed>.35){setPaused(true);return}accumulator+=Math.max(0,elapsed);let steps=0;while(accumulator>=STEP&&steps<MAX_STEPS){previous={...state};step(state,actions(),STEP,preferences);accumulator-=STEP;steps++}if(accumulator>=STEP){overloads++;accumulator%=STEP}render(true,elapsed);if(!state.finished)raf=requestAnimationFrame(frame)}
-function setPaused(value){if(!started||fatal||state.finished)return;state.paused=value;overlay.hidden=!value;pause.innerHTML=value?'▶ <span>Resume</span>':'Ⅱ <span>Pause</span>';pause.setAttribute('aria-label',value?'Resume drive':'Pause and settings');release();last=0;accumulator=0;previous={...state};if(value){quietAudio();if(raf)cancelAnimationFrame(raf);raf=0;render();$('#resume').focus()}else{if(!raf)raf=requestAnimationFrame(frame);pause.focus()}}
+function savePreferences(){try{storage?.setItem('cityFarePrefs',JSON.stringify(preferences))}catch(e){}}
+function saveMessage(){
+  if(saveResult.status==='conflict')return 'Another tab changed the saved drive. Reload to use that save.';
+  if(saveResult.status==='unavailable')return 'Progress could not be saved. Keep this tab open; reloading may return to an older save.';
+  if(saveResult.status==='invalid')return 'The saved drive could not be read. Starting a new drive will replace it.';
+  if(savedCheckpoint)return 'Saved in this browser at '+new Date(savedCheckpoint.savedAt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'.';
+  return 'Progress saves in this browser every 15 seconds and when you pause.';
+}
+function updateSaveUI(){
+  const conflict=saveResult.status==='conflict';
+  $('#save-status').textContent=saveMessage();$('#finish-save-status').textContent=saveMessage();
+  $('#resume').disabled=conflict;$('#save-exit').disabled=conflict;$('#reload-save').hidden=!conflict;
+  $('#new-drive').hidden=!savedCheckpoint;
+  $('#start-label').textContent=savedCheckpoint?(savedCheckpoint.state.finished?'View completed drive':'Resume drive'):'Drive';
+  $('#trip-summary').textContent=savedCheckpoint?miles(savedCheckpoint.state.distance)+' miles driven · '+miles(ROUTE_LENGTH-savedCheckpoint.state.distance)+' to go':'';
+  $('#trip-note').textContent=saveResult.status==='unavailable'?'Saving is unavailable. You can still drive in this tab.'
+    :saveResult.status==='invalid'?'Your saved drive could not be read. Start over to begin a new one.'
+    :savedCheckpoint&&!savedCheckpoint.state.finished?'Continue from your last stop. Your car will be stationary.':'Your progress stays in this browser.';
+}
+function checkpoint(replace=false){
+  if(!started||(saveResult.status==='conflict'&&!replace))return saveResult;
+  const before=saveResult.status;saveResult=tripSave.save(state,{replace});secondsSinceSave=0;
+  if(saveResult.status==='saved')savedCheckpoint=saveResult.checkpoint;
+  updateSaveUI();
+  if(saveResult.status==='conflict'&&before!=='conflict')notify('A newer save exists in another tab.');
+  if(saveResult.status==='unavailable'&&before!=='unavailable')notify('Progress could not be saved.');
+  return saveResult;
+}
+function fail(message){
+  if(fatal)return;if(started)checkpoint();fatal=true;speedFX.style.opacity='0';
+  $('#error-message').textContent=message+(saveResult.status==='saved'?' Your drive is saved in this browser.':'');
+  $('#error').hidden=false;release();if(raf)cancelAnimationFrame(raf);raf=0;state.paused=true;quietAudio();
+}
+function render(interpolate=false,dt=STEP){
+  if(!renderer)return;let visible=state;
+  if(interpolate){let a=accumulator/STEP;visible={...state};for(let k of ['x','v','steer','angle','distance','z'])visible[k]=previous[k]+(state[k]-previous[k])*a}
+  renderer.render(visible,preferences,dt,actions());
+  speedFX.style.opacity=started&&!state.paused&&!state.finished&&!preferences.motion?String(.58*Math.max(0,Math.min(1,(state.v-31.2928)/(TUNE.maxSpeed-31.2928)))):'0';
+  speedEl.textContent=Math.round(state.v*MPH);$('#speedbar').style.width=(state.v/TUNE.maxSpeed*100)+'%';
+  $('#distance').textContent=miles(Math.max(0,ROUTE_LENGTH-state.distance));$('#progress').style.width=(state.distance/ROUTE_LENGTH*100)+'%';
+  let fade=Math.max(0,Math.min(1,(state.distance-(ROUTE_LENGTH-2500))/2500));
+  $('#finish-fade').style.opacity=started?(state.finished?1:Math.pow(fade,1.7)*.85):0;
+  if(started&&state.finished){release();quietAudio();overlay.hidden=true;document.body.classList.add('finished');$('#finish').hidden=false}
+  updateAudio();
+}
+function frame(t){
+  raf=0;if(!started||state.paused||fatal||state.finished)return;
+  if(!last)last=t;let elapsed=(t-last)/1000;last=t;
+  if(elapsed>.35){setPaused(true);return}
+  accumulator+=Math.max(0,elapsed);let steps=0;
+  while(accumulator>=STEP&&steps<MAX_STEPS){previous={...state};step(state,actions(),STEP,preferences);accumulator-=STEP;secondsSinceSave+=STEP;steps++;if(state.finished)break}
+  if(accumulator>=STEP){overloads++;accumulator%=STEP}
+  if(state.finished&&!finishedSaved){finishedSaved=checkpoint().status==='saved';previous={...state}}
+  else if(secondsSinceSave>=SAVE_INTERVAL){checkpoint();if(saveResult.status==='conflict'){setPaused(true,false);return}}
+  render(!state.finished,elapsed);
+  if(state.finished)$('#again').focus();else raf=requestAnimationFrame(frame);
+}
+function setPaused(value,save=true){
+  if(!started||fatal||state.finished||(!value&&saveResult.status==='conflict'))return;
+  state.paused=value;overlay.hidden=!value;pause.innerHTML=value?'▶ <span>Resume</span>':'Ⅱ <span>Pause</span>';
+  pause.setAttribute('aria-label',value?'Resume drive':'Pause and settings');$('#drivehud').inert=value;$('.controls').inert=value;
+  release();last=0;accumulator=0;previous={...state};
+  if(value){quietAudio();if(raf)cancelAnimationFrame(raf);raf=0;if(save)checkpoint();render();(saveResult.status==='conflict'?$('#reload-save'):$('#resume')).focus()}
+  else{if(!raf)raf=requestAnimationFrame(frame);canvas.focus({preventScroll:true})}
+}
 function toggle(){if(started)setPaused(!state.paused)}
-function start(){if(started||fatal)return;started=true;state.paused=false;document.body.classList.remove('intro');document.body.classList.add('playing');$('#welcome').inert=true;$('#drivehud').inert=false;$('.controls').inert=false;last=0;raf=requestAnimationFrame(frame);pause.focus()}
-function resetDrive(){if(fatal)return;document.body.classList.remove('finished');$('#finish').hidden=true;$('#finish-fade').style.opacity=0;state=fresh();previous={...state};renderer.yaw=null;lastChapter=-1;release();if(!started)start();setPaused(false);render();}
-$('#again').onclick=resetDrive;$('#start').onclick=start;pause.onclick=toggle;$('#resume').onclick=()=>setPaused(false);$('#restart').onclick=resetDrive;$('.brand').onclick=e=>{e.preventDefault();if(started)setPaused(true)};
+function beginDrive(nextState){
+  if(fatal)return;if(raf)cancelAnimationFrame(raf);
+  raf=0;state={...nextState,paused:false};previous={...state};started=true;
+  finishedSaved=state.finished;last=0;accumulator=0;secondsSinceSave=0;release();renderer.yaw=null;renderer.dust=[];
+  document.body.classList.remove('intro','finished');document.body.classList.add('playing');
+  $('#welcome').inert=true;$('#drivehud').inert=false;$('.controls').inert=false;$('#finish').hidden=true;overlay.hidden=true;
+  pause.innerHTML='Ⅱ <span>Pause</span>';pause.setAttribute('aria-label','Pause and settings');render();
+  if(state.finished)$('#again').focus();else{raf=requestAnimationFrame(frame);canvas.focus({preventScroll:true})}
+}
+function start(){
+  if(started||fatal)return;
+  // Re-read at the explicit gesture: another tab may have saved while the title was open.
+  saveResult=tripSave.load();
+  // A transient read failure must not turn a known saved journey into a fresh one.
+  if(saveResult.status!=='unavailable')savedCheckpoint=saveResult.checkpoint||null;
+  updateSaveUI();
+  if(saveResult.status==='invalid'){requestRestart();return}
+  beginDrive(savedCheckpoint?savedCheckpoint.state:fresh());if(!savedCheckpoint)checkpoint();
+}
+function returnToTitle(){
+  if(checkpoint().status!=='saved')return;if(raf)cancelAnimationFrame(raf);raf=0;started=false;
+  state={...savedCheckpoint.state};previous={...state};last=0;accumulator=0;release();quietAudio();overlay.hidden=true;
+  document.body.classList.remove('playing','finished');document.body.classList.add('intro');
+  $('#finish').hidden=true;$('#welcome').inert=false;$('#drivehud').inert=true;$('.controls').inert=true;
+  updateSaveUI();render();$('#start').focus();
+}
+function requestRestart(){
+  if(fatal||$('#restart-dialog').open)return;restartFocus=document.activeElement;
+  if(started&&!state.paused&&!state.finished)setPaused(true);
+  $('#restart-dialog').showModal();$('#cancel-restart').focus();
+}
+function closeRestart(){
+  $('#restart-dialog').close();
+  if(!overlay.hidden)(saveResult.status==='conflict'?$('#reload-save'):$('#resume')).focus();
+  else if(restartFocus?.isConnected&&!restartFocus.disabled)restartFocus.focus();
+}
+function restartDrive(){$('#restart-dialog').close();beginDrive(fresh());checkpoint(true)}
+function suspend(){release();if(!started)return;if(!state.paused&&!state.finished&&!fatal)setPaused(true);else if(!finishedSaved&&!fatal)checkpoint()}
+
+$('#again').onclick=requestRestart;$('#start').onclick=start;$('#new-drive').onclick=requestRestart;
+pause.onclick=toggle;$('#resume').onclick=()=>setPaused(false);$('#restart').onclick=requestRestart;
+$('#save-exit').onclick=returnToTitle;$('#reload-save').onclick=()=>location.reload();
+$('#cancel-restart').onclick=closeRestart;$('#confirm-restart').onclick=restartDrive;
+$('#restart-dialog').addEventListener('cancel',e=>{e.preventDefault();closeRestart()});
+$('.brand').onclick=e=>{e.preventDefault();if(started)setPaused(true)};
 $('#camera span').textContent=preferences.camera==='wide'?'Wide cam':'Chase cam';
-$('#camera').onclick=()=>{preferences.camera=preferences.camera==='wide'?'chase':'wide';savePreferences();$('#camera span').textContent=preferences.camera==='wide'?'Wide cam':'Chase cam';render();};
+$('#camera').onclick=()=>{preferences.camera=preferences.camera==='wide'?'chase':'wide';savePreferences();$('#camera span').textContent=preferences.camera==='wide'?'Wide cam':'Chase cam';render()};
 for(const name of ['gentle','motion','quality']){let el=$('#'+name);el.checked=preferences[name];el.onchange=()=>{preferences[name]=el.checked;savePreferences();if(name==='quality')renderer.resize(preferences.quality);render()}}
 let volume=$('#volume');volume.value=preferences.volume;volume.oninput=()=>{preferences.volume=Number(volume.value);savePreferences();updateAudio()};
 
@@ -231,13 +456,40 @@ let audio=null,osc=null,gain=null,wind=null,windGain=null,harmonic=null,soundOn=
 function quietAudio(){if(audio&&gain){gain.gain.setTargetAtTime(0,audio.currentTime,.08);windGain.gain.setTargetAtTime(0,audio.currentTime,.08)}}
 function updateAudio(){if(!audio)return;let active=soundOn&&!state.paused&&!state.finished&&started,a=actions(),ratio=state.v/TUNE.maxSpeed;osc.frequency.setTargetAtTime(55+state.v*1.65+(a.gas?4:0),audio.currentTime,.25);harmonic.frequency.setTargetAtTime(110+state.v*3.3,audio.currentTime,.3);gain.gain.setTargetAtTime(active?preferences.volume*(.008+ratio*.025):0,audio.currentTime,.16);windGain.gain.setTargetAtTime(active?preferences.volume*ratio*.045:0,audio.currentTime,.3)}
 $('#sound').onclick=async()=>{try{if(!audio){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('unavailable');audio=new AC();gain=audio.createGain();gain.gain.value=0;gain.connect(audio.destination);osc=audio.createOscillator();osc.type='sine';osc.connect(gain);osc.start();harmonic=audio.createOscillator();harmonic.type='sine';let hg=audio.createGain();hg.gain.value=.16;harmonic.connect(hg);hg.connect(gain);harmonic.start();let buffer=audio.createBuffer(1,audio.sampleRate*2,audio.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=Math.random()*2-1;wind=audio.createBufferSource();wind.buffer=buffer;wind.loop=true;let filter=audio.createBiquadFilter();filter.type='lowpass';filter.frequency.value=380;windGain=audio.createGain();windGain.gain.value=0;wind.connect(filter);filter.connect(windGain);windGain.connect(audio.destination);wind.start()}soundOn=!soundOn;if(soundOn)await audio.resume();$('#sound').textContent='Sound: '+(soundOn?'On':'Off');if(!soundOn)quietAudio()}catch(e){soundOn=false;$('#sound').textContent='Sound unavailable'}};
-window.addEventListener('keydown',e=>{if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;if(e.code==='Tab'&&!overlay.hidden){let items=[...overlay.querySelectorAll('button,input')],first=items[0],last=items.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}return}if(keyMap[e.code]){e.preventDefault();if(started&&!state.paused){held.add(e.code);paintInputs()}}if(!e.repeat){if(e.code==='KeyP'||e.code==='Escape')toggle();if(e.code==='KeyC'&&started&&overlay.hidden)$('#camera').click();if(e.code==='KeyR'&&started&&overlay.hidden)resetDrive()}});
+
+window.addEventListener('keydown',e=>{
+  if($('#restart-dialog').open)return;
+  const editing=/INPUT|SELECT|TEXTAREA/.test(e.target.tagName),button=e.target.closest?.('button');
+  if(e.code==='Tab'&&!overlay.hidden){
+    let items=[...overlay.querySelectorAll('button,input')].filter(el=>!el.disabled&&!el.hidden),first=items[0],lastItem=items.at(-1);
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();lastItem.focus()}
+    else if(!e.shiftKey&&document.activeElement===lastItem){e.preventDefault();first.focus()}return;
+  }
+  if(!e.repeat&&(e.code==='KeyP'||e.code==='Escape')){if(e.code==='Escape'||!editing){e.preventDefault();toggle()}return}
+  if(editing)return;
+  if(keyMap[e.code]){if(e.code==='Space'&&button)return;e.preventDefault();if(started&&!state.paused&&!state.finished){held.add(e.code);paintInputs()}}
+  if(!e.repeat&&started&&overlay.hidden){if(e.code==='KeyC')$('#camera').click();if(e.code==='KeyR')requestRestart()}
+});
 window.addEventListener('keyup',e=>{if(keyMap[e.code]){held.delete(e.code);paintInputs()}});
-document.querySelectorAll('.drive').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();if(!started||state.paused)return;b.setPointerCapture(e.pointerId);pointers.set(e.pointerId,b.dataset.key);paintInputs()});function up(e){pointers.delete(e.pointerId);paintInputs()}for(const event of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(event,up)});
-window.addEventListener('blur',()=>{release();if(started&&!state.paused)setPaused(true)});window.addEventListener('pagehide',()=>{release();if(started&&!state.paused)setPaused(true)});document.addEventListener('visibilitychange',()=>{if(document.hidden){release();if(started&&!state.paused)setPaused(true)}});
-canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();fail('The graphics connection was interrupted. Reload to restart the drive.')});window.addEventListener('error',e=>fail('The drive stopped unexpectedly. Please reload.'));window.addEventListener('resize',()=>{if(renderer){renderer.resize(preferences.quality);render()}});
+document.querySelectorAll('.drive').forEach(b=>{
+  b.addEventListener('pointerdown',e=>{e.preventDefault();if(!started||state.paused||state.finished)return;b.setPointerCapture(e.pointerId);pointers.set(e.pointerId,b.dataset.key);paintInputs()});
+  function up(e){pointers.delete(e.pointerId);paintInputs()}
+  for(const event of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(event,up);
+});
+window.addEventListener('blur',suspend);window.addEventListener('pagehide',suspend);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)suspend()});
+window.addEventListener('storage',event=>{
+  if(event.storageArea!==storage||(event.key!==TRIP_SAVE_KEY&&event.key!==null))return;
+  if(!started){saveResult=tripSave.load();if(saveResult.status!=='unavailable')savedCheckpoint=saveResult.checkpoint||null;updateSaveUI();return}
+  saveResult={status:'conflict'};updateSaveUI();if(!state.finished&&!fatal)setPaused(true,false);
+});
+canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();fail('The graphics connection was interrupted. Reload to continue.')});
+window.addEventListener('error',()=>fail('The drive stopped unexpectedly. Please reload.'));
+window.addEventListener('resize',()=>{if(renderer){renderer.resize(preferences.quality);render()}});
+updateSaveUI();
 try{renderer=new Renderer(canvas);renderer.resize(preferences.quality);render()}catch(e){fail(e.message)}
 // Read-only diagnostics. No debug teleport/control mutations are exposed.
-window.CityFare=Object.freeze({inspect:()=>({version:'007-Sonoran-Run',fatal,state:{...state},input:actions(),preferences:{...preferences},started,overloads,graphics:renderer?.inspect()||null})});
+window.CityFare=Object.freeze({inspect:()=>({version:'008-Sonoran-Save',fatal,state:{...state},input:actions(),preferences:{...preferences},started,overloads,save:{status:saveResult.status,savedAt:savedCheckpoint?.savedAt||null,distance:savedCheckpoint?.state.distance??null},graphics:renderer?.inspect()||null})});
 
-</script></body></html>
+</script>
+</body></html>
