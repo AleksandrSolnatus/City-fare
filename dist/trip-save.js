@@ -11,7 +11,7 @@ function tripSaveState(value, requireMatchingFinish = false) {
   const { x, z, angle, distance } = value;
   if (z < 0 || distance < 0 || distance > ROUTE_LENGTH
     || z > distance + tripSaveTolerance
-    || Math.abs(x) > 1e9 || z > 1e9) return null;
+    || Math.abs(x-1.8) > distance + 200 || z > 1e9) return null;
   // Existing 008 checkpoint records have no cactus history: accept as empty.
   const destroyedCacti=value.destroyedCacti===undefined?[]:value.destroyedCacti;
   if(!Array.isArray(destroyedCacti)||destroyedCacti.length>10000
