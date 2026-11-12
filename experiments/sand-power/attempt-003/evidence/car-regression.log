@@ -1,0 +1,55 @@
+
+> city-fare-sonoran-run@0.9.0 test
+> node --test tests/*.test.mjs
+
+✔ wind is deterministic and the car experiences direction-dependent air drag (1.272208ms)
+✔ the active spoiler trades drag for downforce using a single shared setting (0.214459ms)
+✔ power competes with drag; sand has lower grip and speed-dependent resistance (0.208666ms)
+✔ car can cross the former 32m invisible wall without clamping or teleporting (2.426167ms)
+✔ cactus shapes and swept hit records share stable identities (0.497417ms)
+✔ contact creates exactly one durable cactus event and a speed jolt (0.697542ms)
+✔ replaying a fixed input sequence reproduces speed and impact history (9.850333ms)
+✔ wing setup changes both drag and available turning grip at the same speed (0.077958ms)
+✔ all 1,200 direct sweeps hit the unchanged cactus records from both directions (12.531708ms)
+✔ 120 high-speed driving crossings include both sides of the 612m boundary (19.631333ms)
+✔ one hundred percent of 10,001 distinct cactus IDs survive compact save/reload (17.517333ms)
+✔ the 10,001st contact from the actual driving code still allows checkpoint writes (17.278625ms)
+✔ an old 008 or early 009 ID-array checkpoint loads without rewriting its original bytes (11.787542ms)
+✔ legacy unusual IDs survive losslessly without being converted to different objects (0.225542ms)
+✔ compact records reject corrupt masks, duplicate chunks and ambiguous representations (0.141083ms)
+✔ full geometry capacity fits compactly without truncation (326.358875ms)
+✔ the title screen never writes over an existing trip on idle or background events (29.410959ms)
+✔ a transient re-read failure during Resume retains the last valid trip (1.946042ms)
+✔ R restart cancellation keeps progress and modal focus; confirmation replaces the trip (2.022209ms)
+✔ denied restart writes preserve old saved bytes and never claim the new run is saved (26.620792ms)
+✔ completion writes once, survives reload, and does not award mileage from elapsed wall time (3.368125ms)
+✔ background saving clears input; another tab changing the slot blocks stale resume and writes (23.349375ms)
+✔ 2200-mile procedural route is deterministic, bounded, and has consistent tangents (1.119792ms)
+✔ terrain is flat near the road and gently bounded outside (0.280042ms)
+✔ fresh starts in the right lane and stationary steering cannot rotate the car (8.043584ms)
+✔ straight propulsion integrates odometer distance in real SI time (0.371625ms)
+✔ absolute yaw drives world x/z without road-follow steering (0.281375ms)
+✔ brake overrides gas, speed stays bounded, and dt is bounded (2.833583ms)
+✔ frame cadence agrees and releasing caller inputs recentres steering (15.42975ms)
+✔ off-road drag starts at tire edge while recovery remains possible (5.167208ms)
+✔ world z does not wrap or finish the odometer challenge (0.601042ms)
+✔ the exact 2200-mile odometer endpoint stops motion permanently (0.145292ms)
+✔ round trip keeps off-road position, continuous yaw and true odometer, then parks (1.646084ms)
+✔ driving backward retains cumulative travel rather than replacing it with world z (3.102041ms)
+✔ elapsed wall time adds no mileage and a completed journey remains completed (0.31975ms)
+✔ invalid runtime state is rejected before any existing checkpoint is changed (0.248875ms)
+✔ malformed, incompatible and impossible stored records survive automatic writes (0.241834ms)
+✔ valid boundary values allow harmless rounding but never relocate the car (0.092834ms)
+✔ missing, denied and quota-full storage fail without throwing or losing the baseline (0.348208ms)
+✔ two tabs detect an intervening write or deletion, while an explicit restart replaces (0.245375ms)
+✔ unobserved occupied slots require loading, and unrelated prototype data is untouched (0.2145ms)
+✔ 008 legacy checkpoint restores with empty cactus history; impacts persist in 009 (0.411375ms)
+✔ invalid cactus receipts are rejected without rewriting a valid save (0.072792ms)
+ℹ tests 43
+ℹ suites 0
+ℹ pass 43
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 436.974042

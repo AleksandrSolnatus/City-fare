@@ -1,6 +1,6 @@
-# CITY FARE: Sand Power — Motion Lab 001
+# CITY FARE: Sand Power — numbered experiments
 
-Status: OWNER-SELECTED creative direction, experimental branch. No merge or publication.
+Current local candidate: [003 — Deep Current](attempt-003/README.md), a playable offline ride with travelling dive intent and surface/submerged signals. 001/002 remain preserved baselines. Status: experimental, no production merge or publication.
 
 ## Identity
 - Product name remains **CITY FARE** (do not rename the main game).

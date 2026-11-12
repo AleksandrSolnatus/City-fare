@@ -1,0 +1,11 @@
+November 12, 2026 — Root correction, authorized by Amar's request to fix the issue.
+The checked-in HTML at 81794ff917be89b9cd5e405b32477cc0ff9d9681 and its exact
+source reconstruction are both 35,577 bytes, SHA-256:
+4e729d83e8c4d11b6d778adfa9f79a86d84f3354e4ba4d73a54a791302db143c
+The earlier README and build guard instead declared:
+0c9fb81a579541807483128928a3bd1c757d88bcb0d3a520de9f0f8a6e438092
+That guard made the documented reconstruction fail. It now validates the
+actual frozen Git artifact. No HTML, template or gameplay source was changed.
+The originating exported ZIP was not recovered; equivalence to that ZIP remains
+unresolved. This correction establishes reconstruction of the Git baseline,
+not verification of the earlier export receipt.

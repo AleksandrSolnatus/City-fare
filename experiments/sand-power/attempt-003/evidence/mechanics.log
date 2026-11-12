@@ -1,0 +1,10 @@
+PASS Dive intent and burial progress from front to tail; release restores exposure
+PASS Surface comparison ignores dive; retains identical horizontal mechanics
+PASS No horizontal contact means no COM propulsion, even through a dive
+PASS Initial COM momentum survives internal actuation without contact
+PASS A two-minute mixed ride stays finite, non-inverted, continuous and within motor budgets
+PASS Input replay reproduces both local depth and horizontal state
+PASS Signals require real proximity AND matching depth, then advance once
+PASS Rendering is finite in nine viewport/camera combinations and cannot change mechanics
+PASS Offline bundle includes exact sources and cannot access historical car saves
+TOTAL 9

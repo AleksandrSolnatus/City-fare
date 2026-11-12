@@ -1,0 +1,26 @@
+Independent read-only Counsel review — November 12, 2026
+
+Disposition after correction: pass; no remaining blocking finding in scope.
+
+Initial findings:
+- P2: W and ArrowUp shared one Set key; releasing either cancelled the other.
+- P3: rendered capture halo .95 disagreed with route radius 1.8.
+- P3: surface-only first collection announced a buried next signal.
+
+Verified corrections:
+- Physical key codes retained, mapped to actions when collecting input.
+- Route target carries the capture radius; renderer reads that value.
+- Signal toast derives from the actual next target's kind.
+
+Independently passed test.cjs (nine groups) and lifecycle.test.cjs. Independent
+120-second probe stayed finite/non-inverted; minimum cell area .2061,
+maximum vertical step .01019, 10,484 partially buried simulation steps.
+No-contact COM drift 1.06e-13. Surface comparison physical state identical with
+Dive true/false. Straight surge reached the first surface signal.
+All 21 protected baseline files matched the starting commit. 002 rebuilt exactly.
+003 assembled HTML matched source at final recheck, SHA-256:
+2ea6f728e490ed6c0615b7bb866d5614549038200d2c75fd79b416623e17772b
+
+Remaining minor request: include lifecycle.test.cjs in npm test. Builder did so;
+this changes test orchestration only. Browser/physical phone/audio/download were
+not independently exercised by Counsel. Root browser observations are separate.

@@ -1,0 +1,102 @@
+Window: "003 responsive verification", App: Google Chrome.
+0 standard window 003 responsive verification - Google Chrome, URL: 127.0.0.1:18766/evidence/mobile-preview.html, Secondary Actions: Raise
+	1 container 003 responsive verification - Google Chrome, URL: 127.0.0.1:18766/evidence/mobile-preview.html
+		2 container
+			3 toolbar
+				4 button Back
+				5 button (disabled) Forward
+				6 button Reload
+				7 container
+					8 pop up button View site information
+					9 text field (settable) Address and search bar, Value: 127.0.0.1:18766/evidence/mobile-preview.html, Placeholder: Ask Google or type a URL
+					10 button Bookmark this tab
+				11 pop up button Extensions
+				12 button Aleksandr
+				13 pop up button Chrome
+			14 container
+				15 scroll area
+					16 HTML content 003 responsive verification, URL: 127.0.0.1:18766/evidence/mobile-preview.html
+						17 heading 003 responsive verification, Value: 1
+							18 text 003 responsive verification
+						19 button Read game diagnostics
+						20 text {
+  "portrait": {
+    "viewport": [
+      390,
+      740
+    ],
+    "pageWidth": 390,
+    "fatal": false,
+    "tick": 1495,
+    "running": false,
+    "meanRenderMs": 2.8233333362473383,
+    "faces": 1200,
+    "inputs": {
+      "surge": false,
+      "left": false,
+      "right": false,
+      "dive": false,
+      "coast": false
+    }
+  },
+  "landscape": {
+    "viewport": [
+      844,
+      390
+    ],
+    "pageWidth": 844,
+    "fatal": false,
+    "tick": 3028,
+    "running": false,
+    "meanRenderMs": 3.244444
+						21 container
+							22 text 390 × 740 portrait
+							23 HTML content CITY FARE · Sand Power 003 — Deep Current, URL: 127.0.0.1:18766/City-Fare-Sand-Power-003.html
+								24 container Between the dunes.
+									25 text TAKE YOUR TIME
+									26 heading Between the dunes., Value: 2
+										27 text Between the dunes.
+									28 button Keep riding ↗
+									29 button Fresh ride
+									30 button Export rides
+									31 checkbox Steady camera · reduced effects, Value: 0
+									32 disclosure triangle THE MOVEMENT LAB
+										33 text THE MOVEMENT LAB
+									34 text Rides live in this tab. Export to keep your input history and final state. No car saves are accessed.
+							35 text 844 × 390 landscape
+							36 HTML content CITY FARE · Sand Power 003 — Deep Current, URL: 127.0.0.1:18766/City-Fare-Sand-Power-003.html
+								37 container Between the dunes.
+									38 text TAKE YOUR TIME
+									39 heading Between the dunes., Value: 2
+										40 text Between the dunes.
+									41 button Keep riding ↗
+									42 button Fresh ride
+									43 button Export rides
+									44 checkbox Steady camera · reduced effects, Value: 0
+									45 disclosure triangle THE MOVEMENT LAB
+										46 text THE MOVEMENT LAB
+			47 pop up button Tab search
+			48 container
+				49 tab group
+					50 tab (settable, boolean) New Tab, Value: off
+						51 button Close
+					52 tab (selected, settable, boolean) 003 responsive verification, Value: on
+						53 button Close
+			54 button New Tab
+			55 button Open Gemini in Chrome
+	56 close button
+	57 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	58 minimize button
+59 menu bar
+	60 Chrome
+	61 File
+	62 Edit
+	63 View
+	64 History
+	65 Bookmarks
+	66 Profiles
+	67 Tab
+	68 Window
+	69 Help
+
+The focused UI element is 19 button Read game diagnostics

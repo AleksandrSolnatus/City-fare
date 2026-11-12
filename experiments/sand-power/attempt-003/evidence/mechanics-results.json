@@ -1,0 +1,72 @@
+{
+  "node": "v26.5.0",
+  "dt": 0.004166666666666667,
+  "tests": 9,
+  "results": [
+    {
+      "name": "Dive intent and burial progress from front to tail; release restores exposure",
+      "status": "PASS",
+      "ms": 70.533917,
+      "detail": {
+        "partial": 8,
+        "final": 0
+      }
+    },
+    {
+      "name": "Surface comparison ignores dive; retains identical horizontal mechanics",
+      "status": "PASS",
+      "ms": 86.90050000000001,
+      "detail": null
+    },
+    {
+      "name": "No horizontal contact means no COM propulsion, even through a dive",
+      "status": "PASS",
+      "ms": 53.01733300000001,
+      "detail": {
+        "x": -4.625929269271481e-15,
+        "y": 6.301995962113924e-14
+      }
+    },
+    {
+      "name": "Initial COM momentum survives internal actuation without contact",
+      "status": "PASS",
+      "ms": 29.182957999999985,
+      "detail": null
+    },
+    {
+      "name": "A two-minute mixed ride stays finite, non-inverted, continuous and within motor budgets",
+      "status": "PASS",
+      "ms": 361.43399999999997,
+      "detail": {
+        "maxHeightStep": 0.009999278688698654,
+        "minCellArea": 0.20740031031162687,
+        "maxForce": 21.999999999999925,
+        "maxPower": 176.96351831946896
+      }
+    },
+    {
+      "name": "Input replay reproduces both local depth and horizontal state",
+      "status": "PASS",
+      "ms": 111.63024999999993,
+      "detail": null
+    },
+    {
+      "name": "Signals require real proximity AND matching depth, then advance once",
+      "status": "PASS",
+      "ms": 43.38041599999997,
+      "detail": null
+    },
+    {
+      "name": "Rendering is finite in nine viewport/camera combinations and cannot change mechanics",
+      "status": "PASS",
+      "ms": 74.71433400000001,
+      "detail": null
+    },
+    {
+      "name": "Offline bundle includes exact sources and cannot access historical car saves",
+      "status": "PASS",
+      "ms": 0.9879999999999427,
+      "detail": null
+    }
+  ]
+}

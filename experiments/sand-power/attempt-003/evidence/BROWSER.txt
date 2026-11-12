@@ -1,0 +1,16 @@
+Root browser acceptance — November 12, 2026
+
+Chrome on this Mac: entered ride, surged, collected first surface signal,
+held Dive, emerged and paused. Final standalone file opened directly with
+a file URL; welcome screen rendered offline. Desktop screenshot retained.
+
+Responsive harness: actual game iframes at 390 x 740 and 844 x 390. Both
+drove; no horizontal overflow; pause released input when focus moved out.
+The exposed read-only diagnostics reported no fatal error. AX diagnostic
+text is truncated by Chrome at the long text node; portrait mean render
+2.823 ms and landscape displayed 3.244 ms. These are Mac samples, not
+physical-phone benchmarks. Screenshot and harness retained.
+
+Limits: physical phone / iPhone Safari, real multitouch hardware, audio
+quality and actual downloaded export opening were not browser-tested.
+The lifecycle harness verifies export payload and exact numerical replay.
