@@ -92,7 +92,7 @@ function harness(storage = new TestStorage()) {
     assert.equal(selector, '.drive'); return driveButtons;
   };
   get('#overlay').querySelectorAll = selector => {
-    assert.equal(selector, 'button,input');
+    assert.equal(selector, 'button,input,select');
     return ['resume', 'save-exit', 'reload-save', 'sound', 'volume', 'gentle', 'motion', 'quality', 'restart'].map(id => get('#' + id));
   };
   document.body = makeNode('body'); document.body.classList.add('intro');
