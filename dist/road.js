@@ -87,21 +87,37 @@ function decorRandom(n) {
 // Swept circular hit test avoids tunnelling even when the vehicle is fast.
 export function sweptCactusHits(x0,z0,x1,z1,alreadyDestroyed=new Set()) {
   const hits=[],vx=x1-x0,vz=z1-z0,len2=vx*vx+vz*vz;
-  const first=Math.floor((Math.min(z0,z1)-3)/600)*600;
-  const last=Math.floor((Math.max(z0,z1)+3)/600)*600;
+  // The last near cactus belongs to its original chunk but is at start+612m.
+  // Sweep both the physical collision radius and the 12m generator overhang,
+  // including the preceding owning chunk. Do not alter object coordinates/IDs.
+  const reach=TUNE.carHalf+.55;
+  const first=Math.floor((Math.min(z0,z1)-12-reach)/600)*600;
+  const last=Math.floor((Math.max(z0,z1)+reach)/600)*600;
   for(let chunk=first;chunk<=last;chunk+=600) {
     for(const cactus of cactusRecords(chunk)) {
       if(alreadyDestroyed.has(cactus.id))continue;
       const t=len2>0?clamp(((cactus.x-x0)*vx+(cactus.z-z0)*vz)/len2,0,1):0;
       const dx=x0+t*vx-cactus.x,dz=z0+t*vz-cactus.z;
-      const reach=TUNE.carHalf+cactus.radius;
-      if(dx*dx+dz*dz<=reach*reach)hits.push(cactus);
+      const impactRadius=TUNE.carHalf+cactus.radius;
+      if(dx*dx+dz*dz<=impactRadius*impactRadius)hits.push(cactus);
     }
   }
   return hits;
 }
 
 // Mutates and returns state. Driving uses SI units and constant substep cadence.
+// Keep the hot-path membership index between frames; rebuilding a Set of an
+// entire 2,200-mile destruction history every 1/60 second is not scalable.
+const cactusIndexCache=new WeakMap();
+function cactusIndexFor(state){
+  const ids=state.destroyedCacti;
+  let index=cactusIndexCache.get(state);
+  if(!index||index.ids!==ids||index.length!==ids.length){
+    index={ids,length:ids.length,set:new Set(ids)};
+    cactusIndexCache.set(state,index);
+  }
+  return index;
+}
 export function step(state, input = {}, dt = 0, prefs = {}) {
   if (state.finished || state.distance >= ROUTE_LENGTH) {
     state.finished=true;state.distance=ROUTE_LENGTH;state.v=0;return state;
@@ -111,7 +127,7 @@ export function step(state, input = {}, dt = 0, prefs = {}) {
   const count=Math.ceil(duration*120),h=duration/count;
   const target=(input.right?1:0)-(input.left?1:0);
   if(!Array.isArray(state.destroyedCacti))state.destroyedCacti=[];
-  const destroyed=new Set(state.destroyedCacti);
+  const cactusIndex=cactusIndexFor(state),destroyed=cactusIndex.set;
   state.impacts=[];
 
   for(let i=0;i<count;i++){
@@ -140,6 +156,7 @@ export function step(state, input = {}, dt = 0, prefs = {}) {
     state.distance=Math.min(ROUTE_LENGTH,(state.distance||0)+travel);
     for(const hit of sweptCactusHits(x0,z0,state.x,state.z,destroyed)){
       destroyed.add(hit.id);state.destroyedCacti.push(hit.id);
+      cactusIndex.length=state.destroyedCacti.length;
       state.impacts.push({id:hit.id,x:hit.x,z:hit.z,seed:hit.seed});
       state.v*=.95;
     }
