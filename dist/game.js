@@ -165,7 +165,7 @@ window.addEventListener('keydown',e=>{
   if($('#restart-dialog').open)return;
   const editing=/INPUT|SELECT|TEXTAREA/.test(e.target.tagName),button=e.target.closest?.('button');
   if(e.code==='Tab'&&!overlay.hidden){
-    let items=[...overlay.querySelectorAll('button,input')].filter(el=>!el.disabled&&!el.hidden),first=items[0],lastItem=items.at(-1);
+    let items=[...overlay.querySelectorAll('button,input,select')].filter(el=>!el.disabled&&!el.hidden),first=items[0],lastItem=items.at(-1);
     if(e.shiftKey&&document.activeElement===first){e.preventDefault();lastItem.focus()}
     else if(!e.shiftKey&&document.activeElement===lastItem){e.preventDefault();first.focus()}return;
   }
