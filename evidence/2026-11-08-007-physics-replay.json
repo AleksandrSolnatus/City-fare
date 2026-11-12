@@ -1,0 +1,68 @@
+{
+"schema": "city-fare-rising-tide-physics/v1",
+"model": "dist/road.js",
+"timeStepSeconds": 0.016666666666666666,
+"note": "Deterministic simulated controls only. No frame-rate, graphics, player-experience, work-time or speedup claim.",
+"scenarios": [
+{
+"id": "departure",
+"simulatedSeconds": 30,
+"frames": 1800,
+"startLateralMeters": 0,
+"distanceMeters": 1764.569357,
+"finalX": 41.472525,
+"finalZ": 1764.569357,
+"finalLateralMeters": -32,
+"finalSpeedMph": 137.059509,
+"peakSpeedMph": 179.99898,
+"peakLateralMeters": 32,
+"offRoadFramePercent": 50.055556,
+"finished": false
+},
+{
+"id": "brake-and-relaunch",
+"simulatedSeconds": 35,
+"frames": 2100,
+"startLateralMeters": 0,
+"distanceMeters": 1429.858689,
+"finalX": 29.577989,
+"finalZ": 1429.858689,
+"finalLateralMeters": -32,
+"finalSpeedMph": 131.949904,
+"peakSpeedMph": 179.99898,
+"peakLateralMeters": 32,
+"offRoadFramePercent": 57.190476,
+"finished": false
+},
+{
+"id": "slalom",
+"simulatedSeconds": 50,
+"frames": 3000,
+"startLateralMeters": 0,
+"distanceMeters": 2812.752098,
+"finalX": 41.487811,
+"finalZ": 1958.012617,
+"finalLateralMeters": -31.849632,
+"finalSpeedMph": 137.059508,
+"peakSpeedMph": 137.059508,
+"peakLateralMeters": 32,
+"offRoadFramePercent": 84.166667,
+"finished": false
+},
+{
+"id": "desert-recovery",
+"simulatedSeconds": 40,
+"frames": 2400,
+"startLateralMeters": 18,
+"distanceMeters": 2095.77232,
+"finalX": 105.258287,
+"finalZ": 1936.571463,
+"finalLateralMeters": 31.869277,
+"finalSpeedMph": 137.059508,
+"peakSpeedMph": 137.059508,
+"peakLateralMeters": 31.869277,
+"offRoadFramePercent": 98.375,
+"finished": false
+}
+]
+}

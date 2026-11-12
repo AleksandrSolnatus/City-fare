@@ -1,0 +1,30 @@
+name: City Fare replay and tests
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact revision
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run existing and new driving tests
+        run: npm test
+      - name: Capture deterministic replay
+        run: npm run benchmark | tee city-fare-replay.json
+      - name: Preserve replay artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: city-fare-replay
+          path: city-fare-replay.json
+          retention-days: 30

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0c171e"><meta name="description" content="City Fare: an independent, original top-down driving game. Pick up passengers, drive the city, and earn your next fare."><title>City Fare — Playable Prototype 002 PRO</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect rx='15' width='64' height='64' fill='%23ffd17b'/%3E%3Cpath d='M18 24h28v21H18zm5-7h18v7H23z' fill='%2314242d'/%3E%3C/svg%3E"><style>:root{color-scheme:dark;--bg:#0c171e;--panel:#14242d;--line:#2a3c45;--ink:#edf4ee;--muted:#93a9ae;--mint:#84e8be;--gold:#ffd17b;--active:var(--mint)}
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden}body{background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;height:100vh;height:100dvh;display:flex;flex-direction:column;overscroll-behavior:none}body[data-phase="dropoff"]{--active:var(--gold)}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible{outline:3px solid var(--mint);outline-offset:3px}button:disabled{opacity:.55;cursor:wait}header{padding:18px 28px;display:flex;align-items:center;gap:18px;border-bottom:1px solid var(--line);padding-top:max(18px,env(safe-area-inset-top));flex:none}.brand{display:flex;align-items:center;gap:12px;margin-right:auto}.brand-mark{width:36px;height:36px;background:var(--gold);border-radius:10px;color:#1a2b32;display:grid;place-items:center;font-size:23px;font-weight:900}.brand h1{font-size:23px;letter-spacing:-.04em;line-height:1.1;margin:0}.eyebrow{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}.brand .eyebrow{margin-top:5px}.stats{display:flex;gap:28px;padding-right:12px}.stat{min-width:74px}.stat span{display:block;font-size:9px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}.stat b{font-size:24px;line-height:1.3;font-variant-numeric:tabular-nums;font-weight:650}.stat:last-child b{color:var(--gold)}.reset{background:transparent;border:1px solid #40525a;border-radius:10px;padding:10px 14px;min-height:44px;font-size:12px}.reset:hover{background:#23343d}main{width:100%;max-width:1600px;min-height:0;flex:1;display:flex;margin:0 auto;padding:20px;gap:20px}.dispatch{width:244px;flex:none;display:flex;flex-direction:column;gap:18px;padding:8px 4px}.dispatch-top{display:flex;justify-content:space-between;align-items:center}.live{font-size:10px;color:var(--mint);letter-spacing:.09em}.live:before{content:"";display:inline-block;width:6px;height:6px;background:var(--mint);border-radius:50%;margin-right:6px}.mission{padding:20px 18px;border:1px solid var(--line);border-radius:16px;background:var(--panel);position:relative;overflow:hidden}.mission:before{content:"";position:absolute;left:0;top:20px;width:3px;height:32px;border-radius:3px;background:var(--active)}.phase{font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--active);text-transform:uppercase}.mission h2{font-size:27px;line-height:1.1;letter-spacing:-.045em;margin:12px 0 8px}.mission p{font-size:12px;color:#b6c7c9;margin:0;min-height:36px}.fare-line{border-top:1px solid #31434c;margin-top:20px;padding-top:14px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted)}.fare-line b{font-size:22px;color:var(--gold)}.trip{font-size:12px;display:grid;grid-template-columns:12px 1fr;gap:13px 9px;color:#c9d6d6;padding:2px 10px}.trip i{margin-top:4px;height:8px;width:8px;border:2px solid var(--mint);border-radius:50%;position:relative}.trip i:first-child:after{content:"";position:absolute;width:1px;height:30px;top:9px;left:1px;background:var(--line)}.trip i.end{border-color:var(--gold);border-radius:2px}.trip small{display:block;color:var(--muted);font-size:9px;letter-spacing:.1em;margin-bottom:3px;text-transform:uppercase}.help{margin-top:auto;border-top:1px solid var(--line);padding:18px 10px 0;color:var(--muted);font-size:11px}.help strong{display:block;color:var(--ink);margin-bottom:8px;font-size:12px;font-weight:600}.help p{margin:8px 0}.keys{display:flex;gap:4px}.keys kbd{font:11px system-ui;display:inline-block;padding:4px 7px;border:1px solid #40525a;border-bottom-width:3px;border-radius:5px;color:#d2dedc}.stage{min-width:0;flex:1;position:relative;overflow:hidden;border-radius:20px;border:1px solid #435650;background:#486552;isolation:isolate;touch-action:none}canvas{display:block;width:100%;height:100%;touch-action:none}.scene-label{position:absolute;left:20px;top:18px;pointer-events:none;display:flex;gap:8px;align-items:center;background:#10232ddc;border:1px solid #4b625d;border-radius:30px;padding:7px 12px;color:#dae8df;font-size:9px;letter-spacing:.15em}.scene-label em{font-style:normal;color:var(--mint);font-size:12px}.speed{position:absolute;left:20px;bottom:112px;background:#11222dda;border:1px solid #50625d;border-radius:12px;padding:8px 12px;min-width:70px;text-align:center;pointer-events:none}.speed b{display:block;font-size:22px;line-height:1.1;font-variant-numeric:tabular-nums}.speed span{font-size:8px;color:#b6c6c2;letter-spacing:.1em}.distance{position:absolute;top:57px;left:21px;font-size:10px;letter-spacing:.05em;background:#10232ddc;border:1px solid #4b625d;border-radius:7px;padding:5px 9px;color:var(--active);pointer-events:none}.controls{position:absolute;left:18px;right:18px;bottom:max(18px,env(safe-area-inset-bottom));display:flex;justify-content:space-between;align-items:end;gap:10px;pointer-events:none}.controls-group{display:flex;align-items:end;gap:9px}.control{touch-action:none;pointer-events:auto;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;border:1px solid #93aca388;border-bottom:4px solid #0b1d28;border-radius:15px;background:#19333bea;color:#f1f6e8;width:60px;height:64px;font-size:29px;display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 4px 14px #0c181c30;transition:background .08s}.control small{font-size:8px;letter-spacing:.09em}.control.pressed{background:#4d7461;border-bottom-width:1px;transform:translateY(2px)}.drive{height:84px;width:88px;color:#15302b;background:var(--mint);border-color:#a8f3d0;border-bottom-color:#38745c;font-size:25px}.drive small{font-size:12px;font-weight:800;letter-spacing:.08em}.drive.pressed{background:#b2f7d8}.reverse{font-size:19px;width:54px;height:55px}.toast{position:absolute;left:50%;top:20%;transform:translateX(-50%);max-width:calc(100% - 32px);width:max-content;z-index:3;padding:12px 18px;border:1px solid #e9c379;border-radius:13px;background:#15262df2;box-shadow:0 8px 28px #09182055;font-size:13px;font-weight:600;pointer-events:none;text-align:center}.toast[hidden]{display:none}.toast b{color:var(--gold)}.startup{position:absolute;inset:20% 20px auto;z-index:10;max-width:540px;margin:auto;padding:22px;border-radius:15px;border:1px solid var(--gold);background:#14232ef7;line-height:1.6;box-shadow:0 15px 80px #0005}.startup strong{display:block;color:var(--gold);font-size:17px;margin-bottom:8px}.startup[hidden]{display:none}.startup code{font-size:12px;overflow-wrap:anywhere}.startup button{border:1px solid #73888d;border-radius:8px;background:#273f48;padding:8px 12px;margin-top:12px}.footer{padding:0 26px 12px;display:flex;justify-content:space-between;gap:12px;font-size:9px;color:#82999f;letter-spacing:.04em;flex:none}.footer b{font-weight:500;color:#b4c5c5}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:1600px){header{padding-left:calc((100vw - 1548px)/2);padding-right:calc((100vw - 1548px)/2)}}
+@media(max-width:760px){header{padding:12px 14px;padding-top:max(12px,env(safe-area-inset-top));gap:10px}.brand{gap:8px}.brand-mark{width:30px;height:32px;font-size:21px;border-radius:8px}.brand h1{font-size:20px}.brand .eyebrow{font-size:7px;letter-spacing:.09em}.stats{gap:15px;padding-right:0}.stat{min-width:35px}.stat span{font-size:7px}.stat b{font-size:21px}.reset{padding:8px 10px;font-size:11px;min-width:44px}.reset span{display:none}main{padding:0 8px 8px;gap:8px;flex-direction:column}.dispatch{width:100%;padding:0;display:block;flex:none}.dispatch-top,.trip,.help{display:none}.mission{padding:9px 12px;border-radius:10px;display:grid;grid-template-columns:1fr 55px;gap:0 8px;min-height:77px}.mission:before{top:13px;height:27px;width:2px}.phase{font-size:8px}.mission h2{margin:3px 0 2px;font-size:19px;grid-column:1;line-height:1.2}.mission p{font-size:10px;min-height:0;grid-column:1}.fare-line{grid-column:2;grid-row:1 / 4;margin:0;padding:0 0 0 8px;border-top:0;border-left:1px solid #31434c;flex-direction:column;justify-content:center;font-size:8px}.fare-line b{font-size:19px}.stage{border-radius:12px;min-height:150px}.scene-label{top:12px;left:12px;padding:6px 9px;font-size:8px}.distance{top:47px;left:13px;font-size:9px}.speed{bottom:109px;left:12px;padding:7px 8px;min-width:53px}.speed b{font-size:18px}.controls{left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom))}.controls-group{gap:7px}.control{width:54px;height:61px;font-size:26px;border-radius:13px}.drive{width:78px;height:81px}.reverse{width:45px;height:53px;font-size:18px}.footer{padding:0 14px max(7px,env(safe-area-inset-bottom));font-size:8px}.footer .extra{display:none}.toast{top:27%;font-size:12px;padding:10px 13px}.startup{inset:15% 14px auto;font-size:12px;padding:18px}}
+@media(max-width:360px){.brand .eyebrow{display:none}.brand h1{font-size:18px}.brand-mark{display:none}.stats{gap:14px}.controls-group{gap:5px}.control{width:49px}.drive{width:70px}.reverse{width:43px}.scene-label{font-size:7px}}
+@media(max-height:500px) and (min-width:600px){header{padding:6px 18px;min-height:51px}.brand h1{font-size:19px}.brand-mark{width:29px;height:29px}.brand .eyebrow{font-size:7px}.stat b{font-size:20px}.reset{min-height:36px;padding:6px 11px}main{flex-direction:row;padding:8px 12px;gap:12px}.dispatch{display:flex;flex-direction:column;width:194px;gap:10px;padding:0}.dispatch-top,.trip,.help{display:none}.mission{display:block;padding:13px;min-height:0}.mission h2{font-size:23px;margin:7px 0}.mission p{font-size:11px}.fare-line{display:flex;flex-direction:row;border-left:0;border-top:1px solid #31434c;margin-top:13px;padding-top:9px;font-size:10px}.fare-line b{font-size:22px}.controls{bottom:9px;left:10px;right:10px}.control{width:49px;height:47px;border-radius:11px;font-size:23px}.drive{width:68px;height:58px;font-size:20px}.drive small{font-size:10px}.reverse{width:42px;height:42px}.speed{display:none}.scene-label{top:8px;left:10px}.distance{top:42px;left:11px}.toast{top:32%}.footer{padding:0 16px 6px}.footer .extra{display:none}}
+@media(prefers-reduced-motion:reduce){.control{transition:none}}
+</style></head>
+<body data-phase="pickup">
+<header><div class="brand"><div class="brand-mark" aria-hidden="true">↗</div><div><h1>City Fare<span class="sr-only"> driving game</span></h1><div class="eyebrow">Independent game study · 002 PRO</div></div></div><div class="stats" aria-label="Shift totals"><div class="stat"><span>Fares</span><b id="fares">0</b></div><div class="stat"><span>Earned</span><b id="cash">$0</b></div></div><button class="reset" id="reset" aria-label="Reset game and earnings" title="Reset game and earnings">↻ <span>Reset shift</span></button></header>
+<main><aside class="dispatch" aria-label="Current fare"><div class="dispatch-top"><span class="eyebrow">Your dispatch</span><span class="live">ON SHIFT</span></div><section class="mission"><div class="phase" id="phase">01 · PICKUP</div><h2 id="mission-title">Pick up Maya</h2><p id="mission-hint">Hold DRIVE. Your first passenger is straight ahead.</p><div class="fare-line"><span>FARE VALUE</span><b id="fare-value">$24</b></div></section><div class="trip"><i></i><div><small>Pickup</small><span id="pickup-name">Garden Avenue</span></div><i class="end"></i><div><small>Destination</small><span id="drop-name">Cedar Square</span></div></div><div class="help"><strong>A small city. A fresh start.</strong><p>No timer. No rush. Follow the colored route to your next stop.</p><div class="keys" aria-hidden="true"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><kbd>↑↓←→</kbd></div><p>Drive and steer with the arrow keys or WASD. Space brakes. On touch, hold DRIVE and a steering arrow together. REV brakes, then reverses.</p><p>Pickups and drop-offs happen automatically when you reach the marker.</p></div></aside>
+<section class="stage" id="stage" aria-label="Playable city"><canvas id="game" tabindex="0" aria-label="City driving game. Use arrow keys or WASD to drive. Space to brake. Follow the mint pickup marker, then the amber destination.">Canvas is required to display City Fare.</canvas><div class="scene-label"><em>●</em> SEABROOK <span> / DAY SHIFT</span></div><div class="distance" id="distance">Passenger · 185 m</div><div class="speed"><b id="speed">0</b><span>KM/H · ARCADE</span></div><div class="toast" id="toast" role="status" aria-live="polite" hidden></div><div class="controls" aria-label="Hold controls to drive"><div class="controls-group"><button class="control" data-control="left" aria-label="Steer left" aria-pressed="false">←<small>LEFT</small></button><button class="control" data-control="right" aria-label="Steer right" aria-pressed="false">→<small>RIGHT</small></button></div><div class="controls-group"><button class="control reverse" data-control="down" aria-label="Brake then reverse" aria-pressed="false">↓<small>REV</small></button><button class="control drive" data-control="up" aria-label="Accelerate" aria-pressed="false">↑<small>DRIVE</small></button></div></div><div class="startup" id="startup" role="status"><strong>Starting City Fare…</strong><div id="startup-message">This game needs JavaScript and Canvas 2D. This notice stays until the first scene is drawn. Attachment previews may not run the game; use the hosted webpage in Safari or Chrome.</div><button id="reload" type="button">Reload page</button><noscript><p>JavaScript is disabled in this viewer. Open the game in a JavaScript-capable browser.</p></noscript></div></section></main>
+<footer class="footer"><span><b>Original playable prototype</b><span class="extra"> · Canvas 2D · No accounts or downloads required</span></span><span>002 PRO / SESSION ONLY</span></footer><div class="sr-only" role="status" aria-live="polite" id="announcement"></div>
+<script>/* City Fare 002 PRO. Recovered from City Fare 001/002; independent portfolio work.
+   All artwork is drawn locally. No libraries, network, persistence, or client assets.
+   CityFare.inspect() returns a detached read-only diagnostic snapshot; no state setters. */
+(() => {
+  'use strict';
+  const el = id => document.getElementById(id);
+  const startup = el('startup');
+  let failed = false, frameHandle = 0, firstFrame = false;
+  function fail(error) {
+    failed = true;
+    if (frameHandle) cancelAnimationFrame(frameHandle);
+    startup.hidden = false;
+    startup.querySelector('strong').textContent = 'City Fare could not run';
+    el('startup-message').textContent = String(error && error.message || error) + '. Reload in a normal Safari or Chrome tab. If this persists, include this message in your report.';
+    document.body.dataset.status = 'error';
+  }
+  window.addEventListener('error', event => fail(event.message || 'JavaScript error'));
+  window.addEventListener('unhandledrejection', event => fail(event.reason || 'Unhandled script rejection'));
+  el('reload').addEventListener('click', () => window.location.reload());
+  try {
+    const canvas = el('game'), ctx = canvas.getContext('2d', {alpha:false}), stage = el('stage');
+    if (!ctx) throw new Error('Canvas 2D context is unavailable');
+    if (typeof requestAnimationFrame !== 'function') throw new Error('Animation frames are unavailable');
+    const WORLD = 1600, ROAD = 104, roads = [210,505,800,1095,1390];
+    const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+    const hypot = (a,b) => Math.hypot(a[0]-b[0],a[1]-b[1]);
+    const nearRoad = n => roads.reduce((a,b) => Math.abs(b-n)<Math.abs(a-n)?b:a);
+    const car = {x:505,y:1095,angle:-Math.PI/2,speed:0};
+    const jobs = [
+      {name:'Maya',pickup:[505,910],drop:[505,505],fare:24,from:'Garden Avenue',to:'Cedar Square'},
+      {name:'Eli',pickup:[505,210],drop:[1095,210],fare:36,from:'North Station',to:'Harbor Library'},
+      {name:'Noor',pickup:[1390,505],drop:[1390,1095],fare:31,from:'East Market',to:'Garden Gallery'},
+      {name:'Leo',pickup:[1095,1390],drop:[210,1390],fare:29,from:'South Arcade',to:'Old Town'}
+    ];
+    let W=1,H=1,dpr=1,zoom=1,job=0,passenger=false,cash=0,fares=0,arrive=0;
+    let camera={x:0,y:0},last=performance.now(),clock=0,accumulator=0,frames=0,elapsed=0,toastUntil=0,hudTime=0;
+    let route=[],routeDistance=0,collisionCount=0;
+    const events=[],held=new Map(),keys={up:false,down:false,left:false,right:false,brake:false};
+    const buttons=Array.from(document.querySelectorAll('[data-control]'));
+    const reducedMotion=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const record=(type,extra={})=>{events.push({type,time:+elapsed.toFixed(3),x:+car.x.toFixed(2),y:+car.y.toFixed(2),...extra});if(events.length>80)events.shift();};
+    function sync() {
+      for(const k of Object.keys(keys)) keys[k]=Array.from(held.values()).includes(k);
+      buttons.forEach(b=>{const on=keys[b.dataset.control];b.classList.toggle('pressed',on);b.setAttribute('aria-pressed',String(on));});
+    }
+    function clearInputs(stop=false) {held.clear();sync();if(stop)car.speed=0;}
+    const mapping={ArrowUp:'up',KeyW:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right',Space:'brake'};
+    const textMapping={ArrowUp:'up',w:'up',ArrowDown:'down',s:'down',ArrowLeft:'left',a:'left',ArrowRight:'right',d:'right',' ':'brake'};
+    document.addEventListener('keydown',e=>{
+      if(e.metaKey||e.ctrlKey||e.altKey)return;
+      const focused=e.target.closest && e.target.closest('button');
+      if(focused && (e.code==='Space'||e.code==='Enter')) {
+        if(focused.dataset.control){e.preventDefault();held.set('button:'+e.code,focused.dataset.control);sync();}
+        return;
+      }
+      const k=mapping[e.code]||textMapping[e.key];if(!k)return;
+      e.preventDefault();held.set('key:'+(e.code||e.key),k);sync();
+    });
+    document.addEventListener('keyup',e=>{held.delete('key:'+(e.code||e.key));held.delete('button:'+e.code);sync();});
+    function release(e){held.delete('pointer:'+e.pointerId);sync();}
+    if(window.PointerEvent){
+      buttons.forEach(b=>{
+        b.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;e.preventDefault();held.set('pointer:'+e.pointerId,b.dataset.control);sync();try{b.setPointerCapture(e.pointerId);}catch(_){/* Window release remains active. */}});
+        ['pointerup','pointercancel','lostpointercapture'].forEach(t=>b.addEventListener(t,release));
+      });
+      window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);
+    }else{
+      /* Legacy touch/mouse path; do not register it together with Pointer Events. */
+      buttons.forEach(b=>{
+        b.addEventListener('touchstart',e=>{e.preventDefault();for(const t of e.changedTouches)held.set('touch:'+t.identifier,b.dataset.control);sync();},{passive:false});
+        b.addEventListener('mousedown',e=>{if(e.button!==0)return;e.preventDefault();held.set('mouse',b.dataset.control);sync();});
+      });
+      const endTouch=e=>{for(const t of e.changedTouches)held.delete('touch:'+t.identifier);sync();};
+      window.addEventListener('touchend',endTouch);window.addEventListener('touchcancel',endTouch);window.addEventListener('mouseup',()=>{held.delete('mouse');sync();});
+    }
+    stage.addEventListener('contextmenu',e=>e.preventDefault());
+    window.addEventListener('blur',()=>clearInputs(true));
+    window.addEventListener('pagehide',()=>clearInputs(true));
+    document.addEventListener('visibilitychange',()=>{clearInputs(true);last=performance.now();accumulator=0;});
+    function rounded(c,x,y,w,h,r,fill){c.fillStyle=fill;c.beginPath();r=Math.min(r,w/2,h/2);c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath();c.fill();}
+    function circle(c,x,y,r,color){c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fillStyle=color;c.fill();}
+    function label(c,text,x,y,size,color,align='center'){c.font='600 '+size+'px system-ui,-apple-system,sans-serif';c.textAlign=align;c.fillStyle=color;c.fillText(text,x,y);}
+    const scenery=document.createElement('canvas');scenery.width=WORLD;scenery.height=WORLD;
+    const sc=scenery.getContext('2d');if(!sc)throw new Error('City artwork canvas is unavailable');
+    const buildings=[];
+    function tree(x,y,r=14){circle(sc,x+5,y+6,r+1,'#263f3860');circle(sc,x,y,r,'#345e46');circle(sc,x-3,y-3,r*.74,'#598058');circle(sc,x-5,y-5,r*.34,'#749869');}
+    function building(x,y,w,h,tone,type){
+      buildings.push({x,y,w,h});rounded(sc,x+9,y+11,w,h,6,'#263e3b50');rounded(sc,x,y,w,h,5,'#50635b');rounded(sc,x,y,w,h-8,5,tone);
+      rounded(sc,x+7,y+7,w-14,h-25,3,type%2?'#b7b3a0':'#b0c1b9');
+      if(type%2){for(let q=0;q<3;q++){sc.fillStyle='#829b9380';sc.fillRect(x+13,y+16+q*18,w-26,7);}}
+      else{for(let q=0;q<3;q++){sc.fillStyle='#526f74';sc.fillRect(x+14+q*(w-28)/3,y+14,(w-38)/3,18);}}
+      rounded(sc,x+w-29,y+h-45,16,14,2,'#72817a');sc.fillStyle='#d1d5be';sc.fillRect(x+11,y+h-13,w-22,4);
+    }
+    function buildScenery(){
+      sc.fillStyle='#657c5a';sc.fillRect(0,0,WORLD,WORLD);
+      for(const r of roads){sc.fillStyle='#b1b99e';sc.fillRect(r-ROAD/2-12,0,ROAD+24,WORLD);sc.fillRect(0,r-ROAD/2-12,WORLD,ROAD+24);}
+      for(const r of roads){sc.fillStyle='#35484b';sc.fillRect(r-ROAD/2,0,ROAD,WORLD);sc.fillRect(0,r-ROAD/2,WORLD,ROAD);}
+      for(const r of roads){
+        sc.strokeStyle='#dacb9a99';sc.lineWidth=2;sc.setLineDash([16,19]);sc.beginPath();sc.moveTo(r,0);sc.lineTo(r,WORLD);sc.moveTo(0,r);sc.lineTo(WORLD,r);sc.stroke();sc.setLineDash([]);
+      }
+      for(const x of roads)for(const y of roads){
+        sc.fillStyle='#35484b';sc.fillRect(x-49,y-49,98,98);
+        sc.fillStyle='#c3cbb19c';for(let k=-32;k<38;k+=12){sc.fillRect(x+k,y-63,7,14);sc.fillRect(x+k,y+49,7,14);sc.fillRect(x-63,y+k,14,7);sc.fillRect(x+49,y+k,14,7);}
+        for(const dx of [-66,66])for(const dy of [-66,66]){circle(sc,x+dx,y+dy,4,'#657263');circle(sc,x+dx-1,y+dy-1,2,'#f3d7a2');}
+      }
+      for(let i=0;i<4;i++)for(let j=0;j<4;j++){
+        const x=roads[i]+70,y=roads[j]+70,sz=155;
+        rounded(sc,x-2,y-2,sz+4,sz+4,12,'#749068');
+        if((i===2&&j===2)||(i===0&&j===0)){
+          rounded(sc,x+9,y+9,137,137,12,'#7e986b');sc.fillStyle='#b8ba8c';sc.fillRect(x+68,y+7,17,140);sc.fillRect(x+7,y+68,140,17);
+          circle(sc,x+78,y+78,27,'#cbd0a1');circle(sc,x+78,y+78,21,'#6c9e9a');circle(sc,x+78,y+78,13,'#93bab0');
+          for(const dx of [25,125])for(const dy of [28,127])tree(x+dx,y+dy,19);
+        }else{
+          const tones=['#d2bc96','#95afa8','#c39e80','#9da9a1'];
+          building(x+9,y+10,132,89,tones[(i+j)%4],i+j);building(x+9,y+111,77,34,'#c8b997',1);
+          for(let k=0;k<3;k++)tree(x+107+k*13,y+126,11);
+        }
+        for(const t of [0,1,2]){tree(x-12,y+20+t*52,10);tree(x+sz+12,y+20+t*52,10);}
+      }
+      const names=['NORTH ST','CEDAR AVE','MARKET ST','GARDEN AVE','SOUTH ST'];
+      roads.forEach((y,i)=>{label(sc,names[i],650,y+34,10,'#b9c8bd88');label(sc,names[i],1240,y+34,10,'#b9c8bd88');});
+      for(let i=0;i<roads.length;i++){
+        sc.save();sc.translate(roads[i]-31,690);sc.rotate(-Math.PI/2);label(sc,['OLD TOWN','WILLOW ST','CENTRAL','HARBOR ST','EAST WALK'][i],0,0,10,'#b9c8bd88');sc.restore();
+      }
+      for(let i=0;i<5;i++){const x=roads[i]+36;for(const y of [342,655,951,1241]){rounded(sc,x-9,y-17,18,34,4,['#829e99','#bca98b','#a97962'][i%3]);rounded(sc,x-7,y-8,14,11,2,'#4b6d73');}}
+      label(sc,'SEABROOK',800,95,30,'#d0d3aa');label(sc,'CITY LIMIT',800,119,11,'#c0cda7');
+    }
+    buildScenery();
+    function cameraUpdate(){camera.x=clamp(car.x-W/(2*zoom),0,Math.max(0,WORLD-W/zoom));camera.y=clamp(car.y-H/(2*zoom),0,Math.max(0,WORLD-H/zoom));}
+    function resize(){
+      clearInputs(true);const rect=stage.getBoundingClientRect();W=Math.max(1,Math.floor(rect.width));H=Math.max(1,Math.floor(rect.height));dpr=clamp(window.devicePixelRatio||1,1,2);
+      canvas.width=Math.max(1,Math.floor(W*dpr));canvas.height=Math.max(1,Math.floor(H*dpr));ctx.setTransform(dpr,0,0,dpr,0,0);
+      zoom=W<500?.78:H<330?.74:Math.min(1.12,Math.max(.9,W/1050));cameraUpdate();
+      if(firstFrame&&!failed)draw();
+    }
+    window.addEventListener('resize',resize);window.addEventListener('orientationchange',resize);
+    if(window.visualViewport)window.visualViewport.addEventListener('resize',resize);
+    if(window.ResizeObserver)new ResizeObserver(resize).observe(stage);
+    const target=()=>passenger?jobs[job].drop:jobs[job].pickup;
+    function makeRoute(){
+      const t=target(),cx=nearRoad(car.x),cy=nearRoad(car.y),tx=nearRoad(t[0]),ty=nearRoad(t[1]);
+      route=[[car.x,car.y]];
+      if(Math.abs(car.x-cx)<Math.abs(car.y-cy)){
+        route.push([cx,car.y]);if(Math.abs(t[0]-cx)<1)route.push([cx,t[1]]);else{route.push([cx,ty],[t[0],ty]);}
+      }else{
+        route.push([car.x,cy]);if(Math.abs(t[1]-cy)<1)route.push([t[0],cy]);else{route.push([tx,cy],[tx,t[1]]);}
+      }
+      route.push(t);route=route.filter((p,i)=>!i||hypot(p,route[i-1])>.1);
+      routeDistance=route.slice(1).reduce((n,p,i)=>n+hypot(p,route[i]),0);
+    }
+    function mission(){
+      const j=jobs[job];document.body.dataset.phase=passenger?'dropoff':'pickup';
+      el('phase').textContent=passenger?'02 · DROP-OFF':'01 · PICKUP';
+      el('mission-title').textContent=passenger?'To '+j.to:'Pick up '+j.name;
+      el('mission-hint').textContent=passenger?(job===0?'Keep driving straight. The amber marker is ahead.':'Follow the amber route. Drop-off is automatic.'):(fares===0?'Hold DRIVE. Your first passenger is straight ahead.':'Follow the mint route to your next passenger.');
+      el('fare-value').textContent='$'+j.fare;el('pickup-name').textContent=j.from;el('drop-name').textContent=j.to;el('fares').textContent=fares;el('cash').textContent='$'+cash;
+      makeRoute();
+    }
+    function toast(message){el('toast').textContent=message;el('toast').hidden=false;toastUntil=elapsed+2.5;el('announcement').textContent=message;}
+    function blocked(x,y){return buildings.some(b=>x+13>b.x&&x-13<b.x+b.w&&y+13>b.y&&y-13<b.y+b.h);}
+    function update(dt){
+      elapsed+=dt;clock+=dt;arrive=Math.max(0,arrive-dt);
+      if(arrive===0){
+        const accel=keys.brake?0:keys.up?235:keys.down?(car.speed>8?-480:-155):0;
+        car.speed+=accel*dt;
+        const street=Math.min(Math.abs(car.x-nearRoad(car.x)),Math.abs(car.y-nearRoad(car.y)))<ROAD/2+7;
+        car.speed=clamp(car.speed,-82,street?232:98);
+        if(keys.brake){car.speed*=Math.exp(-12*dt);if(Math.abs(car.speed)<2)car.speed=0;}
+        else if(!keys.up&&!keys.down){car.speed*=Math.exp(-4.2*dt);if(Math.abs(car.speed)<1)car.speed=0;}
+        const steering=Number(keys.right)-Number(keys.left);car.angle+=steering*dt*2.2*clamp(Math.abs(car.speed)/65,0,1)*(car.speed<0?-1:1);
+        const nx=clamp(car.x+Math.cos(car.angle)*car.speed*dt,22,WORLD-22),ny=clamp(car.y+Math.sin(car.angle)*car.speed*dt,22,WORLD-22);
+        if(!blocked(nx,ny)){car.x=nx;car.y=ny;}else{car.speed=-car.speed*.15;collisionCount++;}
+        if(car.x===22||car.x===WORLD-22||car.y===22||car.y===WORLD-22)car.speed=0;
+        if(hypot([car.x,car.y],target())<33){
+          car.speed=0;arrive=.55;
+          if(!passenger){passenger=true;record('pickup',{job});toast(jobs[job].name+' is aboard. Follow the amber route.');}
+          else{const earned=jobs[job].fare;cash+=earned;fares++;record('dropoff',{job,earned,cash,fares});job=(job+1)%jobs.length;passenger=false;toast('Fare complete · +$'+earned+'  /  '+fares+' delivered');}
+          mission();
+        }
+      }
+      cameraUpdate();
+      if(!el('toast').hidden&&elapsed>toastUntil)el('toast').hidden=true;
+      hudTime+=dt;if(hudTime>.1){hudTime=0;makeRoute();el('speed').textContent=Math.round(Math.abs(car.speed)*.22);el('distance').textContent=(passenger?'Destination':'Passenger')+' · '+Math.round(routeDistance)+' m';}
+    }
+    function drawMiniMap(){
+      const size=W<500?82:H<330?78:118,x=W-size-14,y=14,s=(size-12)/WORLD;
+      rounded(ctx,x,y,size,size,12,'#142a30ed');ctx.save();ctx.translate(x+6,y+6);ctx.scale(s,s);
+      ctx.strokeStyle='#80988a';ctx.lineWidth=22;
+      for(const r of roads){ctx.beginPath();ctx.moveTo(r,40);ctx.lineTo(r,WORLD-40);ctx.moveTo(40,r);ctx.lineTo(WORLD-40,r);ctx.stroke();}
+      const t=target();circle(ctx,t[0],t[1],70,passenger?'#ffd17b':'#84e8be');circle(ctx,car.x,car.y,70,'#f4f3dd');circle(ctx,car.x,car.y,31,'#f0b952');ctx.restore();
+      label(ctx,'N',x+size/2,y+size+12,8,'#e7eedc');
+    }
+    function draw(){
+      ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#657c5a';ctx.fillRect(0,0,W,H);
+      ctx.save();ctx.scale(zoom,zoom);ctx.translate(-camera.x,-camera.y);ctx.drawImage(scenery,0,0);
+      const tint=passenger?'#ffd17b':'#84e8be';
+      if(route.length>1){ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle=passenger?'#d29a4838':'#81e9b936';ctx.lineWidth=16;ctx.beginPath();route.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();ctx.strokeStyle=tint+'c9';ctx.lineWidth=3;ctx.setLineDash([6,13]);ctx.stroke();ctx.setLineDash([]);}
+      const t=target(),pulse=reducedMotion?1:1+Math.sin(clock*4)*.1;
+      circle(ctx,t[0],t[1],40*pulse,tint+'22');ctx.strokeStyle=tint;ctx.lineWidth=3;ctx.beginPath();ctx.arc(t[0],t[1],30,0,Math.PI*2);ctx.stroke();
+      if(passenger){rounded(ctx,t[0]-10,t[1]-10,20,20,3,tint);label(ctx,'✓',t[0],t[1]+6,17,'#263d33');}
+      else{circle(ctx,t[0],t[1]-8,6,'#f0d0aa');rounded(ctx,t[0]-6,t[1],12,14,4,tint);ctx.fillStyle='#17333b';ctx.fillRect(t[0]-5,t[1]+11,4,10);ctx.fillRect(t[0]+1,t[1]+11,4,10);}
+      rounded(ctx,t[0]-41,t[1]-57,82,20,8,'#15313bea');label(ctx,passenger?'DROP OFF':'PICKUP',t[0],t[1]-43,9,tint);
+      ctx.save();ctx.translate(car.x+4,car.y+5);ctx.rotate(car.angle+Math.PI/2);rounded(ctx,-17,-28,34,56,9,'#16282977');ctx.restore();
+      ctx.save();ctx.translate(car.x,car.y);ctx.rotate(car.angle+Math.PI/2);
+      ctx.fillStyle='#192b32';ctx.fillRect(-18,-18,5,12);ctx.fillRect(13,-18,5,12);ctx.fillRect(-18,13,5,12);ctx.fillRect(13,13,5,12);
+      rounded(ctx,-15,-28,30,56,7,'#d49739');rounded(ctx,-14,-27,28,51,7,'#f7c663');rounded(ctx,-12,-15,24,18,3,'#537d89');rounded(ctx,-11,-4,22,15,3,'#f2c775');rounded(ctx,-10,13,20,7,2,'#63868a');
+      rounded(ctx,-7,-2,14,5,1,passenger?'#84e8be':'#fff6c8');ctx.fillStyle='#fff7cf';ctx.fillRect(-11,-27,7,4);ctx.fillRect(4,-27,7,4);ctx.fillStyle='#bc6350';ctx.fillRect(-11,23,5,3);ctx.fillRect(6,23,5,3);ctx.restore();ctx.restore();
+      drawMiniMap();
+      const tx=(t[0]-camera.x)*zoom,ty=(t[1]-camera.y)*zoom;
+      if(tx<18||tx>W-18||ty<18||ty>H-90){
+        const sx=(car.x-camera.x)*zoom,sy=(car.y-camera.y)*zoom,a=Math.atan2(ty-sy,tx-sx);
+        const px=clamp(sx+Math.cos(a)*75,22,W-22),py=clamp(sy+Math.sin(a)*75,84,H-110);
+        circle(ctx,px,py,17,'#143039eb');ctx.save();ctx.translate(px,py);ctx.rotate(a);ctx.fillStyle=tint;ctx.beginPath();ctx.moveTo(9,0);ctx.lineTo(-6,-6);ctx.lineTo(-3,0);ctx.lineTo(-6,6);ctx.closePath();ctx.fill();ctx.restore();
+      }
+      frames++;
+    }
+    function reset(){clearInputs(true);car.x=505;car.y=1095;car.angle=-Math.PI/2;car.speed=0;job=0;passenger=false;cash=0;fares=0;arrive=0;elapsed=0;accumulator=0;collisionCount=0;events.length=0;record('reset');el('toast').hidden=true;mission();cameraUpdate();last=performance.now();draw();el('speed').textContent='0';el('distance').textContent='Passenger · 185 m';el('announcement').textContent='Shift reset. Hold DRIVE for the first passenger.';canvas.focus({preventScroll:true});}
+    el('reset').addEventListener('click',reset);
+    function loop(t){
+      if(failed)return;
+      try{
+        const dt=clamp((t-last)/1000,0,.12);last=t;
+        if(!document.hidden){accumulator+=dt;while(accumulator>=1/120){update(1/120);accumulator-=1/120;}draw();}
+        frameHandle=requestAnimationFrame(loop);
+      }catch(error){fail(error);}
+    }
+    Object.defineProperty(window,'CityFare',{value:Object.freeze({version:'002-pro.1',inspect:()=>({version:'002-pro.1',firstFrame,failed,frames,phase:passenger?'dropoff':'pickup',job,cash,fares,car:{...car},target:target().slice(),keys:{...keys},held:held.size,canvas:{cssWidth:W,cssHeight:H,width:canvas.width,height:canvas.height,dpr,zoom},route:route.map(p=>p.slice()),collisionCount,events:events.map(e=>({...e}))})}),writable:false});
+    resize();mission();cameraUpdate();draw();firstFrame=true;startup.hidden=true;document.body.dataset.status='running';record('first-frame');last=performance.now();frameHandle=requestAnimationFrame(loop);
+  }catch(error){fail(error);}
+})();
+</script></body></html>
