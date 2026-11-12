@@ -25,6 +25,7 @@ function savePreferences(){try{storage?.setItem('cityFarePrefs',JSON.stringify(p
 function saveMessage(){
   if(saveResult.status==='conflict')return 'Another tab changed the saved drive. Reload to use that save.';
   if(saveResult.status==='unavailable')return 'Progress could not be saved. Keep this tab open; reloading may return to an older save.';
+  if(saveResult.status==='invalid'&&saveResult.reason==='invalid-state')return 'The current drive could not be saved. Your previous checkpoint was not overwritten.';
   if(saveResult.status==='invalid')return 'The saved drive could not be read. Starting a new drive will replace it.';
   if(savedCheckpoint)return 'Saved in this browser at '+new Date(savedCheckpoint.savedAt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'.';
   return 'Progress saves in this browser every 15 seconds and when you pause.';
@@ -37,6 +38,7 @@ function updateSaveUI(){
   $('#start-label').textContent=savedCheckpoint?(savedCheckpoint.state.finished?'View completed drive':'Resume drive'):'Drive';
   $('#trip-summary').textContent=savedCheckpoint?miles(savedCheckpoint.state.distance)+' miles driven · '+miles(ROUTE_LENGTH-savedCheckpoint.state.distance)+' to go':'';
   $('#trip-note').textContent=saveResult.status==='unavailable'?'Saving is unavailable. You can still drive in this tab.'
+    :saveResult.status==='invalid'&&saveResult.reason==='invalid-state'?'The current position could not be saved. The previous checkpoint is still available.'
     :saveResult.status==='invalid'?'Your saved drive could not be read. Start over to begin a new one.'
     :savedCheckpoint&&!savedCheckpoint.state.finished?'Continue from your last stop. Your car will be stationary.':'Your progress stays in this browser.';
 }
