@@ -1,0 +1,52 @@
+{
+  "schema": "city-fare-sand-power-research-evidence/2",
+  "study": "research-002",
+  "date": "2026-11-12",
+  "kind": "Selected outputs of local normalized diagnostics; not game or browser tests",
+  "environment": {"python": "3.13.5", "numpy": "2.3.5"},
+  "source_sha256": {"control_probe.py": "b07a021c8c0a63c7238b6b9738245da1b06f22252655edc89baa101eaea49d44"},
+  "body_fixture": {
+    "segments": 40,
+    "total_length_normalized": 1.0,
+    "base_mass_normalized": 1.0,
+    "along_resistance": 1.0,
+    "across_resistance": 4.0,
+    "default_dt": 0.008333333333333333,
+    "scenario_count_excluding_repeat": 11,
+    "no_contact_final_com": [0.0, 0.0],
+    "isotropic_final_com": [-4.082818702062363e-17, -8.678423631952194e-18],
+    "anisotropic_final_com": [-2.015518977461578, 0.0076995432012439005],
+    "turn_positive_bias_final_com": [-1.8521928890358408, 0.5476532272758288],
+    "turn_negative_bias_final_com": [-1.848137356330681, -0.528892023204808],
+    "front_half_contact_final_com": [-1.7436567148162818, -0.021803218835857206],
+    "frozen_rest_final_speed": 0.0,
+    "coast_after_three_normalized_time_units_from_speed_one": {
+      "mass_one_speed": 0.05040983352615852,
+      "mass_four_speed": 0.4727352211520361
+    },
+    "worst_discrete_momentum_residual": 6.262351748276274e-16,
+    "worst_segment_length_abs_error": 9.020562075079397e-17,
+    "positive_environment_power_observed": false,
+    "same_process_repeat_exact": true,
+    "dt60_vs_dt240_final_com_difference_body_lengths": 0.0006495483718416175,
+    "dt120_vs_dt240_final_com_difference_body_lengths": 0.0005955391629709639,
+    "limits": "Prescribed shape, unlimited actuation, planar linear resistance, normalized units. No calibrated sand, gravity, self-contact, dune collision, or gameplay. Momentum residual checks the chosen discretization, not physical truth."
+  },
+  "coating_fixture": {
+    "patches": 32,
+    "contacted_patches": 16,
+    "max_layer_m": 0.002,
+    "initial_source_m3": 0.1,
+    "remaining_source_m3": 0.06887435911831333,
+    "final_coating_m3": 0.0032022084362881434,
+    "shed_m3": 0.027923432445398504,
+    "max_budget_error_m3": 5.551115123125783e-17,
+    "base_colors_unchanged": true,
+    "untouched_patches_remained_clean": true,
+    "exact_json_roundtrip": true,
+    "limits": "Prescribed contact/orientation; bookkeeping only. No renderer, adhesion calibration, plate mesh or actual worm-terrain coupling."
+  },
+  "status": "Local assertions passed. Independent review, physical realism and fun remain unestablished.",
+  "game_files_modified": false,
+  "merge_or_deployment_action": false
+}
