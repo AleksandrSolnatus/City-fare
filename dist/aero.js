@@ -40,7 +40,6 @@ export function vehicleForces(speed,angle,x,z,sand=0,spec=AERO) {
   // Sand loss grows with speed instead of applying an arbitrary sand speed cap.
   const resistance=155+surface*(850+.38*speed*speed);
   const acceleration=(drive-aero.drag-resistance)/spec.mass;
-  const braking=(Math.min(spec.brakeForce,traction)-aero.drag-resistance)/spec.mass;
-  return {...aero, mu,lateralGrip,drive,resistance,acceleration,
-          braking:-Math.max(0,-braking) - 2*Math.min(0,braking)};
+  const braking=-(Math.min(spec.brakeForce,traction)+aero.drag+resistance)/spec.mass;
+  return {...aero, mu,lateralGrip,drive,resistance,acceleration,braking};
 }
