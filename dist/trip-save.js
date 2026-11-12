@@ -1,4 +1,5 @@
 import { ROUTE_LENGTH } from './road.js';
+import {decodeCactusHistory,encodeCactusHistory} from './cactus-ledger.js';
 
 export const TRIP_SAVE_KEY = 'cityFareTrip:sonoran-007:v1';
 const tripSaveRoute = 'sonoran-007';
@@ -12,15 +13,13 @@ function tripSaveState(value, requireMatchingFinish = false) {
   if (z < 0 || distance < 0 || distance > ROUTE_LENGTH
     || z > distance + tripSaveTolerance
     || Math.abs(x-1.8) > distance + 200 || z > 1e9) return null;
-  // Existing 008 checkpoint records have no cactus history: accept as empty.
-  const destroyedCacti=value.destroyedCacti===undefined?[]:value.destroyedCacti;
-  if(!Array.isArray(destroyedCacti)||destroyedCacti.length>10000
-    || destroyedCacti.some(id=>typeof id!=='string'||
-       !/^c:-?\d+:\d+:-?1:(?:0|1|near)$/.test(id))
-    || new Set(destroyedCacti).size!==destroyedCacti.length)return null;
+  // 008: no history; first 009 draft: validated ID array;
+  // current 009: compact per-chunk masks plus lossless legacy extras.
+  const destroyedCacti=decodeCactusHistory(value);
+  if(!destroyedCacti)return null;
   const finished = distance === ROUTE_LENGTH;
   if (requireMatchingFinish && value.finished !== finished) return null;
-  // Only journey coordinates survive. Resuming never restores motion or held controls.
+  // The complete journey and destruction history survive; motion/inputs do not.
   return { x, z, angle, distance, finished, destroyedCacti:[...destroyedCacti], v: 0, steer: 0, paused: true };
 }
 
@@ -68,8 +67,11 @@ export class TripSave {
     }
     const savedAt = Date.now();
     const { x, z, angle, distance, finished, destroyedCacti } = state;
+    const history=encodeCactusHistory(destroyedCacti);
+    if(!history)return {status:'invalid',reason:'invalid-state'};
     const raw = JSON.stringify({ version: 1, route: tripSaveRoute,
-      routeLength: ROUTE_LENGTH, savedAt, state: { x, z, angle, distance, finished, destroyedCacti } });
+      routeLength: ROUTE_LENGTH, savedAt,
+      state: { x, z, angle, distance, finished, ...history } });
     try { this.#storage.setItem(TRIP_SAVE_KEY, raw); }
     catch { return { status: 'unavailable', reason: 'storage-write' }; }
     this.#raw = raw;
