@@ -8,8 +8,10 @@ export const AERO = Object.freeze({
   roadFriction: 1.30, sandFriction: .62, gravity: 9.81,
 });
 const aeroClamp=(n,lo,hi)=>Math.max(lo,Math.min(hi,n));
-export function activeWing(speed) {
-  // Wing starts extending as speed rises; more grip costs drag.
+export function activeWing(speed,mode='auto') {
+  // The selected shape changes CdA and downforce; auto follows car speed.
+  if(mode==='speed')return .08;
+  if(mode==='grip')return 1;
   return aeroClamp((speed-22)/80,0,1);
 }
 export function windAt(x,z) {
@@ -29,8 +31,8 @@ export function aeroForces(speed,angle,x,z,wing=activeWing(speed),spec=AERO) {
   const downforce=q*(spec.floorClA+spec.wingClA*wing);
   return {wind,along,across,apparent,drag,downforce,wing};
 }
-export function vehicleForces(speed,angle,x,z,sand=0,spec=AERO) {
-  const aero=aeroForces(speed,angle,x,z,activeWing(speed),spec);
+export function vehicleForces(speed,angle,x,z,sand=0,spec=AERO,wingMode='auto') {
+  const aero=aeroForces(speed,angle,x,z,activeWing(speed,wingMode),spec);
   const surface=aeroClamp(sand,0,1);
   const mu=spec.roadFriction*(1-surface)+spec.sandFriction*surface;
   const lateralGrip=mu*(spec.gravity+aero.downforce/spec.mass);
