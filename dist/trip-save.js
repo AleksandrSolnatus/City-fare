@@ -16,7 +16,7 @@ function tripSaveState(value, requireMatchingFinish = false) {
   const destroyedCacti=value.destroyedCacti===undefined?[]:value.destroyedCacti;
   if(!Array.isArray(destroyedCacti)||destroyedCacti.length>10000
     || destroyedCacti.some(id=>typeof id!=='string'||
-       !/^c:-?\\d+:\\d+:-?1:(?:0|1|near)$/.test(id))
+       !/^c:-?\d+:\d+:-?1:(?:0|1|near)$/.test(id))
     || new Set(destroyedCacti).size!==destroyedCacti.length)return null;
   const finished = distance === ROUTE_LENGTH;
   if (requireMatchingFinish && value.finished !== finished) return null;
