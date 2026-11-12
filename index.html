@@ -14,7 +14,7 @@
 .intro #pause{visibility:hidden}
 
 /* Sonoran Run: minimal interface, cool metal, orange sun. */
-:root{--ink:#263f46;--cream:#f0eadd;--gold:#ffc28b}#welcome{top:auto;bottom:15%;left:7%}#welcome .eyebrow{letter-spacing:4px}h1{font:800 clamp(46px,6vw,86px) Arial,sans-serif;letter-spacing:-3px;line-height:1;margin:14px 0}#welcome p{font-size:13px;letter-spacing:1.2px;margin:14px 0 25px}.keys{opacity:.75}.location{letter-spacing:3px}.brand{letter-spacing:-1.5px}.journey{width:250px}.journey>div:first-child{justify-content:flex-end}#chapter,#surface,#hint{display:none}.speedometer strong{font-size:52px}.speedline{height:2px;width:130px}.viewbutton kbd,.viewbutton span{display:none}.viewbutton{padding:10px 14px}.drivehud{bottom:32px}.drive.gas{background:#bfd8d4c9}.intro .brand{visibility:hidden}#finish-fade{position:fixed;inset:0;background:#172e36;opacity:0;pointer-events:none;z-index:4}#finish{position:fixed;inset:0;z-index:5;display:grid;place-content:center;text-align:center;color:#e6e4d9}#finish[hidden]{display:none}#finish p{letter-spacing:4px;font-size:11px}#finish h2{font-size:50px;font-weight:400;margin:14px 0 35px}#finish button{background:transparent;color:#e6e4d9;border:1px solid #e6e4d966;padding:15px 25px;border-radius:4px}.finished header,.finished .drivehud,.finished .controls{visibility:hidden}@media(max-width:700px),(pointer:coarse){.drivehud{bottom:110px}#welcome{top:auto;bottom:17%}h1{font-size:52px;letter-spacing:-2px}.speedometer strong{font-size:42px}.speedline{width:100px}.journey{width:170px}}@media(max-height:530px){#welcome{bottom:11%;top:auto}h1{font-size:48px}.drivehud{bottom:22px}}
+:root{--ink:#263f46;--cream:#f0eadd;--gold:#ffc28b}#welcome{top:auto;bottom:15%;left:7%}#welcome .eyebrow{letter-spacing:4px}h1{font:800 clamp(46px,6vw,86px) Arial,sans-serif;letter-spacing:-3px;line-height:1;margin:14px 0}#welcome p{font-size:13px;letter-spacing:1.2px;margin:14px 0 25px}.keys{opacity:.75}.location{letter-spacing:3px}.brand{letter-spacing:-1.5px}.journey{width:250px}.journey>div:first-child{justify-content:flex-end}#chapter{display:none}.speedometer strong{font-size:52px}.speedline{height:2px;width:130px}.viewbutton kbd,.viewbutton span{display:none}.viewbutton{padding:10px 14px}.drivehud{bottom:32px}.drive.gas{background:#bfd8d4c9}.intro .brand{visibility:hidden}#finish-fade{position:fixed;inset:0;background:#172e36;opacity:0;pointer-events:none;z-index:4}#finish{position:fixed;inset:0;z-index:5;display:grid;place-content:center;text-align:center;color:#e6e4d9}#finish[hidden]{display:none}#finish p{letter-spacing:4px;font-size:11px}#finish h2{font-size:50px;font-weight:400;margin:14px 0 35px}#finish button{background:transparent;color:#e6e4d9;border:1px solid #e6e4d966;padding:15px 25px;border-radius:4px}.finished header,.finished .drivehud,.finished .controls{visibility:hidden}@media(max-width:700px),(pointer:coarse){.drivehud{bottom:110px}#welcome{top:auto;bottom:17%}h1{font-size:52px;letter-spacing:-2px}.speedometer strong{font-size:42px}.speedline{width:100px}.journey{width:170px}}@media(max-height:530px){#welcome{bottom:11%;top:auto}h1{font-size:48px}.drivehud{bottom:22px}}
 
 /* 2080 dusk: brushed steel, gunmetal, a few living edges. */
 :root{--ink:#d6e2e4;--cream:#e0e9e8;--gold:#8be5dc}body{background:#344b5f}.brand,.location,#welcome{color:#e3e9e5}#welcome{text-shadow:0 2px 24px #172b4980}.primary{background:#273c4bdd;color:#e0efeb;border:1px solid #97d7d077;box-shadow:0 0 22px #56c5ce12,inset 0 0 14px #76e9db08}.primary:hover{background:#345361}.location i{background:#93e8d7;box-shadow:0 0 8px #92eee4}#pause{background:#243a4b77;border-color:#e0eeee55;color:#e3ecea}.vignette{background:linear-gradient(180deg,#172b4933,transparent 26%,transparent 60%,#172b4980)}.speedline i,.route i{box-shadow:0 0 9px #8be5dc55}.pausebox{background:#273c4b;color:#e2e9e5;border:1px solid #a9cad344}.pausebox .primary{background:#385563}#sound{background:#3a5261;color:#e3ece8}.textbutton{color:#d6e9e5}.settings input[type=range],.settings input[type=checkbox]{accent-color:#84d7ce}.drive{background:#273e5077;border-color:#c4e1e66b}.drive.gas{background:#315b66bb;color:#a6f2e5;box-shadow:0 0 20px #77ddd419}.drive.on{background:#90d9d3;color:#233c4b}.viewbutton{border-color:#afced65e;background:#273e5033}#error{background:#273c4b;color:#dce8e7}#error button{background:#466d78;color:white}
@@ -38,6 +38,10 @@ button:disabled{opacity:.45;cursor:default}.pausebox #resume{margin-bottom:12px}
 #toast{z-index:7;max-width:calc(100vw - 32px);white-space:normal;text-align:center}
 @media(max-width:700px){#welcome{bottom:16%}#welcome #trip-summary{font-size:11px}#trip-note{font-size:10px;max-width:290px}.start-actions{gap:18px}.start-actions .primary{padding:15px 19px}.pausebox{max-height:calc(100dvh - 36px)}}
 @media(max-height:530px){#welcome{bottom:9%;max-width:65vw}#welcome .eyebrow{font-size:8px}#welcome h1{font-size:38px;margin:9px 0}#welcome p{margin:7px 0 13px}#welcome #trip-summary{margin-bottom:8px;font-size:11px}#trip-note{margin-top:8px;font-size:10px}.start-actions .primary{padding:10px 18px}.start-actions .textbutton{padding:10px 0}.keys{margin-top:10px}.pausebox{max-height:calc(100dvh - 24px)}.restart-dialog{padding:22px}}
+
+#wing-mode{background:#344f5d;color:#e9f3f1;border:1px solid #86bfc8;border-radius:5px;padding:8px;max-width:210px;font:inherit}
+#surface,#hint{display:block;letter-spacing:.5px;opacity:.92}
+@media(max-width:700px),(pointer:coarse){.journey small{display:block;font-size:8px;white-space:normal}.speedometer small{font-size:8px;letter-spacing:.2px}.journey{width:156px}}
 </style>
 </head>
 <body class="intro">
@@ -62,7 +66,7 @@ button:disabled{opacity:.45;cursor:default}.pausebox #resume{margin-bottom:12px}
 <button id="resume" class="primary">Continue <span aria-hidden="true">↗</span></button>
 <button id="save-exit" class="secondary">Save &amp; return to title</button>
 <p id="save-status" class="save-status" role="status" aria-live="polite"></p><button id="reload-save" class="secondary" hidden>Reload saved drive</button>
-<div class="settings"><button id="sound">Sound: Off</button><label>Volume <input id="volume" type="range" min="0" max="1" step="0.05" value="0.18"></label><label><input id="gentle" type="checkbox"> Gentle steering</label><label><input id="motion" type="checkbox"> Reduced camera motion</label><label><input id="quality" type="checkbox"> Lower resolution</label></div>
+<div class="settings"><label>Wing setup <select id="wing-mode" aria-label="Aerodynamic wing setup"><option value="auto">Auto wing</option><option value="speed">Low drag</option><option value="grip">High downforce</option></select></label><button id="sound">Sound: Off</button><label>Volume <input id="volume" type="range" min="0" max="1" step="0.05" value="0.18"></label><label><input id="gentle" type="checkbox"> Gentle steering</label><label><input id="motion" type="checkbox"> Reduced camera motion</label><label><input id="quality" type="checkbox"> Lower resolution</label></div>
 <button id="restart" class="textbutton">Start the drive again</button><small>Saves belong to this browser. Clearing site data removes them.</small>
 </section></div>
 <dialog id="restart-dialog" class="restart-dialog" aria-labelledby="restart-title" aria-describedby="restart-note"><h2 id="restart-title">Start a new drive?</h2><p id="restart-note">This replaces your saved trip and returns you to mile zero.</p><div class="restart-actions"><button id="cancel-restart" class="secondary" autofocus>Keep this drive</button><button id="confirm-restart" class="primary">Start over</button></div></dialog>
@@ -79,8 +83,10 @@ const AERO = Object.freeze({
   roadFriction: 1.30, sandFriction: .62, gravity: 9.81,
 });
 const aeroClamp=(n,lo,hi)=>Math.max(lo,Math.min(hi,n));
-function activeWing(speed) {
-  // Wing starts extending as speed rises; more grip costs drag.
+function activeWing(speed,mode='auto') {
+  // The selected shape changes CdA and downforce; auto follows car speed.
+  if(mode==='speed')return .08;
+  if(mode==='grip')return 1;
   return aeroClamp((speed-22)/80,0,1);
 }
 function windAt(x,z) {
@@ -100,8 +106,8 @@ function aeroForces(speed,angle,x,z,wing=activeWing(speed),spec=AERO) {
   const downforce=q*(spec.floorClA+spec.wingClA*wing);
   return {wind,along,across,apparent,drag,downforce,wing};
 }
-function vehicleForces(speed,angle,x,z,sand=0,spec=AERO) {
-  const aero=aeroForces(speed,angle,x,z,activeWing(speed),spec);
+function vehicleForces(speed,angle,x,z,sand=0,spec=AERO,wingMode='auto') {
+  const aero=aeroForces(speed,angle,x,z,activeWing(speed,wingMode),spec);
   const surface=aeroClamp(sand,0,1);
   const mu=spec.roadFriction*(1-surface)+spec.sandFriction*surface;
   const lateralGrip=mu*(spec.gravity+aero.downforce/spec.mass);
@@ -236,7 +242,7 @@ function step(state, input = {}, dt = 0, prefs = {}) {
     const oldSpeed=state.v, x0=state.x,z0=state.z;
     const lateral=state.x-center(state.z);
     const sand=smooth((Math.abs(lateral)+TUNE.carHalf-TUNE.roadHalf)/TUNE.shoulder);
-    const forces=vehicleForces(oldSpeed,state.angle,state.x,state.z,sand);
+    const forces=vehicleForces(oldSpeed,state.angle,state.x,state.z,sand,undefined,prefs.wingMode);
     const acceleration=input.brake?forces.braking:input.gas?forces.acceleration:
       -(forces.drag+forces.resistance)/1250;
     state.v=clamp(oldSpeed+acceleration*h,0,TUNE.maxSpeed);
@@ -355,7 +361,7 @@ const draw=(m,z=0)=>{gl.bindBuffer(gl.ARRAY_BUFFER,m.buffer);gl.vertexAttribPoin
 for(let c of this.chunks.values())draw(c,c.z-origin);
 // The far city is a stylized journey-progress cue, not a simulated city map.
 let city=[],progress=Math.min(1,s.distance/ROUTE_LENGTH),cityDist=4400-3500*Math.pow(progress,5),cityZ=s.z+cityDist,cityX=center(s.z+300)+500;for(let i=0;i<19;i++){let x=cityX+(i-9)*33,z=cityZ+rand(i+901)*180,y=elevation(s.z);let hh=65+rand(i+12)*160;box(city,x,y+hh/2,z,18+rand(i)*20,hh,22,'#435e70');box(city,x,y+hh*.73,z-11.2,2,hh*.45,.3,'#81dfde');if(i%4===0)box(city,x,y+hh+18,z,2,36,2,'#a7c6d0')}for(let i=2;i<city.length;i+=6)city[i]-=origin;this.update(this.city,city);draw(this.city);
-let car=carMesh(input.brake,s.steer,s.distance/.39,activeWing(s.v)),pitch=Math.atan((terrainHeight(s.x+Math.sin(s.angle),s.z+Math.cos(s.angle))-terrainHeight(s.x-Math.sin(s.angle),s.z-Math.cos(s.angle)))/2),roll=prefs.motion?0:-s.steer*Math.min(s.v/80.4672,1)*.035;for(let i=0;i<car.length;i+=6){let x=car[i],y=car[i+1],z=car[i+2];let yy=y*Math.cos(pitch)+z*Math.sin(pitch)+x*Math.sin(roll),zz=z*Math.cos(pitch)-y*Math.sin(pitch);car[i]=s.x+x*Math.cos(s.angle)+zz*Math.sin(s.angle);car[i+1]=ground+yy+.055;car[i+2]=s.z+zz*Math.cos(s.angle)-x*Math.sin(s.angle)}for(let i=2;i<car.length;i+=6)car[i]-=origin;this.update(this.car,car);
+let car=carMesh(input.brake,s.steer,s.distance/.39,activeWing(s.v,prefs.wingMode)),pitch=Math.atan((terrainHeight(s.x+Math.sin(s.angle),s.z+Math.cos(s.angle))-terrainHeight(s.x-Math.sin(s.angle),s.z-Math.cos(s.angle)))/2),roll=prefs.motion?0:-s.steer*Math.min(s.v/80.4672,1)*.035;for(let i=0;i<car.length;i+=6){let x=car[i],y=car[i+1],z=car[i+2];let yy=y*Math.cos(pitch)+z*Math.sin(pitch)+x*Math.sin(roll),zz=z*Math.cos(pitch)-y*Math.sin(pitch);car[i]=s.x+x*Math.cos(s.angle)+zz*Math.sin(s.angle);car[i+1]=ground+yy+.055;car[i+2]=s.z+zz*Math.cos(s.angle)-x*Math.sin(s.angle)}for(let i=2;i<car.length;i+=6)car[i]-=origin;this.update(this.car,car);
 let shadow=[];const shadowPoint=a=>{let x=s.x+Math.cos(a)*1.25*Math.cos(s.angle)+Math.sin(a)*2.5*Math.sin(s.angle),z=s.z+Math.sin(a)*2.5*Math.cos(s.angle)-Math.cos(a)*1.25*Math.sin(s.angle);return [x,terrainHeight(x,z)+.135,z]};for(let i=0;i<20;i++)tri(shadow,[s.x,ground+.085,s.z],shadowPoint(i/20*Math.PI*2),shadowPoint((i+1)/20*Math.PI*2),'#504f46');for(let i=2;i<shadow.length;i+=6)shadow[i]-=origin;this.update(this.shadow,shadow);draw(this.shadow);draw(this.car);
 
 // A few additive, depth-tested light halos: geometry only, no bloom pipeline.
@@ -468,10 +474,10 @@ class TripSave {
 const $=s=>document.querySelector(s);
 const canvas=$('#view'),speedEl=$('#speed'),pause=$('#pause'),overlay=$('#overlay'),speedFX=$('#speedfx');
 let renderer,fatal=false;
-let preferences={gentle:false,motion:matchMedia('(prefers-reduced-motion: reduce)').matches,quality:false,volume:.18,camera:'chase'};
+let preferences={gentle:false,motion:matchMedia('(prefers-reduced-motion: reduce)').matches,quality:false,volume:.18,camera:'chase',wingMode:'auto'};
 let storage=null;
 try{storage=window.localStorage}catch(e){}
-try{let p=JSON.parse(storage?.getItem('cityFarePrefs')||'{}');for(let k of ['gentle','motion','quality'])if(typeof p[k]==='boolean')preferences[k]=p[k];if(Number.isFinite(p.volume))preferences.volume=Math.max(0,Math.min(1,p.volume));if(p.camera==='wide')preferences.camera='wide'}catch(e){}
+try{let p=JSON.parse(storage?.getItem('cityFarePrefs')||'{}');for(let k of ['gentle','motion','quality'])if(typeof p[k]==='boolean')preferences[k]=p[k];if(Number.isFinite(p.volume))preferences.volume=Math.max(0,Math.min(1,p.volume));if(p.camera==='wide')preferences.camera='wide';if(['auto','speed','grip'].includes(p.wingMode))preferences.wingMode=p.wingMode}catch(e){}
 const STEP=1/60,MAX_STEPS=5,MPH=2.236936,SAVE_INTERVAL=15;
 let state=fresh(),previous={...state},held=new Set(),pointers=new Map(),last=0,accumulator=0,raf=0,started=false,overloads=0,toastTimer;
 const tripSave=new TripSave(storage);
@@ -520,11 +526,11 @@ function render(interpolate=false,dt=STEP){
   if(!renderer)return;let visible=state;
   if(interpolate){let a=accumulator/STEP;visible={...state};for(let k of ['x','v','steer','angle','distance','z'])visible[k]=previous[k]+(state[k]-previous[k])*a}
   renderer.render(visible,preferences,dt,actions());
-  const forces=aeroForces(state.v,state.angle,state.x,state.z);
+  const forces=aeroForces(state.v,state.angle,state.x,state.z,activeWing(state.v,preferences.wingMode));
   const lateral=Math.abs(state.x-center(state.z));
   $('#surface').textContent=lateral>5.1?'SAND · LOWER GRIP':'ASPHALT · HIGH GRIP';
   $('#hint').textContent='WIND '+Math.round(Math.hypot(forces.wind.x,forces.wind.z)*MPH)+
-    ' MPH · ACTIVE WING '+Math.round(activeWing(state.v)*100)+'%';
+    ' MPH · ACTIVE WING '+Math.round(activeWing(state.v,preferences.wingMode)*100)+'%';
   speedFX.style.opacity=started&&!state.paused&&!state.finished&&!preferences.motion?String(.58*Math.max(0,Math.min(1,(state.v-31.2928)/(125-31.2928)))):'0';
   speedEl.textContent=Math.round(state.v*MPH);$('#speedbar').style.width=(Math.min(1,state.v/115)*100)+'%';
   $('#distance').textContent=miles(Math.max(0,ROUTE_LENGTH-state.distance));$('#progress').style.width=(state.distance/ROUTE_LENGTH*100)+'%';
@@ -602,6 +608,8 @@ $('.brand').onclick=e=>{e.preventDefault();if(started)setPaused(true)};
 $('#camera span').textContent=preferences.camera==='wide'?'Wide cam':'Chase cam';
 $('#camera').onclick=()=>{preferences.camera=preferences.camera==='wide'?'chase':'wide';savePreferences();$('#camera span').textContent=preferences.camera==='wide'?'Wide cam':'Chase cam';render()};
 for(const name of ['gentle','motion','quality']){let el=$('#'+name);el.checked=preferences[name];el.onchange=()=>{preferences[name]=el.checked;savePreferences();if(name==='quality')renderer.resize(preferences.quality);render()}}
+let wingMode=$('#wing-mode');wingMode.value=preferences.wingMode;
+wingMode.onchange=()=>{preferences.wingMode=wingMode.value;savePreferences();render()};
 let volume=$('#volume');volume.value=preferences.volume;volume.oninput=()=>{preferences.volume=Number(volume.value);savePreferences();updateAudio()};
 
 // Gesture-started electric motor: soft sine pair and filtered air, no gear drone.
@@ -625,7 +633,7 @@ window.addEventListener('keydown',e=>{
   if($('#restart-dialog').open)return;
   const editing=/INPUT|SELECT|TEXTAREA/.test(e.target.tagName),button=e.target.closest?.('button');
   if(e.code==='Tab'&&!overlay.hidden){
-    let items=[...overlay.querySelectorAll('button,input')].filter(el=>!el.disabled&&!el.hidden),first=items[0],lastItem=items.at(-1);
+    let items=[...overlay.querySelectorAll('button,input,select')].filter(el=>!el.disabled&&!el.hidden),first=items[0],lastItem=items.at(-1);
     if(e.shiftKey&&document.activeElement===first){e.preventDefault();lastItem.focus()}
     else if(!e.shiftKey&&document.activeElement===lastItem){e.preventDefault();first.focus()}return;
   }
