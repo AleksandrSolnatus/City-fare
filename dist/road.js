@@ -120,7 +120,7 @@ export function step(state, input = {}, dt = 0, prefs = {}) {
     const oldSpeed=state.v, x0=state.x,z0=state.z;
     const lateral=state.x-center(state.z);
     const sand=smooth((Math.abs(lateral)+TUNE.carHalf-TUNE.roadHalf)/TUNE.shoulder);
-    const forces=vehicleForces(oldSpeed,state.angle,state.x,state.z,sand);
+    const forces=vehicleForces(oldSpeed,state.angle,state.x,state.z,sand,undefined,prefs.wingMode);
     const acceleration=input.brake?forces.braking:input.gas?forces.acceleration:
       -(forces.drag+forces.resistance)/1250;
     state.v=clamp(oldSpeed+acceleration*h,0,TUNE.maxSpeed);
