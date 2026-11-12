@@ -1,0 +1,72 @@
+{
+  "node": "v26.5.0",
+  "dt": 0.004166666666666667,
+  "tests": 9,
+  "results": [
+    {
+      "name": "Dive intent and burial progress from front to tail; release restores exposure",
+      "status": "PASS",
+      "ms": 65.43700000000001,
+      "detail": {
+        "partial": 8,
+        "final": 0
+      }
+    },
+    {
+      "name": "Surface comparison ignores dive; retains identical horizontal mechanics",
+      "status": "PASS",
+      "ms": 86.761834,
+      "detail": null
+    },
+    {
+      "name": "No horizontal contact means no COM propulsion, even through a dive",
+      "status": "PASS",
+      "ms": 50.74237500000001,
+      "detail": {
+        "x": -8.263389972285032e-14,
+        "y": -4.8550978052711906e-14
+      }
+    },
+    {
+      "name": "Initial COM momentum survives internal actuation without contact",
+      "status": "PASS",
+      "ms": 28.110208999999998,
+      "detail": null
+    },
+    {
+      "name": "A two-minute mixed ride stays finite, non-inverted, continuous and within motor budgets",
+      "status": "PASS",
+      "ms": 360.542875,
+      "detail": {
+        "maxHeightStep": 0.011471148178737733,
+        "minCellArea": 0.1796028224866809,
+        "maxForce": 29.9999999999999,
+        "maxPower": 384.6899380258219
+      }
+    },
+    {
+      "name": "Input replay reproduces both local depth and horizontal state",
+      "status": "PASS",
+      "ms": 110.27991699999995,
+      "detail": null
+    },
+    {
+      "name": "Signals require real proximity AND matching depth, then advance once",
+      "status": "PASS",
+      "ms": 40.42704100000003,
+      "detail": null
+    },
+    {
+      "name": "Rendering is finite in nine viewport/camera combinations and cannot change mechanics",
+      "status": "PASS",
+      "ms": 76.7376250000001,
+      "detail": null
+    },
+    {
+      "name": "Offline bundle includes exact sources and cannot access historical car saves",
+      "status": "PASS",
+      "ms": 1.1002919999999676,
+      "detail": null
+    }
+  ]
+}

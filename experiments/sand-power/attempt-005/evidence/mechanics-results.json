@@ -1,0 +1,66 @@
+{
+  "node": "v26.5.0",
+  "dt": 0.004166666666666667,
+  "tests": 8,
+  "results": [
+    {
+      "name": "Dive intent and burial progress from front to tail; release restores exposure",
+      "status": "PASS",
+      "ms": 94.814542,
+      "detail": {
+        "partial": 9,
+        "final": 0
+      }
+    },
+    {
+      "name": "Surface comparison ignores dive; retains identical horizontal mechanics",
+      "status": "PASS",
+      "ms": 88.579458,
+      "detail": null
+    },
+    {
+      "name": "No horizontal contact means no COM propulsion, even through a dive",
+      "status": "PASS",
+      "ms": 52.50987500000002,
+      "detail": {
+        "x": -1.1578885998157287e-13,
+        "y": -1.2267964422107969e-15
+      }
+    },
+    {
+      "name": "Initial COM momentum survives internal actuation without contact",
+      "status": "PASS",
+      "ms": 27.948416999999978,
+      "detail": null
+    },
+    {
+      "name": "A two-minute mixed ride stays finite, non-inverted, continuous and within motor budgets",
+      "status": "PASS",
+      "ms": 371.3785,
+      "detail": {
+        "maxHeightStep": 0.013119599764641554,
+        "minCellArea": 0.13375014882316805,
+        "maxForce": 21.5999999999999,
+        "maxPower": 295.40911186663544
+      }
+    },
+    {
+      "name": "Input replay reproduces both local depth and horizontal state",
+      "status": "PASS",
+      "ms": 111.339875,
+      "detail": null
+    },
+    {
+      "name": "Rendering is finite in nine viewport/camera combinations and cannot change mechanics",
+      "status": "PASS",
+      "ms": 70.232167,
+      "detail": null
+    },
+    {
+      "name": "Offline bundle includes exact sources and cannot access historical car saves",
+      "status": "PASS",
+      "ms": 0.47129099999995105,
+      "detail": null
+    }
+  ]
+}

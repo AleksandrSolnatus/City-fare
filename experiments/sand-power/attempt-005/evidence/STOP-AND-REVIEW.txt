@@ -1,0 +1,15 @@
+November 12, 2026 — owner requested development stop and a new PR.
+
+Owner report: "movement is busted."
+Status: unresolved; reproduction trigger not captured. Automated checks must not
+be used to dismiss this failed playtest. Preserve the current implementation for
+read-only review. Do not continue tuning movement or commissioning implementation
+until Amar returns with a plan.
+
+Final applied gameplay change before stop: Hunt checks any exposed overlapping
+section, not only the nearest section. Regression and export replay checks passed.
+Independent final recheck was interrupted at the stop; no final acceptance claim.
+
+Browser: Root counted two catches after W/Shift+W and exercised A/S/E. Subsequent
+screenshots show automatic focus-loss pause; they are partial observations, not
+proof of accepted movement. Final phone-layout/device checks were not completed.

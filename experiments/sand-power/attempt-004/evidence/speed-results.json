@@ -1,0 +1,50 @@
+{
+  "units": "unchanged model units; travelled distance, not straight-line displacement",
+  "previousTuning": {
+    "force": 22,
+    "power": 14,
+    "rate": 2,
+    "drag": 0.1
+  },
+  "currentTuning": {
+    "force": 30,
+    "rate": 5,
+    "drag": 0.06,
+    "power": 28,
+    "diag": 10
+  },
+  "cruise": {
+    "previous": {
+      "distance": 5.618515449247615,
+      "meanSpeed20to30": 0.200683166248831,
+      "firstFive": 0.5502513365434212
+    },
+    "current": {
+      "distance": 18.707508828383855,
+      "meanSpeed20to30": 0.6905692998608877,
+      "firstFive": 1.910744296966822
+    },
+    "distanceRatio": 3.3296177606646986
+  },
+  "surge": {
+    "previous": {
+      "distance": 21.754662405107993,
+      "meanSpeed20to30": 0.7985603748665646,
+      "firstFive": 2.375375774840051
+    },
+    "current": {
+      "distance": 55.56572465854222,
+      "meanSpeed20to30": 2.084750194131467,
+      "firstFive": 6.005644663243435
+    },
+    "distanceRatio": 2.5541984345156004
+  },
+  "coast": {
+    "before": 1.9996298290172194,
+    "afterFive": 0.018538909192548542
+  },
+  "signalTimes": [
+    5.17083333333336,
+    11.570833333332997
+  ]
+}
