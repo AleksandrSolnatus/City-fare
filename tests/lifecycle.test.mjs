@@ -10,7 +10,7 @@ import { TRIP_SAVE_KEY } from '../dist/trip-save.js';
 // WebGL, native dialog behavior, physical touch input or browser storage events.
 const readSource = name => readFileSync(new URL(`../dist/${name}`, import.meta.url), 'utf8');
 const stripModules = source => source.replace(/^import .*;\n/gm, '').replace(/^export /gm, '');
-const lifecycleSource = ['aero.js', 'road.js', 'trip-save.js', 'game.js'].map(readSource).map(stripModules).join('\n');
+const lifecycleSource = ['aero.js', 'cactus-ledger.js', 'road.js', 'trip-save.js', 'game.js'].map(readSource).map(stripModules).join('\n');
 const gameHtml = readSource('index.html');
 
 function fixture(distance = 4200, z = 1500) {
