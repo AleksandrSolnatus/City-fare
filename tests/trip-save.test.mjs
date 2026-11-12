@@ -33,7 +33,7 @@ test('round trip keeps off-road position, continuous yaw and true odometer, then
   for (const key of ['x', 'z', 'angle', 'distance']) assert.equal(read.checkpoint.state[key], source[key]);
   assert.deepEqual([read.checkpoint.state.v, read.checkpoint.state.steer, read.checkpoint.state.paused], [0, 0, true]);
   const encoded = JSON.parse(storage.getItem(TRIP_SAVE_KEY));
-  assert.deepEqual(Object.keys(encoded.state).sort(), ['angle', 'destroyedCacti', 'distance', 'finished', 'x', 'z']);
+  assert.deepEqual(Object.keys(encoded.state).sort(), ['angle', 'destroyedCactusBits', 'distance', 'finished', 'x', 'z']);
   // Mutating either the caller's state or a returned snapshot cannot change saved bytes.
   source.z = 100;
   read.checkpoint.state.distance = 9;
