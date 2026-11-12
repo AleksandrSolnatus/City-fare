@@ -61,3 +61,10 @@ test('replaying a fixed input sequence reproduces speed and impact history',()=>
   };
   assert.deepEqual(drive(),drive());
 });
+test('wing setup changes both drag and available turning grip at the same speed',()=>{
+  const speed=vehicleForces(95,0,0,0,0,undefined,'speed');
+  const grip=vehicleForces(95,0,0,0,0,undefined,'grip');
+  assert.ok(grip.downforce>speed.downforce);
+  assert.ok(grip.lateralGrip>speed.lateralGrip);
+  assert.ok(speed.acceleration>grip.acceleration);
+});
