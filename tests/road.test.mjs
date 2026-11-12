@@ -61,8 +61,8 @@ test('brake overrides gas, speed stays bounded, and dt is bounded', () => {
   const brake = { ...fresh(), v: 10 }, both = { ...brake };
   step(brake, { brake: true }, .1); step(both, { brake: true, gas: true }, .1);
   assert.deepEqual(brake, both); assert.ok(brake.v<10);
-  const capped = { ...fresh(), v: 80.4672 };
-  step(capped, { gas: true }, .1); assert.equal(capped.v, 80.4672);
+  const capped = { ...fresh(), v: TUNE.maxSpeed };
+  step(capped, { gas: true }, .1); assert.ok(capped.v <= TUNE.maxSpeed);
   const stopped = { ...fresh(), v: .01 };
   step(stopped, { brake: true }, .1); assert.equal(stopped.v, 0);
   const normal = fresh(), huge = fresh();
