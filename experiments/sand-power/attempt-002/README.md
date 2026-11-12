@@ -2,7 +2,7 @@
 
 This folder preserves the original **002 standalone offline HTML** and the corresponding exact editable source, extracted from its three inline scripts. The HTML is playable offline without a network connection or dependencies.
 
-**Exact 002 artifact SHA-256:** `0c9fb81a579541807483128928a3bd1c757d88bcb0d3a520de9f0f8a6e438092`.
+**Checked-in 002 artifact SHA-256:** `4e729d83e8c4d11b6d778adfa9f79a86d84f3354e4ba4d73a54a791302db143c`. The earlier receipt recorded a different digest; see `CHECKSUM-CORRECTION.txt` for the preserved discrepancy. The HTML and all 002 gameplay sources are unchanged.
 
 To reproduce the original offline artifact without overwriting it:
 

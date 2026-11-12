@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "scriptedCatches": 3,
+  "time": 16.349999999999394,
+  "preyBound": 5,
+  "checks": [
+    "surface proximity",
+    "no duplicate catches",
+    "safe respawn",
+    "submerged gating",
+    "deterministic replay",
+    "moving prey reachable"
+  ]
+}

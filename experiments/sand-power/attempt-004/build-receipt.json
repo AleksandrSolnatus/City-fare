@@ -1,0 +1,13 @@
+{
+  "artifact": "City-Fare-Sand-Power-004.html",
+  "bytes": 50133,
+  "sha256": "b31b4d2371e56ea78cdffc9d98c229d26201e10bf3c3352121715da93af016b7",
+  "origin": "5f9ce25c4defa427cd44b6c63f63e552047fecb9",
+  "inputs": {
+    "template.html": "8bb561a65bce66d0260d30505ddba9316a5c3cd64e5a779c023d4b6782d1433f",
+    "body.js": "361fce66993d3c8df3edaefdeeb2f890ee78359802d5bb5b78a5068d0a47c288",
+    "route.js": "8c6e604e63daa4acf6d03be843ef96645f330d50f2dfc1b9bd25c365fc56832b",
+    "view.js": "d9a95f1bb48b125c05ac77dfc23259bb5c13f71120c44a005ddf328077e9a7c9",
+    "app.js": "1fa24efa9763793056b785fd838326fd19269b1337a8371cd95421ef9ac19d7a"
+  }
+}

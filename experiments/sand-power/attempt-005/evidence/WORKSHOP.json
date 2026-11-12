@@ -1,0 +1,15 @@
+{
+  "verb": "handoff",
+  "target": "Sand Power 005 draft review checkpoint",
+  "known_inputs": "Owner requests stop after failed movement playtest; preserve design and current code for review",
+  "needed_permissions": "Owner explicitly requested new GitHub PR",
+  "action": "Freeze implementation, document limits, commit and publish draft PR",
+  "observed_output": "Local source and assembled offline artifact retained",
+  "check_evidence": "Existing bounded tests and review; owner movement failure remains controlling acceptance evidence",
+  "unanswered_questions": [
+    "Reproduction of failed movement feel",
+    "Future movement model and acceptance criteria"
+  ],
+  "next_safe_step": "Read-only review, then owner-provided plan",
+  "backend": "Direct local JavaScript/Python and GitHub connector; no Bridges MCP server connected"
+}

@@ -1,0 +1,8 @@
+{
+  "type": "commonjs",
+  "private": true,
+  "scripts": {
+    "test": "node test.cjs && node lifecycle.test.cjs && node speed.test.cjs",
+    "build": "python3 build.py"
+  }
+}

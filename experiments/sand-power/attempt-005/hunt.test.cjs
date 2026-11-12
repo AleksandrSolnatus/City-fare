@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),{Body,DT}=require('./body.js'),{Hunt}=require('./hunt.js');
+const b=new Body({depth:true}),h=new Hunt();const p=h.prey[0];p.x=b.shape()[0].x;p.y=b.shape()[0].y;assert.equal(h.step(b),1);assert.equal(h.count,1);assert.equal(p.active,false);assert.equal(h.step(b),0);
+for(let i=0;i<2/DT;i++){b.step({});h.step(b);}assert.equal(p.active,true);assert.ok(h.nearest(b.shape(),p.x,p.y).distance>1);
+const deep=new Body({depth:true});deep.h=deep.shape().map(p=>deep.ground(p.x,p.y)-3);const hidden=new Hunt();hidden.prey[0].x=deep.shape()[0].x;hidden.prey[0].y=deep.shape()[0].y;assert.equal(hidden.step(deep),0,'buried tissue cannot catch surface prey');
+
+const partial=new Body({depth:true});for(let i=0;i<240;i++)partial.step({dive:true});const overlap=new Hunt();for(const prey of overlap.prey)prey.active=false;Object.assign(overlap.prey[0],{active:true,x:1.76,y:-.36});assert.equal(overlap.step(partial),1,'a buried closest section must not suppress an overlapping exposed catch');
+function run(){const body=new Body({depth:true}),hunt=new Hunt();for(let i=0;i<240*40;i++){const t=i*DT;body.step({forward:t<12,right:t>=12&&t<22,backward:t>=22&&t<28,left:t>=28,dive:t>5&&t<9,boost:t>16&&t<20});hunt.step(body);}return{body,hunt};}
+const a=run(),c=run();assert.deepEqual(a.hunt.snapshot(),c.hunt.snapshot());assert.deepEqual(a.body.p,c.body.p);assert.equal(a.hunt.prey.length,5);assert.ok(a.hunt.prey.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.y)));
+const rider=new Body({depth:true}),game=new Hunt();for(let i=0;i<240*35&&game.count<3;i++){const target=game.target(rider),co=rider.com();const dx=target?target.x-co.x:0,dy=target?target.y-co.y:0;rider.step({forward:dx>.2,backward:dx<-.2,right:dy>.2,left:dy<-.2});game.step(rider);}assert.ok(game.count>=3,'moving prey must be catchable with direct controls');
+fs.writeFileSync(__dirname+'/evidence/hunt-results.json',JSON.stringify({status:'PASS',scriptedCatches:game.count,time:rider.time,preyBound:5,checks:['surface proximity','no duplicate catches','safe respawn','submerged gating','deterministic replay','moving prey reachable']},null,2)+'\n');
+console.log('PASS moving prey, surface catches, respawn, submerged gating, bounded population and deterministic hunt replay');

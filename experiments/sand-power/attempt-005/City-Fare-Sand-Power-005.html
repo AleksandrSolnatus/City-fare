@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#172f32"><title>CITY FARE · Sand Power 005 — Dune Ripper</title>
+<style>
+:root{color-scheme:dark;--ink:#fff0d6;--muted:#d2c9b2;--gold:#efbc72;--teal:#e7cdaa;--glass:#13292de8;font-family:system-ui,-apple-system,sans-serif;background:#16282e;color:var(--ink)}*{box-sizing:border-box}body{margin:0;height:100dvh;overflow:hidden}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:5px}button:disabled{opacity:.45;cursor:default}[hidden]{display:none!important}canvas{position:fixed;inset:0;width:100%;height:100%;display:block;outline:none}.vignette{position:fixed;inset:0;pointer-events:none;background:linear-gradient(180deg,#10282b66,transparent 28%,transparent 60%,#14292b99)}.top{position:fixed;left:32px;right:32px;top:max(25px,env(safe-area-inset-top));display:flex;justify-content:space-between;align-items:start;gap:16px}.brand{font-size:13px;font-weight:800;letter-spacing:3px}.brand span{display:block;font:italic 28px Georgia,serif;letter-spacing:-.6px;margin-top:7px}.edition{font-size:9px;letter-spacing:2px;margin-top:10px;color:var(--muted)}nav{display:flex;gap:8px}.pill{background:#142b3266;backdrop-filter:blur(12px);border:1px solid #e8dfbb44;border-radius:30px;padding:10px 15px;font-size:11px;letter-spacing:.3px}.pill:hover{background:#284d50}.pill[aria-pressed=true]{color:var(--teal);border-color:var(--teal)}.hud{position:fixed;left:32px;bottom:126px;pointer-events:none}.speed{font-size:42px;letter-spacing:-2px;font-weight:300;font-variant-numeric:tabular-nums}.speed small{font-size:10px;letter-spacing:1px;font-weight:500}.label{font-size:9px;letter-spacing:2px;color:var(--muted);line-height:1.7}.bar{height:2px;width:132px;background:#e7daba33;margin:10px 0}.bar i{display:block;width:0;height:100%;background:var(--teal)}.objective{position:fixed;right:32px;bottom:135px;text-align:right;pointer-events:none;max-width:240px}.objective strong{display:block;font:italic 24px Georgia,serif;margin:6px 0}.objective .bearing{display:inline-block;font-style:normal;color:var(--gold);font-size:26px;margin-left:9px}.objective p{font-size:11px;color:var(--muted);margin:5px 0}.controls{position:fixed;left:30px;right:30px;bottom:max(24px,env(safe-area-inset-bottom));display:flex;justify-content:space-between;align-items:end;gap:8px}.group{display:flex;gap:9px}.control{height:67px;min-width:66px;background:#142c3280;border:1px solid #d1dcc850;border-radius:16px;backdrop-filter:blur(10px);touch-action:none;user-select:none;-webkit-user-select:none;font-size:24px}.control small{display:block;font-size:9px;letter-spacing:1px;margin-top:3px}.control.surge{min-width:110px;background:#efbc72;color:#202b32;border-color:#efbc72}.control.coast{font-size:10px;min-width:65px}.held,.control:active{background:var(--gold)!important;color:#203437!important;border-color:var(--gold)}.keys{position:fixed;left:0;right:0;bottom:102px;text-align:center;font-size:9px;letter-spacing:1px;color:#e8dfc9a0;pointer-events:none}#notice{position:fixed;top:125px;left:50%;transform:translateX(-50%);text-align:center;max-width:min(430px,86vw);padding:12px 20px;background:var(--glass);border:1px solid #d8c59a44;border-radius:12px;font-size:12px;pointer-events:none;z-index:6}#notice:empty{display:none}.welcome{position:fixed;inset:0;z-index:10;background:linear-gradient(90deg,#10262ee8, #152b3266 62%,#152b320a);display:flex;align-items:center;padding:7vw}.welcome section{max-width:590px}.eyebrow{font-size:10px;font-weight:650;letter-spacing:3px;color:var(--teal)}h1{font:normal clamp(48px,6.7vw,94px)/.97 Georgia,serif;letter-spacing:-3px;margin:24px 0}h1 em{color:var(--gold);font-weight:normal}p.intro{max-width:375px;font-size:14px;line-height:1.8;color:#e6e2cf}.start{display:inline-flex;gap:50px;align-items:center;margin-top:22px;padding:17px 23px;background:var(--gold);color:#193237;border:0;border-radius:7px;font-size:13px;font-weight:700}.start:hover{background:#ffe0a6}.foot{font-size:10px;color:#c4cbbca0;margin-top:22px;line-height:1.7}.seal{border-top:1px solid #efdbc333;margin-top:26px;padding-top:17px;display:flex;gap:30px;font-size:10px;letter-spacing:1px;color:#e0d6bf}.seal b{display:block;font:italic 19px Georgia,serif;letter-spacing:0;margin-bottom:5px}dialog{background:#152e35f5;color:var(--ink);border:1px solid #ceb88660;border-radius:20px;width:min(440px,92vw);max-height:85dvh;overflow:auto;padding:30px;box-shadow:0 25px 120px #08131999}dialog::backdrop{background:#11202977;backdrop-filter:blur(10px)}dialog h2{font:italic 38px Georgia,serif;margin:6px 0 20px}dialog p{font-size:12px;line-height:1.7;color:var(--muted)}dialog .row{display:flex;gap:8px;margin:12px 0}dialog .row button{flex:1}.primary{background:var(--teal);color:#163238;border:0;border-radius:8px;padding:14px;width:100%;font-weight:650;font-size:13px}.secondary{border:1px solid #dfd2ad44;background:#24434a;border-radius:8px;padding:11px;font-size:11px}.selected{border-color:var(--teal)!important;color:var(--teal)}details{margin-top:18px;border-top:1px solid #e0d2b333;padding-top:15px}summary{cursor:pointer;font-size:11px;letter-spacing:1px}label.check{display:block;font-size:12px;padding:12px 0}input{accent-color:var(--teal)}#fatal{position:fixed;inset:0;z-index:30;display:grid;place-items:center;background:#172c32;padding:30px}#fatal p{max-width:400px;line-height:1.7}body.intro .play-ui{visibility:hidden}
+@media(max-width:650px){.top{left:18px;right:18px;top:max(18px,env(safe-area-inset-top))}.brand{font-size:10px;letter-spacing:2px}.brand span{font-size:25px}.edition{font-size:7px;letter-spacing:1.5px}nav{gap:5px;max-width:195px;justify-content:end;flex-wrap:wrap}.pill{padding:9px 11px;font-size:9px}.welcome{padding:8vw;background:linear-gradient(90deg,#10262ee8,#152b3255)}h1{font-size:58px;letter-spacing:-2px}.intro{font-size:13px!important}.seal{gap:22px}.hud{left:18px;bottom:126px}.speed{font-size:31px}.objective{right:18px;bottom:135px;max-width:180px}.objective strong{font-size:20px}.objective p{font-size:10px}.controls{left:14px;right:14px}.group{gap:6px}.control{min-width:48px;height:61px;border-radius:12px}.control.surge{min-width:74px}.control.coast{min-width:45px;font-size:9px}.keys{font-size:7px;bottom:97px;letter-spacing:.4px}.bar{width:100px}.label{font-size:8px}#notice{top:106px}.foot{max-width:280px}}
+@media(max-width:370px){h1{font-size:49px}.controls{left:9px;right:9px}.group{gap:4px}.control{min-width:44px}.control.surge{min-width:64px}.pill{padding:8px}.objective strong{font-size:17px}.brand span{font-size:21px}.seal{font-size:8px}}
+@media(max-height:560px){.top{top:14px}.brand span{font-size:21px}.edition{display:none}.controls{bottom:12px}.control{height:49px}.hud{bottom:85px}.speed{font-size:25px}.objective{bottom:82px}.objective strong{font-size:18px}.keys{bottom:68px}.welcome{padding:4vw 7vw}h1{font-size:48px;margin:12px 0}.intro{font-size:11px!important;max-width:400px!important;margin:8px 0}.start{margin-top:6px;padding:12px 20px}.seal,.foot{display:none}#notice{top:80px}}
+
+.direction-grid{display:grid;grid-template-columns:52px 52px 52px;grid-template-rows:44px 44px;gap:5px}.direction-grid .control{min-width:0;width:52px;height:44px;border-radius:10px}.direction-grid .left{grid-column:1;grid-row:2}.direction-grid .forward{grid-column:2;grid-row:1}.direction-grid .backward{grid-column:2;grid-row:2}.direction-grid .right{grid-column:3;grid-row:2}.hud{bottom:146px}.objective{bottom:151px}.keys{bottom:122px}
+@media(max-width:650px){.direction-grid{grid-template-columns:42px 42px 42px;grid-template-rows:39px 39px;gap:4px}.direction-grid .control{width:42px;height:39px}.control.surge{min-width:63px}.controls>.group{gap:5px}.hud{bottom:145px}.objective{bottom:149px}.keys{bottom:116px;font-size:6.5px}.welcome h1{font-size:51px}.welcome section{max-width:100%}}
+@media(max-width:370px){.direction-grid{grid-template-columns:38px 38px 38px;gap:3px}.direction-grid .control{width:38px}.control.surge{min-width:57px}.welcome h1{font-size:43px}}
+@media(max-height:560px){.direction-grid{grid-template-rows:31px 31px;gap:3px}.direction-grid .control{height:31px}.hud{bottom:104px}.objective{bottom:104px}.keys{bottom:83px}.welcome h1{font-size:43px}}
+</style></head><body class="intro">
+<canvas id="view" tabindex="0" aria-label="Ride the Dune Ripper through the dunes. W forward, S backward, A left, D right. E hold to dive and release to emerge. Shift boost, Space brake, P pause."></canvas><div class="vignette"></div>
+<header class="top"><div class="brand">CITY FARE<span>Sand Power</span><div class="edition">005 / DUNE RIPPER</div></div><nav class="play-ui" aria-label="Ride tools"><button class="pill" id="camera">View: ride</button><button class="pill" id="sound" aria-pressed="false">Sound off</button><button class="pill" id="pause">Pause / settings</button></nav></header>
+<div class="hud play-ui"><div class="speed"><span id="speed">0</span> <small>KM/H</small></div><div class="bar"><i id="effort"></i></div><div class="label" id="state">SURFACE</div><div class="label"><span id="distance">0 m</span> TRAVELLED</div></div>
+<div class="objective play-ui"><div class="label"><span id="score">0</span> SKIPPERS CAUGHT</div><strong id="target-label">Chase the sand skippers</strong><p><span id="target-distance">—</span><span class="bearing" id="bearing">↑</span></p><p id="target-hint">Catch them on the surface</p></div>
+<div class="keys play-ui">W A S D MOVE &nbsp; E DIVE · RELEASE TO RISE &nbsp; SHIFT BOOST &nbsp; SPACE BRAKE &nbsp; P PAUSE</div>
+<div class="controls play-ui"><div class="direction-grid" aria-label="Movement"><button class="control left" data-action="left" aria-label="Move left">←</button><button class="control forward" data-action="forward" aria-label="Move forward">↑</button><button class="control backward" data-action="backward" aria-label="Move backward">↓</button><button class="control right" data-action="right" aria-label="Move right">→</button></div><div class="group"><button class="control coast" data-action="coast" aria-label="Brake">BRAKE</button><button class="control" id="dive-button" data-action="dive" aria-label="Hold to dive headfirst, release to rise">↓<small>DIVE · E</small></button><button class="control surge" data-action="boost" aria-label="Boost while moving">⇧<small>BOOST</small></button></div></div>
+<div id="notice" role="status" aria-live="polite"></div>
+<div class="welcome" id="welcome"><section><div class="eyebrow">BUILT FOR SAND. MADE TO RUN.</div><h1>Run the dunes.<br><em>Chase the wild.</em></h1><p class="intro">Low armour. Swept fins. A broad head built to part the sand. Take the Dune Ripper out across the open desert.</p><p class="intro">WASD goes where you press. Chase the darting sand skippers, hold E to dive headfirst, and release to rise.</p><button class="start" id="start">Start the chase <span>↗</span></button><div class="seal"><div><b>Move.</b>W A S D · YOUR DIRECTION</div><div><b>Dive.</b>HOLD E · RELEASE TO RISE</div><div><b>Boost.</b>HOLD SHIFT</div></div><p class="foot">An offline experiment by CITY FARE.<br>Keyboard or touch. Sound is optional.</p></section></div>
+<dialog id="settings" aria-labelledby="pause-title"><div class="eyebrow">TAKE YOUR TIME</div><h2 id="pause-title">Between the dunes.</h2><button class="primary" id="resume">Keep riding ↗</button><div class="row"><button class="secondary" id="reset">Fresh ride</button><button class="secondary" id="export">Export rides</button></div><label class="check"><input type="checkbox" id="motion"> Steady camera · reduced effects</label><details><summary>THE MOVEMENT LAB</summary><p>Compare a head-led dive with surface-only play. Changing mode begins a fresh ride; earlier runs stay in the export.</p><div class="row"><button class="secondary selected" data-gait="dive" aria-pressed="true">Travelling dive</button><button class="secondary" data-gait="lateral" aria-pressed="false">Surface only</button></div><p>Change the middle’s flexibility. Movement keys still go in the direction you press.</p><div class="row"><button class="secondary selected" data-stiff="1" aria-pressed="true">Supple</button><button class="secondary" data-stiff="5" aria-pressed="false">Firm</button><button class="secondary" data-stiff="18" aria-pressed="false">Stiff</button></div><div class="row"><button class="secondary" id="inspect" aria-pressed="false">Tissue overlay</button><button class="secondary selected" id="landmarks" aria-pressed="true">Landmarks on</button></div><p>The 200 m scale is illustrative. Direct controls use authored, contact-gated traction. Body waves and dive support are approximations. Sand wake is visual; terrain is not excavated. Catch skippers with the exposed body.</p></details><p class="foot">Rides live in this tab. Export to keep your input history and final state. No car saves are accessed.</p></dialog>
+<div id="fatal" hidden><p id="fatal-message"></p></div>
+<script>/* CITY FARE: Sand Power · Dune Ripper 005
+ * Arcade directional movement over a deformable tissue strip.
+ * WASD intentions request world-aligned COM velocity. Bounded, distributed
+ * contact traction supplies that motion; tissue muscles provide the body wave.
+ * This is authored game control, not a biological propulsion claim.
+ */
+(function(root){
+'use strict';
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const N=25, DS=.5, DT=1/240;
+class Body {
+ constructor(o={}) {
+  this.n=N;this.dt=DT;this.time=0;this.phase=0;this.effort=0;this.lean=0;
+  this.tune={force:o.force??30,rate:o.rate??5,drag:o.drag??.06,power:o.power??28,diag:o.diag??10};this.stiff=o.stiff??1;this.massScale=o.mass??1;this.contact=o.contact??1;
+  this.drive={speed:4.2,boostSpeed:6.5,acceleration:28,brakeAcceleration:45,response:12,tractionAcceleration:180};
+  this.command={x:0,y:0};
+  this.gait=o.gait??'dive';this.depthIntent=Array(N).fill(0);this.lift=Array(N).fill(0);
+  this.dragRatio=o.dragRatio??9;this.depthEnabled=o.depth??false;this.burial=0;this.rise=0;this.wasDive=false;this.h=[];this.vh=[];this.p=[];this.links=[];this.cells=[];
+  this.stats={power:0,motorCap:0,finite:true,driveForce:0,drivePower:0,contactFraction:0};this.distance=0;
+  for(let i=0;i<N;i++){
+   const s=i/(N-1),r=.13+.33*Math.pow(Math.sin(Math.PI*(.10+.87*s)),.45);
+   this.h.push(this.ground(6-i*DS,0)-r*.2);this.vh.push(0);
+   for(let side=0;side<2;side++)this.p.push({x:6-i*DS,y:(side?1:-1)*r,vx:0,vy:0,m:.075*this.massScale,fx:0,fy:0,r,cover:0,contact:1});
+  }
+  const link=(a,b,k,c,kind='passive',u=0)=>{const p=this.p[a],q=this.p[b];this.links.push({a,b,l:Math.hypot(q.x-p.x,q.y-p.y),k,c,kind,u});};
+  for(let i=0;i<N;i++){
+   link(2*i,2*i+1,110,.55);
+   if(i<N-1){
+    for(let s=0;s<2;s++)link(2*i+s,2*(i+1)+s,36,.25,'rail',(i+.5)/(N-1));
+    link(2*i,2*(i+1)+1,this.tune.diag,.25);link(2*i+1,2*(i+1),this.tune.diag,.25);
+    const ids=[2*i,2*i+1,2*i+3,2*i+2];
+    let area=0;for(let j=0;j<4;j++){let a=this.p[ids[j]],b=this.p[ids[(j+1)%4]];area+=a.x*b.y-b.x*a.y;}
+    this.cells.push({ids,area:area/2,u:(i+.5)/(N-1)});
+   }
+   if(i<N-2)for(let s=0;s<2;s++)link(2*i+s,2*(i+2)+s,9,.12,'bend',(i+1)/(N-1));
+  }
+  this.start=this.com();this.last=this.com();this.input={forward:false,backward:false,left:false,right:false,boost:false,coast:false};
+ }
+ ground(x,y){return .40*Math.sin(x*.22)+.32*Math.sin(y*.28+x*.10)+.13*Math.sin(y*.71-x*.09);}
+ com(){let x=0,y=0,m=0;for(const p of this.p){x+=p.x*p.m;y+=p.y*p.m;m+=p.m;}return {x:x/m,y:y/m};}
+ middle(u){return Math.exp(-Math.pow((u-.53)/.16,4));}
+ force(a,b,f){const p=this.p[a],q=this.p[b],dx=q.x-p.x,dy=q.y-p.y,l=Math.hypot(dx,dy)||1e-12;const fx=f*dx/l,fy=f*dy/l;p.fx+=fx;p.fy+=fy;q.fx-=fx;q.fy-=fy;}
+ step(input=this.input){
+  this.input=input;const dt=DT;
+  if(this.depthEnabled)this.depthStep(input);
+  const braking=!!(input.coast||input.brake);
+  let directionX=(input.forward?1:0)-(input.backward?1:0);
+  let directionY=(input.right?1:0)-(input.left?1:0);
+  const directionLength=Math.hypot(directionX,directionY);
+  const moving=directionLength>0&&!braking;
+  if(moving){directionX/=directionLength;directionY/=directionLength;}
+  else directionX=directionY=0;
+  const speed=input.boost?this.drive.boostSpeed:this.drive.speed;
+  this.command={x:directionX*speed,y:directionY*speed};
+  let totalMass=0,oldVX=0,oldVY=0;
+  for(const p of this.p){totalMass+=p.m;oldVX+=p.vx*p.m;oldVY+=p.vy*p.m;}
+  oldVX/=totalMass;oldVY/=totalMass;
+  const response=1-Math.exp(-dt*(moving?this.drive.response:18));
+  let dvx=(this.command.x-oldVX)*response,dvy=(this.command.y-oldVY)*response;
+  const change=Math.hypot(dvx,dvy),limit=dt*(moving?this.drive.acceleration:this.drive.brakeAcceleration);
+  if(change>limit){dvx*=limit/change;dvy*=limit/change;}
+  const nextVX=oldVX+dvx,nextVY=oldVY+dvy;
+  const target=moving?(input.boost?1:.72):0;
+  this.effort+=(target-this.effort)*(1-Math.exp(-dt*4));
+  // A small posture bias is cosmetic actuation; it does not choose travel direction.
+  const turn=((input.right?1:0)-(input.left?1:0))*.15;
+  this.lean+=(turn-this.lean)*(1-Math.exp(-dt*5));
+  this.phase+=dt*(this.tune.rate*(.6+.4*this.effort))*this.effort;
+  for(const p of this.p)p.fx=p.fy=0;
+  let power=0,motorCap=0;
+  for(const e of this.links){
+   const a=this.p[e.a],b=this.p[e.b],dx=b.x-a.x,dy=b.y-a.y,l=Math.hypot(dx,dy)||1e-12;
+   const rel=((b.vx-a.vx)*dx+(b.vy-a.vy)*dy)/l;
+   const rigid=1+(this.stiff-1)*this.middle(e.u);
+   const k=e.k*(e.kind==='bend'?rigid:(e.kind==='rail'?Math.sqrt(rigid):1));
+   this.force(e.a,e.b,k*(l-e.l)+e.c*Math.sqrt(Math.max(1,rigid))*rel);
+   if(e.kind==='rail'){
+    const side=e.a%2?1:-1;
+    const wave=Math.sin(2*Math.PI*1.05*e.u-this.phase);
+    const activation=clamp(.5+side*(.49*wave+.24*this.lean),0,1)*this.effort;
+    // Active muscles contract only. Force and positive mechanical power are capped.
+    let f=this.tune.force*activation;
+    const shorten=-rel;
+    if(shorten>0)f=Math.min(f,this.tune.power/Math.max(.001,shorten));
+    this.force(e.a,e.b,f);power+=Math.max(0,f*shorten);motorCap=Math.max(motorCap,f);
+   }
+  }
+  // Area penalty is a 2D surrogate for tissue/pressure resistance, not a fluid solver.
+  for(const cell of this.cells){
+   let area=0;const ids=cell.ids;
+   for(let j=0;j<4;j++){const a=this.p[ids[j]],b=this.p[ids[(j+1)%4]];area+=a.x*b.y-b.x*a.y;}
+   area*=.5;const k=260;const err=area-cell.area;
+   for(let j=0;j<4;j++){const p=this.p[ids[j]],prev=this.p[ids[(j+3)%4]],next=this.p[ids[(j+1)%4]];
+    p.fx-=k*err*(next.y-prev.y)/2;p.fy-=k*err*(prev.x-next.x)/2;
+   }
+  }
+  // Non-neighbour cross sections repel. All reactions are pairwise internal.
+  const sections=this.shape();
+  for(let i=0;i<N;i++)for(let j=i+4;j<N;j++){
+   const a=sections[i],b=sections[j],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy);
+   const reach=.85*(a.r+b.r);
+   if(d>1e-9&&d<reach){
+    const f=Math.min(30,55*(reach-d)),fx=f*dx/d/2,fy=f*dy/d/2;
+    for(let side=0;side<2;side++){
+     this.p[2*i+side].fx-=fx;this.p[2*i+side].fy-=fy;
+     this.p[2*j+side].fx+=fx;this.p[2*j+side].fy+=fy;
+    }
+   }
+  }
+  // Finite forces change each tissue point's momentum. Contact acts at every point.
+  for(let i=0;i<N;i++){
+   let a=this.p[2*Math.max(0,i-1)],b=this.p[2*Math.min(N-1,i+1)];
+   let tx=a.x-b.x,ty=a.y-b.y,tl=Math.hypot(tx,ty)||1;tx/=tl;ty/=tl;
+   for(let s=0;s<2;s++){
+    const p=this.p[2*i+s];let vx=p.vx+dt*p.fx/p.m,vy=p.vy+dt*p.fy/p.m;
+    const c=this.contact*(p.contact??1)*this.tune.drag;
+    let parallel=vx*tx+vy*ty,perp=-vx*ty+vy*tx;
+    parallel/=1+dt*c/p.m;perp/=1+dt*c*this.dragRatio/p.m;
+    p.vx=parallel*tx-perp*ty;p.vy=parallel*ty+perp*tx;
+   }
+  }
+  // External arcade traction, distributed over touching material points.
+  // Track the requested NEXT COM velocity, compensating actual directional drag.
+  // This avoids a slower sideways strafe while retaining finite acceleration.
+  // Per-point traction acceleration never exceeds the stated budget; with no
+  // contact there is no drive or braking, and internal forces retain momentum.
+  let contactMass=0,passiveVX=0,passiveVY=0;
+  const weights=this.p.map(p=>clamp(this.contact*(p.contact??1),0,1));
+  for(let i=0;i<this.p.length;i++){
+   const p=this.p[i];contactMass+=weights[i]*p.m;passiveVX+=p.vx*p.m;passiveVY+=p.vy*p.m;
+  }
+  this.stats.contactFraction=contactMass/totalMass;
+  this.stats.driveForce=0;this.stats.drivePower=0;
+  if(contactMass>1e-12){
+   let correctionX=nextVX-passiveVX/totalMass,correctionY=nextVY-passiveVY/totalMass;
+   const correction=Math.hypot(correctionX,correctionY);
+   const budget=this.drive.tractionAcceleration*dt*contactMass/totalMass;
+   if(correction>budget){correctionX*=budget/correction;correctionY*=budget/correction;}
+   const scale=totalMass/contactMass;
+   for(let i=0;i<this.p.length;i++){
+    const p=this.p[i],dx=correctionX*scale*weights[i],dy=correctionY*scale*weights[i];
+    this.stats.drivePower+=Math.max(0,p.m*(dx*(p.vx+dx*.5)+dy*(p.vy+dy*.5))/dt);
+    p.vx+=dx;p.vy+=dy;
+   }
+   this.stats.driveForce=totalMass*Math.hypot(correctionX,correctionY)/dt;
+  }
+  for(const p of this.p){p.x+=p.vx*dt;p.y+=p.vy*dt;}
+  this.time+=dt;
+  const c=this.com();this.distance+=Math.hypot(c.x-this.last.x,c.y-this.last.y);this.last=c;
+  this.stats.power=power;this.stats.motorCap=motorCap;
+  this.stats.finite=this.p.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.y)&&Math.abs(p.x)<1e6&&Math.abs(p.y)<1e6);
+  this.stats.finite=this.stats.finite&&this.h.every(Number.isFinite)&&this.vh.every(Number.isFinite);
+  if(!this.stats.finite)throw Error('Body integration became non-finite');
+ }
+ depthStep(input){
+  const dt=DT,diving=this.gait==='dive'&&!!input.dive;
+  if(this.wasDive&&!diving)this.rise=.6;
+  this.wasDive=diving;this.rise=Math.max(0,this.rise-dt);
+  this.burial+=((diving?1:0)-this.burial)*(1-Math.exp(-dt*2.0));
+  // Local intent propagates through the tissue. Only force targets are delayed;
+  // section positions remain integrated from local, contact-gated acceleration.
+  const old=[...this.depthIntent];
+  for(let i=0;i<N;i++){
+   const target=i===0?(diving?1:0):old[i-1];
+   this.depthIntent[i]+=(target-old[i])*(1-Math.exp(-dt*10));
+   const released=Math.max(0,old[i]-this.depthIntent[i]);
+   this.lift[i]=Math.min(.55,this.lift[i]*Math.exp(-dt*2)+released*2);
+  }
+  const q=this.shape(),acc=[];
+  for(let i=0;i<N;i++){
+   const p=q[i],g=this.ground(p.x,p.y),r=p.r;
+   const frac=clamp((g-(this.h[i]-r))/(2*r),0,1);
+   // This vertical controller is authored, finite and contact-gated. It is not
+   // a solved 3D hydrostat or granular lift law; no invisible thrust in free air.
+   const target=g-r*(.2+2.4*this.depthIntent[i])+.06*Math.sin(this.phase-i*.16);
+   const pressure=clamp(this.contact,0,1)*frac*clamp(22*(target-this.h[i])-5*this.vh[i]+1.5+this.lift[i]*10,-10,12);
+   let internal=0;
+   if(i>0)internal+=7*(this.h[i-1]-this.h[i])+.6*(this.vh[i-1]-this.vh[i]);
+   if(i<N-1)internal+=7*(this.h[i+1]-this.h[i])+.6*(this.vh[i+1]-this.vh[i]);
+   acc.push(pressure-1.5+internal);
+   for(let side=0;side<2;side++){
+    const point=this.p[2*i+side];point.contact=frac*2;
+    const topContact=clamp((g-(this.h[i]+.65*r))/(.6*r),0,1);
+    point.cover=clamp(point.cover+dt*(2.5*topContact*(1-point.cover)-(.35+Math.abs(this.vh[i])*.6)*(1-topContact)*point.cover),0,1);
+   }
+  }
+  for(let i=0;i<N;i++){this.vh[i]+=acc[i]*dt;this.h[i]+=this.vh[i]*dt;}
+ }
+ shape(){const pts=[];for(let i=0;i<N;i++){const l=this.p[2*i],r=this.p[2*i+1];pts.push({x:(l.x+r.x)/2,y:(l.y+r.y)/2,r:Math.hypot(l.x-r.x,l.y-r.y)/2});}return pts;}
+ inspect(){let length=0;const q=this.shape();for(let i=1;i<q.length;i++)length+=Math.hypot(q[i].x-q[i-1].x,q[i].y-q[i-1].y);let vx=0,vy=0,m=0;for(const p of this.p){vx+=p.vx*p.m;vy+=p.vy*p.m;m+=p.m;}return {com:this.com(),speed:Math.hypot(vx,vy)/m,velocity:{x:vx/m,y:vy/m},length,effort:this.effort,lean:this.lean,time:this.time,power:this.stats.power,motorCap:this.stats.motorCap,drive:{mode:'arcade-contact-traction',command:{...this.command},force:this.stats.driveForce,power:this.stats.drivePower,contactFraction:this.stats.contactFraction,budget:{...this.drive}}};}
+}
+root.SandBody=Body;if(typeof module!=='undefined')module.exports={Body,DT};
+})(typeof globalThis!=='undefined'?globalThis:this);
+</script><script>/* Deterministic moving prey. Catching observes the exposed body; it never drives it. */
+(function(root){'use strict';
+class Hunt {
+ constructor(){this.count=0;this.seed=123456789;this.prey=[0,1,2,3,4].map((id)=>({id,x:8+id*2,y:[0,2.4,-3.2,4.6,-1][id],phase:id*1.7,active:true,respawnAt:0}));}
+ random(){this.seed=(Math.imul(this.seed,1664525)+1013904223)>>>0;return this.seed/4294967296;}
+ nearest(q,x,y){let best={distance:Infinity,index:0};for(let i=0;i<q.length;i++){const d=Math.hypot(x-q[i].x,y-q[i].y)-q[i].r;if(d<best.distance)best={distance:d,index:i};}return best;}
+ spawn(p,body,q){const c=body.com();for(let tries=0;tries<12;tries++){const angle=this.random()*Math.PI*2,r=8+this.random()*6;p.x=c.x+Math.cos(angle)*r;p.y=c.y+Math.sin(angle)*r;if(this.nearest(q,p.x,p.y).distance>3)break;}p.phase=this.random()*Math.PI*2;p.active=true;}
+ step(body){const q=body.shape(),c=body.com(),dt=body.dt;let caught=0;
+  for(const p of this.prey){
+   if(!p.active){if(body.time>=p.respawnAt)this.spawn(p,body,q);continue;}
+   const nearest=this.nearest(q,p.x,p.y),section=q[nearest.index];
+   const catchable=q.some((part,i)=>body.h[i]+part.r>body.ground(part.x,part.y)+.03&&Math.hypot(p.x-part.x,p.y-part.y)-part.r<.23);
+   if(catchable){p.active=false;p.respawnAt=body.time+1.8;this.count++;caught++;continue;}
+   if(Math.hypot(p.x-c.x,p.y-c.y)>42){p.active=false;p.respawnAt=body.time+.5;continue;}
+   const flee=nearest.distance<3.1,angle=flee?Math.atan2(p.y-section.y,p.x-section.x):p.phase+body.time*.37;
+   const wobble=Math.sin(body.time*5+p.phase)*.22,speed=flee?.95:.16;
+   p.x+=Math.cos(angle+wobble)*speed*dt;p.y+=Math.sin(angle+wobble)*speed*dt;
+  }
+  return caught;
+ }
+ target(body){const c=body.com();return this.prey.filter(p=>p.active).reduce((best,p)=>!best||Math.hypot(p.x-c.x,p.y-c.y)<Math.hypot(best.x-c.x,best.y-c.y)?p:best,null);}
+ snapshot(){return {count:this.count,seed:this.seed,prey:this.prey.map(p=>({...p}))};}
+}
+root.SandHunt=Hunt;if(typeof module!=='undefined')module.exports={Hunt};
+})(typeof globalThis!=='undefined'?globalThis:this);
+</script><script>/* Sand Power 005: Dune Ripper — a dry-armoured desert ride.
+ * View only: never writes to the body, controls, simulation clock or terrain.
+ * Landmarks and sand streaks are visual references, not collision/excavation.
+ */
+(function(root){'use strict';
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),mix=(a,b,t)=>a+(b-a)*t;
+const M=200/12,TAU=Math.PI*2;
+const palettes=[[39,52,60],[49,65,72],[57,70,76],[33,45,53],[67,78,81]];
+const rand=(x,y)=>{let a=Math.sin(x*127.1+y*311.7)*43758.5453;return a-Math.floor(a);};
+class Scene{
+ constructor(canvas,ctx){this.canvas=canvas;this.ctx=ctx;this.reset();}
+ reset(){this.cam=null;this.traces=[];this.lastTraceTime=-1;this.particles=[];this.lastParticleTime=-1;this.lastMode=null;this.metrics={};}
+ frame(body,opt){
+  const q=body.shape(),co=body.com(),mode=opt.mode,dt=opt.running===false&&this.lastMode===opt.mode?0:(opt.reduced?1:Math.min(.05,Math.max(0,opt.dt)));
+  if(this.lastMode!==mode)this.cam=null;this.lastMode=mode;
+  const close=mode==='close',study=mode==='study';
+  // Stable world-facing view: WASD direction never depends on the body pose.
+  const a=co;
+  const yaw=0;
+  if(!this.cam)this.cam={x:a.x,y:a.y,z:body.ground(a.x,a.y),yaw};
+  const c=this.cam,turn=Math.atan2(Math.sin(yaw-c.yaw),Math.cos(yaw-c.yaw));
+  c.yaw=0;c.x=mix(c.x,a.x,1-Math.exp(-dt*4));c.y=mix(c.y,a.y,1-Math.exp(-dt*4));
+  c.z=mix(c.z,body.ground(a.x,a.y),1-Math.exp(-dt*2));
+  const fx=Math.cos(c.yaw),fy=Math.sin(c.yaw),back=close?8.2:study?3:12.2,side=close?.65:0,up=close?4.6:study?19:8.2;
+  const eye=[c.x-fx*back-fy*side,c.y-fy*back+fx*side,c.z+up];
+  eye[2]=Math.max(eye[2],body.ground(eye[0],eye[1])+(close?.75:1));
+  const focus=[c.x+fx*(close?4.5:1.5),c.y+fy*(close?4.5:1.5),c.z+(close?.32:0)];
+  const d=focus.map((v,i)=>v-eye[i]),len=Math.hypot(...d);for(let i=0;i<3;i++)d[i]/=len;
+  const h=Math.hypot(d[0],d[1]),right=[-d[1]/h,d[0]/h,0],vu=[-d[2]*d[0]/h,-d[2]*d[1]/h,h];
+  // Close view has a fixed 62-degree vertical field of view. No speed zoom.
+  const focal=close?opt.H/(2*Math.tan(31*Math.PI/180)):Math.min(opt.W,opt.H*.85);
+  const cx=opt.W*.5,cy=opt.H*(close?.47:(opt.H<opt.W?.51:.49)),near=.12;
+  const local=p=>{const v=p.map((x,i)=>x-eye[i]);return [v.reduce((s,x,i)=>s+x*right[i],0),v.reduce((s,x,i)=>s+x*vu[i],0),v.reduce((s,x,i)=>s+x*d[i],0)];};
+  const screen=p=>({x:cx+p[0]*focal/p[2],y:cy-p[1]*focal/p[2],d:p[2]});
+  const point=(x,y,z)=>{const p=local([x,y,z]);return p[2]>=near?screen(p):null;};
+  // Clip at the near plane instead of deleting a whole close-up plate/ground quad.
+  const poly=pts=>{const raw=pts.map(local),out=[];for(let i=0;i<raw.length;i++){const a=raw[i],b=raw[(i+1)%raw.length],ina=a[2]>=near,inb=b[2]>=near;if(ina)out.push(a);if(ina!==inb){const t=(near-a[2])/(b[2]-a[2]);out.push(a.map((v,k)=>mix(v,b[k],t)));}}return out.map(screen);};
+  const horizon=cy+focal*d[2]/Math.max(.001,h);
+  this.metrics={mode,cameraHeightAboveTerrainM:(eye[2]-body.ground(eye[0],eye[1]))*M,nominalCameraHeightM:up*M,
+   eye:eye.map(v=>v*M),verticalFovDeg:2*Math.atan(opt.H/(2*focal))*180/Math.PI,horizonPx:horizon,
+   landmarks:!!opt.landmarks,referenceSizesM:{post:2,shelterHeight:4,shelterLength:6.5,cactusMin:3,cactusMax:5},
+   terrainChanged:false,physicsChanged:false,cameraYaw:0,controlFrame:'fixed world: W +X, S -X, A -Y, D +Y',creatureDesign:'Dune Ripper: slate carapace, ivory swept fins, split wedge jaw; physical dive pitch'};
+  return {q,eye,point,poly,horizon,camera:c};
+ }
+ render(body,opt){
+  const {W,H,DPR,mode,landmarks,inspect,stiff}=opt,ctx=this.ctx;
+  const f=this.frame(body,opt),q=f.q,point=f.point,poly=f.poly;
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  const horizon=clamp(f.horizon,.06*H,.8*H),sky=ctx.createLinearGradient(0,0,0,H);
+  sky.addColorStop(0,'#172f3a');sky.addColorStop(clamp(horizon/H,.05,.9),'#d68b6b');sky.addColorStop(1,'#b6744f');ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
+  // The lower haze fills beyond the bounded terrain mesh without a hard world edge.
+  const haze=ctx.createLinearGradient(0,horizon,0,H);haze.addColorStop(0,'#c78d6b');haze.addColorStop(1,'#9f6346');ctx.fillStyle=haze;ctx.fillRect(0,horizon,W,H-horizon);
+  // Fixed world direction: turning changes the sun's screen position, not its position in the world.
+  const sun=point(f.eye[0]+100,f.eye[1]+43,f.eye[2]+9),sr=Math.min(W,H)*.048;
+  if(sun){const g=ctx.createRadialGradient(sun.x,sun.y,sr*.2,sun.x,sun.y,sr*4);g.addColorStop(0,'#ffd8a8aa');g.addColorStop(1,'#edb17a00');ctx.fillStyle=g;ctx.fillRect(sun.x-sr*4,sun.y-sr*4,sr*8,sr*8);ctx.fillStyle='#f2c18b';ctx.beginPath();ctx.arc(sun.x,sun.y,sr,0,TAU);ctx.fill();}
+  // Directional mesa silhouettes form distant horizon scenery, not navigable terrain.
+  for(let i=-8;i<=8;i++){
+   const a=i*.39,dx=Math.cos(a)*150,dy=Math.sin(a)*150;
+   const peak=point(f.eye[0]+dx,f.eye[1]+dy,4+rand(i,63)*8);
+   const base=point(f.eye[0]+dx,f.eye[1]+dy,-2);
+   if(!peak||!base)continue;
+   const width=(14+rand(i,32)*22)*M/base.d;
+   ctx.fillStyle=i%2?'#886c65':'#9d7668';ctx.beginPath();ctx.moveTo(peak.x-width*1.8,base.y);ctx.lineTo(peak.x-width*.75,peak.y);ctx.lineTo(peak.x+width*.55,peak.y+width*.14);ctx.lineTo(peak.x+width*1.7,base.y);ctx.closePath();ctx.fill();
+  }
+  const faces=[];let visibleLandmarks=0;
+  const add=(raw,col,stroke=null,kind='world')=>{const p=poly(raw);if(p.length<3)return;
+   const xs=p.map(v=>v.x),ys=p.map(v=>v.y);
+   if(Math.max(...xs)<-40||Math.min(...xs)>W+40||Math.max(...ys)<-40||Math.min(...ys)>H+40)return;
+   faces.push({p,d:p.reduce((s,v)=>s+v.d,0)/p.length,col,stroke,kind});};
+  const ground=(x,y)=>body.ground(x,y),ix=Math.floor(f.eye[0]/2),iy=Math.floor(f.eye[1]/2);
+  const groundColor=(x,y)=>{const slope=(ground(x+.15,y)-ground(x-.15,y))/.3,k=clamp(.88+slope*.82+ground(x,y)*.035,.60,1.08);return `rgb(${Math.round(194*k)},${Math.round(135*k)},${Math.round(88*k)})`;};
+  // Fixed world lattice. The terrain/texture does not scroll independently of camera movement.
+  const terrainTile=(x,y,size)=>{const raw=[[x,y],[x+size,y],[x+size,y+size],[x,y+size]].map(([a,b])=>[a,b,ground(a,b)]),c=groundColor(x,y);add(raw,c,c,'terrain');};
+  // Coarse outer tiles and detailed local tiles share one fixed lattice.
+  const tx=Math.floor(ix/4)*8,ty=Math.floor(iy/4)*8;
+  for(let i=-7;i<=7;i++)for(let j=-7;j<=7;j++)if(Math.abs(i)>2||Math.abs(j)>2)terrainTile(tx+i*8,ty+j*8,8);
+  for(let i=-8;i<12;i++)for(let j=-8;j<12;j++)terrainTile(tx+i*2,ty+j*2,2);
+  const box=(x,y,z,w,d,h,col)=>{
+   const pts=[[-1,-1,0],[1,-1,0],[1,1,0],[-1,1,0],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]].map(([a,b,c])=>[x+a*w/2,y+b*d/2,z+c*h]);
+   for(const [ids,color] of [[[0,1,5,4],col[0]],[[1,2,6,5],col[1]],[[2,3,7,6],col[0]],[[3,0,4,7],col[1]],[[4,5,6,7],col[2]]])add(ids.map(i=>pts[i]),color);
+  };
+  // Each scale reference is specified in actual model metres, not a screen-size sprite.
+  if(landmarks){
+   const gx=Math.floor(f.eye[0]/3),gy=Math.floor(f.eye[1]/3);
+   for(let i=gx-9;i<=gx+9;i++)for(let j=gy-9;j<=gy+9;j++){
+    const rnd=rand(i,j);if(rnd<.73)continue;
+    const x=i*3+.8*rand(i+14,j),y=j*3+.8*rand(i,j+14),g=ground(x,y),p=point(x,y,g);
+    if(!p||p.x< -150||p.x>W+150||p.y< -80||p.y>H+200)continue;
+    visibleLandmarks++;
+    if(rnd>.87){const h=(3+2*rand(i+4,j))/M,w=.40/M;box(x,y,g,w,w,h,['#596453','#3d5145','#8c9972']);box(x,y+.56/M,g+h*.52,.32/M,1.25/M,.31/M,['#58614c','#465642','#8f9774']);box(x,y+.98/M,g+h*.52,.30/M,.30/M,h*.24,['#58614c','#465642','#8f9774']);}
+    else{const h=(4+7*rand(i+29,j))/M,r=h*.4;add([[x-r,y-r,g],[x+r,y-r,g],[x+r*.5,y,g+h],[x-r*.6,y,g+h*.86]],'#8c6952');add([[x+r,y-r,g],[x+r,y+r,g],[x+r*.2,y+r*.3,g+h*.8],[x+r*.5,y,g+h]],'#6e5447');add([[x-r*.6,y,g+h*.86],[x+r*.5,y,g+h],[x+r*.2,y+r*.3,g+h*.8]],'#c49e74');}
+   }
+   // Survey lane is a visual yardstick, not a road constraint. Two-metre posts, 40 m apart.
+   for(let i=Math.floor(f.eye[0]*M/40)-16;i<=Math.floor(f.eye[0]*M/40)+28;i++)for(const side of[-1,1]){
+    const x=i*40/M,y=side*30/M,g=ground(x,y);box(x,y,g,.16/M,.16/M,2/M,['#c1b89c','#a9a18a','#e4d6b5']);box(x,y,g+1.65/M,.40/M,.30/M,.25/M,['#b36c4e','#875341','#dca77a']);
+   }
+   // Sparse abandoned shelters (4m high, 6.5m long) supply a familiar fixed scale.
+   for(let i=Math.floor(f.eye[0]/18)-3;i<=Math.floor(f.eye[0]/18)+4;i++){
+    const x=10+i*18,y=(i%2===0?1:-1)*4,g=ground(x,y),w=6.5/M,d=4.5/M,h=4/M;
+    box(x,y,g,w,d,h,['#bd9977','#8e735c','#e0be95']);
+    add([[x-w/2-.025,y-d/2-.025,g+h],[x+w/2+.025,y-d/2-.025,g+h],[x+w/2+.025,y+d/2+.025,g+h+.06],[x-w/2-.025,y+d/2+.025,g+h+.06]],'#7b6960');
+    add([[x-w/2-.001,y-.055,g],[x-w/2-.001,y+.055,g],[x-w/2-.001,y+.055,g+2.1/M],[x-w/2-.001,y-.055,g+2.1/M]],'#343631');
+   }
+   // Near-field ripples/tiny pebbles: world-anchored, no time-based animation.
+   const rx=Math.floor(f.eye[0]/.45),ry=Math.floor(f.eye[1]/.45);
+   for(let i=rx-13;i<=rx+13;i++)for(let j=ry-13;j<=ry+13;j++){
+    const x=i*.45,y=j*.45+.1*rand(i,j),h=ground(x,y)+.009;
+    add([[x-.12,y,h],[x+.12,y+.035,ground(x+.12,y+.035)+.009],[x+.12,y+.045,ground(x+.12,y+.045)+.009]],'#e2bd8245',null,'trace');
+   }
+  }
+  // Resonator markers are fixed world geometry. Their visible halo shows the
+  // survey capture radius; the game's controller decides when an encounter counts.
+  if(opt.target){
+   const t=opt.target,x=t.x,y=t.y,g=ground(x,y),deep=t.kind==='dive',col=deep?'#8ce7dc':'#ffd48e';
+   for(let i=0;i<32;i++){
+    const a=i*TAU/32,b=(i+1)*TAU/32,r=t.radius??1.8;
+    add([[x+Math.cos(a)*r,y+Math.sin(a)*r,g+.035],[x+Math.cos(b)*r,y+Math.sin(b)*r,g+.035],[x+Math.cos(b)*(r-.055),y+Math.sin(b)*(r-.055),g+.035],[x+Math.cos(a)*(r-.055),y+Math.sin(a)*(r-.055),g+.035]],col,null,'trace');
+   }
+   for(const side of[-1,1]){
+    const px=x,py=y+side*1.23,pg=ground(px,py);
+    box(px,py,pg,.20,.28,3.6,['#796452','#544e48','#c49a68']);
+    box(px-.012,py-.16,pg+.20,.09,.04,3.55,[col,col,col]);
+    add([[px-.24,py-.28,pg+3.6],[px+.24,py-.28,pg+3.6],[px+.15,py+.28,pg+4],[px-.15,py+.28,pg+4]],'#dfb780');
+   }
+   const z=g+3.25,pts=[[x,y,z+.42],[x,y-.28,z],[x,y,z-.42],[x,y+.28,z]];
+   add(pts,col,'#fff4c2','marker');
+   this.metrics.targetScreen=point(x,y,g+4.45);
+  }
+  // Sand skippers use the controller's actual positions. Their supplied phase only
+  // articulates feet and a faint wing shimmer; it never moves their world centres.
+  let visiblePrey=0;this.metrics.preyScreen=[];
+  for(const prey of opt.prey||[]){
+   if(!prey.active)continue;
+   const x=prey.x,y=prey.y,g=ground(x,y),phase=Number.isFinite(prey.phase)?prey.phase:0;
+   const head=point(x,y,g+.21);if(!head)continue;
+   const r=.18,wing=opt.reduced?0:Math.sin(phase*4)*.035;
+   if(head.x< -40||head.x>W+40||head.y< -40||head.y>H+40)continue;
+   visiblePrey++;this.metrics.preyScreen.push({id:prey.id,x:head.x,y:head.y});
+   for(let i=0;i<16;i++){
+    const a=i*TAU/16,b=(i+1)*TAU/16;
+    add([[x+Math.cos(a)*.29,y+Math.sin(a)*.29,g+.016],[x+Math.cos(b)*.29,y+Math.sin(b)*.29,g+.016],[x+Math.cos(b)*.26,y+Math.sin(b)*.26,g+.016],[x+Math.cos(a)*.26,y+Math.sin(a)*.26,g+.016]],'#ffd48380',null,'trace');
+   }
+   const top=[x,y,g+.23];
+   for(let i=0;i<8;i++){
+    const a=i*TAU/8,b=(i+1)*TAU/8;
+    add([[x+Math.cos(a)*r,y+Math.sin(a)*r*.75,g+.075],[x+Math.cos(b)*r,y+Math.sin(b)*r*.75,g+.075],top],i<4?'#f6c575':'#bc7c3f','#ffe1a038','prey');
+   }
+   // Dark centre seam gives the shell a beetle-like identity at a small scale.
+   add([[x-r*.8,y-.009,g+.12],[x,y-.009,g+.235],[x+r*.8,y-.009,g+.12],[x+r*.8,y+.009,g+.12],[x,y+.009,g+.235],[x-r*.8,y+.009,g+.12]],'#8b653f',null,'prey');
+   for(const side of[-1,1])for(let j=0;j<3;j++){
+    const lx=x+(j-1)*.105,ly=y+side*.10,tipY=y+side*(.22+wing*(j%2?1:-1));
+    add([[lx-.018,ly,g+.07],[lx+.022,tipY,g+.025],[lx+.05,tipY,g+.025],[lx+.025,ly,g+.07]],'#b78d55',null,'prey');
+   }
+   for(const side of[-1,1])add([[x+r*.65,y+side*.06,g+.12],[x+r*.88,y+side*.06,g+.12],[x+r*.88,y+side*.10,g+.12],[x+r*.65,y+side*.10,g+.12]],'#fff0c3',null,'prey');
+  }
+  this.metrics.visiblePrey=visiblePrey;
+  // Trace generation keyed to simulation time, not frame rate, and frozen on pause.
+  if(body.time<this.lastTraceTime){this.traces=[];this.lastTraceTime=-1;this.particles=[];this.lastParticleTime=-1;}
+  if(body.time-this.lastTraceTime>=.12){this.lastTraceTime=body.time;for(let i=3;i<25;i+=4){const p=q[i];if(body.p[i*2].contact>.2&&Math.hypot(body.p[i*2].vx,body.p[i*2].vy)>.04)this.traces.push({x:p.x,y:p.y,r:p.r,t:body.time});}if(this.traces.length>650)this.traces.splice(0,this.traces.length-650);}
+  this.traces=this.traces.filter(p=>body.time-p.t<16);
+  for(const p of this.traces){const r=p.r*.65;add([[p.x-.06,p.y-r],[p.x+.06,p.y-r],[p.x+.045,p.y+r]].map(([x,y])=>[x,y,ground(x,y)+.012]),'#633e3029',null,'trace');}
+  if(!opt.reduced&&body.time-this.lastParticleTime>=.08){
+   this.lastParticleTime=body.time;
+   for(let i=1;i<25;i+=3){
+    const p=q[i],node=body.p[i*2],g=ground(p.x,p.y),rise=body.vh[i],speed=Math.hypot(node.vx,node.vy);
+    if(body.h[i]+p.r<g-.04||node.contact<.12||speed<.04&&rise<.18)continue;
+    for(const side of[-1,1]){
+     const prev=q[Math.max(0,i-1)],next=q[Math.min(24,i+1)],angle=Math.atan2(prev.y-next.y,prev.x-next.x),nx=-Math.sin(angle)*side,ny=Math.cos(angle)*side;
+     const r=rand(i+body.time,side),v=.3+Math.min(.32,speed*.18)+Math.max(0,rise)*.5;
+     this.particles.push({x:p.x+nx*p.r*.8,y:p.y+ny*p.r*.8,z:g+.04,vx:nx*v-node.vx*.14,vy:ny*v-node.vy*.14,vz:.35+Math.max(0,rise)*.75+r*.25,t:body.time,life:.65+r*.45,r:.04+r*.035});
+    }
+   }
+   if(this.particles.length>180)this.particles.splice(0,this.particles.length-180);
+  }
+  this.particles=this.particles.filter(p=>body.time-p.t<p.life);
+  if(!opt.reduced)for(const p of this.particles){
+   const age=body.time-p.t,x=p.x+p.vx*age,y=p.y+p.vy*age,z=p.z+p.vz*age-.65*age*age,r=p.r*(1+age*.6);
+   if(z<ground(x,y))continue;
+   add([[x-r,y,z],[x+r,y,z],[x,y+r,z+r]],'#eac18b8c',null,'dust');
+  }
+  const clipGround=raw=>{const out=[];for(let i=0;i<raw.length;i++){const a=raw[i],b=raw[(i+1)%raw.length],da=a[2]-ground(a[0],a[1]),db=b[2]-ground(b[0],b[1]);if(da>=0)out.push(a);if((da>=0)!==(db>=0)){const t=da/(da-db);out.push(a.map((v,k)=>mix(v,b[k],t)));}}return out;};
+  // A sculptural exoskeleton attached to each actual tissue cross-section.
+  // The dark core follows its measured width. Rigid fins, jaw and tail tip are
+  // decorative shell plates: their transforms never prescribe body motion.
+  const coat=(rgb,cover,shade=1)=>`rgb(${rgb.map((v,k)=>Math.round(mix(v,[206,165,112][k],cover)*shade)).join(',')})`;
+  const ivory=[222,210,174],ivoryShade=[166,157,132],amber=[208,132,58];
+  // Pitch follows the actual integrated height gradient from head to tail.
+  // No frame-time animation or input-only tilt can override the tissue state.
+  const pitches=q.map((p,i)=>{const a=Math.max(0,i-1),b=Math.min(24,i+1);return Math.atan2(body.h[a]-body.h[b],Math.hypot(q[a].x-q[b].x,q[a].y-q[b].y));});
+  this.metrics.headPitchRad=pitches[0];this.metrics.sectionPitchRange=[Math.min(...pitches),Math.max(...pitches)];
+  for(let i=24;i>=0;i--){
+   const p=q[i],prev=q[Math.max(0,i-1)],next=q[Math.min(24,i+1)],ang=Math.atan2(prev.y-next.y,prev.x-next.x),tx=Math.cos(ang),ty=Math.sin(ang),nx=-ty,ny=tx,h=body.h[i],r=p.r,cover=body.p[i*2].cover;
+   const pitch=pitches[i],cp=Math.cos(pitch),sp=Math.sin(pitch);
+   const at=(a,b,c)=>{const forward=a*cp-c*sp;return [p.x+tx*forward+nx*b,p.y+ty*forward+ny*b,h+a*sp+c*cp];};
+   const face=(verts,color,stroke=null)=>{const clipped=clipGround(verts.map(v=>at(...v)));if(clipped.length>=3)add(clipped,color,stroke,'body');};
+   // Low-sided faceted cross-section reads as plate armour rather than a tube.
+   const section=[[-.78,-.42],[-1,.08],[-.72,.64],[-.22,.94],[.22,.94],[.72,.64],[1,.08],[.78,-.42]];
+   for(let j=0;j<section.length;j++){
+    const a=section[j],b=section[(j+1)%section.length],light=.68+.30*Math.max(0,(a[1]+b[1])*.5);
+    face([[-.245,a[0]*r,a[1]*r],[.245,a[0]*r,a[1]*r],[.245,b[0]*r,b[1]*r],[-.245,b[0]*r,b[1]*r]],coat(palettes[i%5],cover,light),'#0c1e2745');
+   }
+   // Overlapping shoulder shields and amber recesses are stable material marks.
+   for(const side of[-1,1]){
+    const b=side*r;
+    face([[-.22,b*.18,r*.97],[.18,b*.18,r*.97],[.25,b*.76,r*.64],[-.29,b*.83,r*.59]],coat(palettes[(i+2)%5],cover,1.18),coat([100,116,119],cover,.82));
+    face([[-.232,b*.18,r*.98],[-.195,b*.18,r*.98],[-.265,b*.83,r*.61],[-.299,b*.83,r*.61]],coat(amber,cover,.92));
+    // A swept pair of bone-coloured fins alternates with the dark shoulder plates.
+    // Their silhouette tapers toward the tail; no time-dependent ornament motion.
+    if(i>1&&i<23&&i%2===0){
+     const taper=i>15?1-(i-15)*.09:1,span=r*(i<9?1.55:1.35)*taper;
+     const base=[.12,b*.60,r*.57],rear=[-.28,b*.76,r*.46],tip=[-.40,side*span,r*(1.46*taper)];
+     face([base,tip,rear],coat(ivory,cover,1),'#b29a70');
+     face([rear,tip,[-.40,side*(span-.08),r*(1.38*taper)]],coat(ivoryShade,cover,.90));
+    }
+   }
+   // A central swept crest makes each segment readable at riding distance.
+   if(i>0&&i<22){
+    const scale=i>15?1-(i-15)*.1:1,crest=r*(i<7?1.8:1.5)*scale;
+    face([[.18,-r*.10,r*.92],[-.36,0,crest],[-.25,-r*.10,r*.92]],coat(ivory,cover,1),'#b29a70');
+    face([[.18,r*.10,r*.92],[-.25,r*.10,r*.92],[-.36,0,crest]],coat(ivoryShade,cover,.95));
+   }
+   // Close the final cross-section into a rigid, narrow tail spear.
+   if(i===24){
+    const tip=[-.96,0,.03];
+    for(let j=0;j<8;j++){const a=section[j],b=section[(j+1)%8];face([[-.23,a[0]*r,a[1]*r],tip,[-.23,b[0]*r,b[1]*r]],coat(j<4?ivoryShade:palettes[2],cover,.88),'#756b5755');}
+   }
+  }
+  // Broad wedge jaw, split ivory mandibles and recessed amber sensory seams.
+  // All points are local to the first integrated section, with terrain clipping.
+  {const p=q[0],n=q[1],angle=Math.atan2(p.y-n.y,p.x-n.x),tx=Math.cos(angle),ty=Math.sin(angle),nx=-ty,ny=tx,r=p.r,h=body.h[0],cover=body.p[0].cover;
+   const pitch=pitches[0],cp=Math.cos(pitch),sp=Math.sin(pitch);
+   const at=(a,b,c)=>{const forward=a*cp-c*sp;return [p.x+tx*forward+nx*b,p.y+ty*forward+ny*b,h+a*sp+c*cp];};
+   const face=(v,col,stroke=null)=>{const clipped=clipGround(v.map(p=>at(...p)));if(clipped.length>=3)add(clipped,col,stroke,'body');};
+   const nose=.62;
+   face([[-.20,-r*.98,r*.32],[-.10,0,r*1.12],[nose,0,r*.53],[.35,-r*1.20,r*.14]],coat(palettes[3],cover,1.18),'#94a19a65');
+   face([[-.10,0,r*1.12],[-.20,r*.98,r*.32],[.35,r*1.20,r*.14],[nose,0,r*.53]],coat(palettes[1],cover,1.1),'#94a19a65');
+   face([[.35,-r*1.20,r*.14],[nose,0,r*.53],[.35,r*1.20,r*.14],[.55,0,-r*.24]],coat([25,35,43],cover));
+   for(const side of[-1,1]){
+    // An open, angular split replaces the former cylindrical nose cap.
+    face([[-.08,side*r*.96,r*.25],[.48,side*r*1.28,.01],[.94,side*r*.42,-r*.02],[.48,side*r*.62,r*.34]],coat(ivory,cover),'#a58d68');
+    face([[.48,side*r*1.28,.01],[.94,side*r*.42,-r*.02],[.83,side*r*.46,-r*.21],[.41,side*r*1.05,-r*.18]],coat(ivoryShade,cover,.88));
+    face([[.06,side*r*.74,r*.60],[.36,side*r*.78,r*.33],[.34,side*r*.80,r*.25],[.03,side*r*.78,r*.52]],coat(amber,cover));
+   }
+  }
+  // A layered painter, not a depth buffer: ground then cosmetic traces, then clipped body/props.
+  // Ground intersection is applied to body facets above; no whole-tile foreground cuts.
+  const layer=f=>f.kind==='terrain'?0:f.kind==='trace'?1:2;
+  faces.sort((a,b)=>layer(a)-layer(b)||b.d-a.d);
+  let bodyMinX=Infinity,bodyMinY=Infinity,bodyMaxX=-Infinity,bodyMaxY=-Infinity;
+  for(const f of faces){ctx.beginPath();ctx.moveTo(f.p[0].x,f.p[0].y);for(let i=1;i<f.p.length;i++)ctx.lineTo(f.p[i].x,f.p[i].y);ctx.closePath();ctx.globalAlpha=f.kind==='terrain'?1:clamp(1-Math.max(0,f.d-18)/95,.30,1);ctx.fillStyle=f.col;ctx.fill();if(f.stroke){ctx.lineWidth=.55;ctx.strokeStyle=f.stroke;ctx.stroke();}
+   if(f.kind==='body')for(const p of f.p){bodyMinX=Math.min(bodyMinX,p.x);bodyMaxX=Math.max(bodyMaxX,p.x);bodyMinY=Math.min(bodyMinY,p.y);bodyMaxY=Math.max(bodyMaxY,p.y);}
+  }
+  ctx.globalAlpha=1;
+  const buried=q.filter((p,i)=>body.h[i]+p.r<ground(p.x,p.y)).length;
+  if(buried>8||inspect){ctx.setLineDash(buried>8?[5,8]:[]);ctx.strokeStyle=buried>8?'#efe1b591':'#acf4e1';ctx.lineWidth=1.4;ctx.beginPath();let begun=false;
+   for(let i=0;i<25;i++){const p=q[i],s=point(p.x,p.y,Math.max(body.h[i]+.13,ground(p.x,p.y)+.06));if(!s){begun=false;continue;}begun?ctx.lineTo(s.x,s.y):ctx.moveTo(s.x,s.y);begun=true;}ctx.stroke();ctx.setLineDash([]);}
+  if(inspect){for(let i=0;i<25;i++){const l=body.p[2*i],r=body.p[2*i+1],a=point(l.x,l.y,body.h[i]+.15),b=point(r.x,r.y,body.h[i]+.15);if(a&&b){ctx.strokeStyle=stiff>1&&i>8&&i<17?'#ffb787':'#b8f2df';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}}
+  const rider=q[3],ra=Math.atan2(q[2].y-q[4].y,q[2].x-q[4].x),offset=body.p[6].r+.12,rh=body.h[3]+offset*Math.cos(pitches[3]);
+  const riderX=rider.x-Math.cos(ra)*offset*Math.sin(pitches[3]),riderY=rider.y-Math.sin(ra)*offset*Math.sin(pitches[3]);
+  if(rh>ground(riderX,riderY)+.1){const a=point(riderX,riderY,rh),b=point(riderX,riderY,rh+1.8/M);if(a&&b){const height=Math.abs(a.y-b.y);ctx.strokeStyle='#f9e9ba';ctx.lineWidth=Math.max(.5,height*.20);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.fillStyle='#f9e9ba';ctx.beginPath();ctx.arc(b.x,b.y,Math.max(.3,height*.11),0,TAU);ctx.fill();}}
+  this.metrics.visibleLandmarks=visibleLandmarks;this.metrics.bodyScreenBounds=Number.isFinite(bodyMinX)?{left:bodyMinX,right:bodyMaxX,top:bodyMinY,bottom:bodyMaxY}:null;
+  // A subtle lens vignette frames the near ride without hiding the controls.
+  const vignette=ctx.createRadialGradient(W*.5,H*.5,Math.min(W,H)*.28,W*.5,H*.5,Math.max(W,H)*.72);vignette.addColorStop(0,'#112c3400');vignette.addColorStop(1,'#112c3445');ctx.fillStyle=vignette;ctx.fillRect(0,0,W,H);
+  this.metrics.drawFaces=faces.length;this.metrics.traceCount=this.traces.length;this.metrics.particleCount=this.particles.length;
+  this.metrics.effects='cosmetic, simulation-timed; no terrain excavation';
+ }
+}
+root.SandScene=Scene;
+if(typeof module!=='undefined')module.exports={Scene,MODEL_METRES:M};
+})(typeof globalThis!=='undefined'?globalThis:this);
+</script><script>(()=>{'use strict';
+const $=id=>document.getElementById(id),canvas=$('view'),ctx=canvas.getContext('2d',{alpha:false});
+if(!ctx){$('fatal').hidden=false;$('fatal-message').textContent='This ride needs a browser with Canvas support.';return;}
+const M=200/12,STEP=1/240;let body=new SandBody({depth:true}),hunt=new SandHunt(),scene=new SandScene(canvas,ctx);
+let running=false,started=false,tick=0,last=0,acc=0,lostTime=0,stiff=1,gait='dive';
+let W=1,H=1,DPR=1,mode='close',reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,inspect=false,landmarks=true;
+let keys=new Set(),pointers=new Map(),events=[],runs=[],lastInput='',toastTimer,renderTimes=[],failed=false;
+const viewNames={close:'ride',wide:'drift',study:'study'};let sound=false,audio=null,hum=null,volume=null;
+$('motion').checked=reduced;
+function size(){W=innerWidth;H=innerHeight;DPR=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(W*DPR);canvas.height=Math.round(H*DPR);ctx.setTransform(DPR,0,0,DPR,0,0);}
+addEventListener('resize',size);size();
+function note(s){$('notice').textContent=s;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('notice').textContent='',4200);}
+function input(){const all=new Set([...keys].map(code=>map[code]).concat([...pointers.values()]));return {forward:all.has('forward'),backward:all.has('backward'),left:all.has('left'),right:all.has('right'),boost:all.has('boost'),dive:gait==='dive'&&all.has('dive'),coast:all.has('coast')};}
+function release(){keys.clear();pointers.clear();document.querySelectorAll('[data-action]').forEach(e=>e.classList.remove('held'));}
+function quiet(){if(audio&&volume)volume.gain.setTargetAtTime(0,audio.currentTime,.08);}
+function pause(show=true){running=false;acc=0;last=0;release();quiet();$('pause').textContent='Paused / settings';if(show&&!$('settings').open)$('settings').showModal();}
+function play(){if(failed)return;started=true;running=true;acc=0;last=0;release();$('welcome').hidden=true;document.body.classList.remove('intro');if($('settings').open)$('settings').close();$('pause').textContent='Pause / settings';canvas.focus({preventScroll:true});if(sound)audio?.resume().catch(()=>{});}
+function summary(){return {ticks:tick,parameters:{stiff,gait,depth:true,tune:{...body.tune},drive:{...body.drive}},inspection:body.inspect(),points:body.p.map(p=>({...p})),height:[...body.h],verticalVelocity:[...body.vh],depthIntent:[...body.depthIntent],lift:[...body.lift],phase:body.phase,burial:body.burial,rise:body.rise,wasDive:body.wasDive,hunt:hunt.snapshot(),lostWallSeconds:lostTime};}
+function freshRide(nextGait=gait){if(started)runs.push({initialGait:gait,events:[...events],final:summary()});gait=nextGait;body=new SandBody({depth:true,stiff,gait});hunt=new SandHunt();scene.reset();tick=0;events=[];lastInput='';lostTime=0;release();$('dive-button').disabled=gait==='lateral';document.querySelectorAll('[data-gait]').forEach(b=>{const selected=b.dataset.gait===gait;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected));});play();note(gait==='lateral'?'Surface run. WASD moves in the direction you press.':'Find the sand skippers. WASD moves; E dives.');}
+$('start').onclick=play;$('pause').onclick=()=>running?pause():play();$('resume').onclick=play;$('reset').onclick=()=>freshRide();
+$('settings').addEventListener('cancel',e=>{e.preventDefault();play();});
+$('camera').onclick=()=>{mode={close:'wide',wide:'study',study:'close'}[mode];$('camera').textContent='View: '+viewNames[mode];};
+$('motion').onchange=()=>{reduced=$('motion').checked;scene.reset();};
+$('inspect').onclick=()=>{inspect=!inspect;$('inspect').setAttribute('aria-pressed',String(inspect));};
+$('landmarks').onclick=()=>{landmarks=!landmarks;$('landmarks').setAttribute('aria-pressed',String(landmarks));$('landmarks').textContent='Landmarks '+(landmarks?'on':'off');};
+for(const b of document.querySelectorAll('[data-stiff]'))b.onclick=()=>{stiff=Number(b.dataset.stiff);body.stiff=stiff;document.querySelectorAll('[data-stiff]').forEach(n=>{n.classList.toggle('selected',n===b);n.setAttribute('aria-pressed',String(n===b));});};
+for(const b of document.querySelectorAll('[data-gait]'))b.onclick=()=>freshRide(b.dataset.gait);
+$('export').onclick=()=>{const data={schema:'city-fare-sand-power-005/1',kind:'input replay and final state',seed:'fixed desert',units:'model units; 200 m rest length illustrative',runs:[...runs,{initialGait:gait,events:[...events],final:summary()}]};const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='City-Fare-Sand-Power-005-rides.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);note('Your ride history has been exported.');};
+async function toggleSound(){if(!sound){try{if(!audio){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('unsupported');audio=new AC();hum=audio.createOscillator();hum.type='triangle';volume=audio.createGain();volume.gain.value=0;hum.connect(volume).connect(audio.destination);hum.start();}await audio.resume();sound=true;}catch(e){note('Sound is unavailable in this browser.');sound=false;}}else{sound=false;quiet();}$('sound').textContent=sound?'Sound on':'Sound off';$('sound').setAttribute('aria-pressed',String(sound));}
+$('sound').onclick=toggleSound;
+function chime(){if(!sound||!audio)return;const o=audio.createOscillator(),g=audio.createGain();o.type='sine';o.frequency.setValueAtTime(330,audio.currentTime);o.frequency.exponentialRampToValueAtTime(660,audio.currentTime+.4);g.gain.setValueAtTime(.07,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.9);o.connect(g).connect(audio.destination);o.start();o.stop(audio.currentTime+1);o.onended=()=>{o.disconnect();g.disconnect();};}
+for(const e of document.querySelectorAll('[data-action]')){e.addEventListener('pointerdown',ev=>{ev.preventDefault();if(!running||e.disabled)return;e.setPointerCapture(ev.pointerId);pointers.set(ev.pointerId,e.dataset.action);e.classList.add('held');});const up=ev=>{pointers.delete(ev.pointerId);if(![...pointers.values()].includes(e.dataset.action))e.classList.remove('held');};for(const type of ['pointerup','pointercancel','lostpointercapture'])e.addEventListener(type,up);}
+const map={KeyW:'forward',ArrowUp:'forward',KeyS:'backward',ArrowDown:'backward',KeyA:'left',ArrowLeft:'left',KeyD:'right',ArrowRight:'right',KeyE:'dive',ShiftLeft:'boost',ShiftRight:'boost',Space:'coast'};
+addEventListener('keydown',e=>{if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;if(e.code==='KeyP'&&!e.repeat){e.preventDefault();running?pause():play();return;}if(map[e.code]&&running){if(e.code==='Space'&&e.target.tagName==='BUTTON')return;e.preventDefault();keys.add(e.code);}});
+addEventListener('keyup',e=>{if(map[e.code])keys.delete(e.code);});
+addEventListener('blur',()=>{if(running)pause();else release();});document.addEventListener('visibilitychange',()=>{if(document.hidden){if(running)pause();else release();}});
+function simulate(){const u=input(),key=JSON.stringify([u,stiff]);if(key!==lastInput){events.push({tick,input:u,stiff});lastInput=key;}body.step(u);tick++;if(hunt.step(body)){note(hunt.count+' sand skipper'+(hunt.count===1?'':'s')+' caught. Keep chasing.');chime();}}
+function render(dt){const t=performance.now();scene.render(body,{dt,W,H,DPR,mode,reduced,landmarks,inspect,stiff,prey:hunt.prey,running});const v=body.inspect(),q=body.shape(),buried=q.filter((p,i)=>body.h[i]+p.r<body.ground(p.x,p.y)).length;
+$('speed').textContent=Math.round(v.speed*M*3.6);$('effort').style.width=(v.effort*100)+'%';$('distance').textContent=Math.round(body.distance*M)+' m';$('state').textContent=!running&&started?'PAUSED':buried>18?'BENEATH THE SURFACE':input().dive?'DIVING · FOLLOW THE WAVE':body.lift.some(v=>v>.04)?'EMERGING':input().coast?'BRAKING':input().boost?'FULL STRIDE':v.speed>.08?'CROSSING THE DUNES':'READY TO ROAM';
+const c=body.com(),target=hunt.target(body),dx=target?target.x-c.x:0,dy=target?target.y-c.y:0,angle=Math.atan2(dy,dx);
+$('score').textContent=hunt.count;$('target-label').textContent=target?'Chase the sand skippers':'Watch for the next trail';$('target-distance').textContent=target?Math.round(Math.hypot(dx,dy)*M)+' m':'—';$('target-hint').textContent='Catch them on the surface';$('bearing').style.transform='rotate('+angle+'rad)';
+if(sound&&audio&&running){hum.frequency.setTargetAtTime(35+v.speed*25+buried*.5,audio.currentTime,.3);volume.gain.setTargetAtTime(.025+v.effort*.025,audio.currentTime,.2);}
+renderTimes.push(performance.now()-t);if(renderTimes.length>180)renderTimes.shift();}
+function frame(t){if(failed)return;const real=last?(t-last)/1000:0;last=t;try{if(running){if(real>.35){pause();note('Paused after an interruption. Your ride is still here.');}else{acc+=Math.max(0,real);let n=0;while(acc>=STEP&&n<24){simulate();acc-=STEP;n++;}if(acc>=STEP){lostTime+=acc;acc=0;}}}render(Math.min(.05,Math.max(.001,real)));}catch(e){failed=true;pause(false);$('fatal').hidden=false;$('fatal-message').textContent='The ride stopped safely. Reload to begin again. '+e.message;console.error(e);return;}requestAnimationFrame(frame);}
+window.SandPower=Object.freeze({inspect:()=>({version:'005-Dune-Ripper',...body.inspect(),tick,running,started,stiff,gait,view:{...scene.metrics},buried:body.shape().filter((p,i)=>body.h[i]+p.r<body.ground(p.x,p.y)).length,hunt:hunt.snapshot(),lostWallSeconds:lostTime,meanRenderMs:renderTimes.reduce((a,b)=>a+b,0)/Math.max(1,renderTimes.length),inputs:input(),fatal:failed,events:events.length,archivedRuns:runs.length}),exportState:()=>structuredClone(summary())});
+requestAnimationFrame(frame);
+})();
+</script></body></html>

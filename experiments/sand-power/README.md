@@ -1,6 +1,6 @@
-# CITY FARE: Sand Power — Motion Lab 001
+# CITY FARE: Sand Power — numbered experiments
 
-Status: OWNER-SELECTED creative direction, experimental branch. No merge or publication.
+Current stopped review checkpoint: [005 — Dune Ripper](attempt-005/README.md). Amar reported that movement is busted and requested a draft PR for read-only review before returning with a plan. 003 and 004 remain preserved intermediate attempts. No production merge or deployment.
 
 ## Identity
 - Product name remains **CITY FARE** (do not rename the main game).
