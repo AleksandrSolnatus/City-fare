@@ -6,10 +6,10 @@ import {TripSave,TRIP_SAVE_KEY} from './trip-save.js';
 const $=s=>document.querySelector(s);
 const canvas=$('#view'),speedEl=$('#speed'),pause=$('#pause'),overlay=$('#overlay'),speedFX=$('#speedfx');
 let renderer,fatal=false;
-let preferences={gentle:false,motion:matchMedia('(prefers-reduced-motion: reduce)').matches,quality:false,volume:.18,camera:'chase'};
+let preferences={gentle:false,motion:matchMedia('(prefers-reduced-motion: reduce)').matches,quality:false,volume:.18,camera:'chase',wingMode:'auto'};
 let storage=null;
 try{storage=window.localStorage}catch(e){}
-try{let p=JSON.parse(storage?.getItem('cityFarePrefs')||'{}');for(let k of ['gentle','motion','quality'])if(typeof p[k]==='boolean')preferences[k]=p[k];if(Number.isFinite(p.volume))preferences.volume=Math.max(0,Math.min(1,p.volume));if(p.camera==='wide')preferences.camera='wide'}catch(e){}
+try{let p=JSON.parse(storage?.getItem('cityFarePrefs')||'{}');for(let k of ['gentle','motion','quality'])if(typeof p[k]==='boolean')preferences[k]=p[k];if(Number.isFinite(p.volume))preferences.volume=Math.max(0,Math.min(1,p.volume));if(p.camera==='wide')preferences.camera='wide';if(['auto','speed','grip'].includes(p.wingMode))preferences.wingMode=p.wingMode}catch(e){}
 const STEP=1/60,MAX_STEPS=5,MPH=2.236936,SAVE_INTERVAL=15;
 let state=fresh(),previous={...state},held=new Set(),pointers=new Map(),last=0,accumulator=0,raf=0,started=false,overloads=0,toastTimer;
 const tripSave=new TripSave(storage);
@@ -58,11 +58,11 @@ function render(interpolate=false,dt=STEP){
   if(!renderer)return;let visible=state;
   if(interpolate){let a=accumulator/STEP;visible={...state};for(let k of ['x','v','steer','angle','distance','z'])visible[k]=previous[k]+(state[k]-previous[k])*a}
   renderer.render(visible,preferences,dt,actions());
-  const forces=aeroForces(state.v,state.angle,state.x,state.z);
+  const forces=aeroForces(state.v,state.angle,state.x,state.z,activeWing(state.v,preferences.wingMode));
   const lateral=Math.abs(state.x-center(state.z));
   $('#surface').textContent=lateral>5.1?'SAND · LOWER GRIP':'ASPHALT · HIGH GRIP';
   $('#hint').textContent='WIND '+Math.round(Math.hypot(forces.wind.x,forces.wind.z)*MPH)+
-    ' MPH · ACTIVE WING '+Math.round(activeWing(state.v)*100)+'%';
+    ' MPH · ACTIVE WING '+Math.round(activeWing(state.v,preferences.wingMode)*100)+'%';
   speedFX.style.opacity=started&&!state.paused&&!state.finished&&!preferences.motion?String(.58*Math.max(0,Math.min(1,(state.v-31.2928)/(125-31.2928)))):'0';
   speedEl.textContent=Math.round(state.v*MPH);$('#speedbar').style.width=(Math.min(1,state.v/115)*100)+'%';
   $('#distance').textContent=miles(Math.max(0,ROUTE_LENGTH-state.distance));$('#progress').style.width=(state.distance/ROUTE_LENGTH*100)+'%';
@@ -140,6 +140,8 @@ $('.brand').onclick=e=>{e.preventDefault();if(started)setPaused(true)};
 $('#camera span').textContent=preferences.camera==='wide'?'Wide cam':'Chase cam';
 $('#camera').onclick=()=>{preferences.camera=preferences.camera==='wide'?'chase':'wide';savePreferences();$('#camera span').textContent=preferences.camera==='wide'?'Wide cam':'Chase cam';render()};
 for(const name of ['gentle','motion','quality']){let el=$('#'+name);el.checked=preferences[name];el.onchange=()=>{preferences[name]=el.checked;savePreferences();if(name==='quality')renderer.resize(preferences.quality);render()}}
+let wingMode=$('#wing-mode');wingMode.value=preferences.wingMode;
+wingMode.onchange=()=>{preferences.wingMode=wingMode.value;savePreferences();render()};
 let volume=$('#volume');volume.value=preferences.volume;volume.oninput=()=>{preferences.volume=Number(volume.value);savePreferences();updateAudio()};
 
 // Gesture-started electric motor: soft sine pair and filtered air, no gear drone.
