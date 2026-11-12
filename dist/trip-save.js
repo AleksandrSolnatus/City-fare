@@ -1,4 +1,5 @@
-import { ROUTE_LENGTH, TUNE, center } from './road.js';
+import { ROUTE_LENGTH } from './road.js';
+import {decodeCactusHistory,encodeCactusHistory} from './cactus-ledger.js';
 
 export const TRIP_SAVE_KEY = 'cityFareTrip:sonoran-007:v1';
 const tripSaveRoute = 'sonoran-007';
@@ -11,11 +12,15 @@ function tripSaveState(value, requireMatchingFinish = false) {
   const { x, z, angle, distance } = value;
   if (z < 0 || distance < 0 || distance > ROUTE_LENGTH
     || z > distance + tripSaveTolerance
-    || Math.abs(x - center(z)) > TUNE.lateralLimit + tripSaveTolerance) return null;
+    || Math.abs(x-1.8) > distance + 200 || z > 1e9) return null;
+  // 008: no history; first 009 draft: validated ID array;
+  // current 009: compact per-chunk masks plus lossless legacy extras.
+  const destroyedCacti=decodeCactusHistory(value);
+  if(!destroyedCacti)return null;
   const finished = distance === ROUTE_LENGTH;
   if (requireMatchingFinish && value.finished !== finished) return null;
-  // Only journey coordinates survive. Resuming never restores motion or held controls.
-  return { x, z, angle, distance, finished, v: 0, steer: 0, paused: true };
+  // The complete journey and destruction history survive; motion/inputs do not.
+  return { x, z, angle, distance, finished, destroyedCacti:[...destroyedCacti], v: 0, steer: 0, paused: true };
 }
 
 function tripSaveDecode(raw) {
@@ -61,9 +66,12 @@ export class TripSave {
         return { status: 'conflict' };
     }
     const savedAt = Date.now();
-    const { x, z, angle, distance, finished } = state;
+    const { x, z, angle, distance, finished, destroyedCacti } = state;
+    const history=encodeCactusHistory(destroyedCacti);
+    if(!history)return {status:'invalid',reason:'invalid-state'};
     const raw = JSON.stringify({ version: 1, route: tripSaveRoute,
-      routeLength: ROUTE_LENGTH, savedAt, state: { x, z, angle, distance, finished } });
+      routeLength: ROUTE_LENGTH, savedAt,
+      state: { x, z, angle, distance, finished, ...history } });
     try { this.#storage.setItem(TRIP_SAVE_KEY, raw); }
     catch { return { status: 'unavailable', reason: 'storage-write' }; }
     this.#raw = raw;

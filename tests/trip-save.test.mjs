@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { ROUTE_LENGTH, TUNE, center, fresh, step } from '../dist/road.js';
+import { ROUTE_LENGTH, center, fresh, step } from '../dist/road.js';
 import { TripSave, TRIP_SAVE_KEY } from '../dist/trip-save.js';
 
 class MemoryStorage {
@@ -33,7 +33,7 @@ test('round trip keeps off-road position, continuous yaw and true odometer, then
   for (const key of ['x', 'z', 'angle', 'distance']) assert.equal(read.checkpoint.state[key], source[key]);
   assert.deepEqual([read.checkpoint.state.v, read.checkpoint.state.steer, read.checkpoint.state.paused], [0, 0, true]);
   const encoded = JSON.parse(storage.getItem(TRIP_SAVE_KEY));
-  assert.deepEqual(Object.keys(encoded.state).sort(), ['angle', 'distance', 'finished', 'x', 'z']);
+  assert.deepEqual(Object.keys(encoded.state).sort(), ['angle', 'destroyedCactusBits', 'distance', 'finished', 'x', 'z']);
   // Mutating either the caller's state or a returned snapshot cannot change saved bytes.
   source.z = 100;
   read.checkpoint.state.distance = 9;
@@ -74,7 +74,7 @@ test('invalid runtime state is rejected before any existing checkpoint is change
   const initial = storage.getItem(TRIP_SAVE_KEY);
   const bad = [null, [], {}, parkedTrip({ finished: 'yes' }), parkedTrip({ z: -1 }),
     parkedTrip({ distance: -1 }), parkedTrip({ distance: ROUTE_LENGTH + 1 }),
-    parkedTrip({ z: 5000 }), parkedTrip({ x: center(1500) + TUNE.lateralLimit + .1 })];
+    parkedTrip({ z: 5000 }), parkedTrip({ x: center(1500) + 10000 })];
   for (const key of ['x', 'z', 'angle', 'distance']) {
     for (const value of [NaN, Infinity, -Infinity, '12', null]) bad.push(parkedTrip({ [key]: value }));
   }
@@ -93,7 +93,7 @@ test('malformed, incompatible and impossible stored records survive automatic wr
     JSON.stringify(storedRecord({ state: { x: null, z: 0, angle: 0, distance: 0, finished: false } })),
     JSON.stringify(storedRecord({ state: { x: 1.8, z: 100, angle: 0, distance: 5, finished: false } })),
     JSON.stringify(storedRecord({ state: { x: 1.8, z: 0, angle: 0, distance: 0, finished: true } })),
-    JSON.stringify(storedRecord({ state: { x: 99, z: 0, angle: 0, distance: 100, finished: false } })),
+    JSON.stringify(storedRecord({ state: { x: 999, z: 0, angle: 0, distance: 100, finished: false } })),
     JSON.stringify(storedRecord({ state: { x: 1.8, z: 0, angle: 0, distance: ROUTE_LENGTH, finished: false } }))];
   for (const raw of bad) {
     const storage = new MemoryStorage(); storage.setItem(TRIP_SAVE_KEY, raw);
@@ -107,7 +107,7 @@ test('malformed, incompatible and impossible stored records survive automatic wr
 
 test('valid boundary values allow harmless rounding but never relocate the car', () => {
   const storage = new MemoryStorage(), save = new TripSave(storage);
-  for (const lateral of [-TUNE.lateralLimit, TUNE.lateralLimit]) {
+  for (const lateral of [-140, 140]) {
     const state = parkedTrip({ x: center(1500) + lateral, z: 1500, distance: 1500 - 1e-8 });
     assert.equal(save.save(state).status, 'saved');
     assert.equal(save.load().checkpoint.state.x, state.x);
@@ -156,4 +156,27 @@ test('unobserved occupied slots require loading, and unrelated prototype data is
   assert.equal(lateTab.load().status, 'saved');
   assert.equal(lateTab.save(fresh()).status, 'saved');
   assert.equal(storage.getItem('cityFareSave'), 'old prototype data');
+});
+
+test('008 legacy checkpoint restores with empty cactus history; impacts persist in 009', () => {
+  const storage=new MemoryStorage();
+  storage.setItem(TRIP_SAVE_KEY,JSON.stringify(storedRecord()));
+  const save=new TripSave(storage);
+  const legacy=save.load();assert.equal(legacy.status,'saved');
+  assert.deepEqual(legacy.checkpoint.state.destroyedCacti,[]);
+  const hit='c:0:30:1:0';
+  const state=parkedTrip({destroyedCacti:[hit]});
+  assert.equal(save.save(state).status,'saved');
+  const restored=new TripSave(storage).load();
+  assert.deepEqual(restored.checkpoint.state.destroyedCacti,[hit]);
+  assert.equal(restored.checkpoint.state.v,0);
+});
+test('invalid cactus receipts are rejected without rewriting a valid save', () => {
+  const storage=new MemoryStorage(),save=new TripSave(storage);
+  assert.equal(save.save(parkedTrip()).status,'saved');
+  const baseline=storage.getItem(TRIP_SAVE_KEY);
+  for(const destroyedCacti of [['bad'],['c:0:30:1:0','c:0:30:1:0'],null]){
+    assert.equal(save.save(parkedTrip({destroyedCacti})).status,'invalid');
+    assert.equal(storage.getItem(TRIP_SAVE_KEY),baseline);
+  }
 });

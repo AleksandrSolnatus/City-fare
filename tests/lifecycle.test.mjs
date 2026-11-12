@@ -10,7 +10,7 @@ import { TRIP_SAVE_KEY } from '../dist/trip-save.js';
 // WebGL, native dialog behavior, physical touch input or browser storage events.
 const readSource = name => readFileSync(new URL(`../dist/${name}`, import.meta.url), 'utf8');
 const stripModules = source => source.replace(/^import .*;\n/gm, '').replace(/^export /gm, '');
-const lifecycleSource = ['road.js', 'trip-save.js', 'game.js'].map(readSource).map(stripModules).join('\n');
+const lifecycleSource = ['aero.js', 'cactus-ledger.js', 'road.js', 'trip-save.js', 'game.js'].map(readSource).map(stripModules).join('\n');
 const gameHtml = readSource('index.html');
 
 function fixture(distance = 4200, z = 1500) {
@@ -92,8 +92,8 @@ function harness(storage = new TestStorage()) {
     assert.equal(selector, '.drive'); return driveButtons;
   };
   get('#overlay').querySelectorAll = selector => {
-    assert.equal(selector, 'button,input');
-    return ['resume', 'save-exit', 'reload-save', 'sound', 'volume', 'gentle', 'motion', 'quality', 'restart'].map(id => get('#' + id));
+    assert.equal(selector, 'button,input,select');
+    return ['resume', 'save-exit', 'reload-save', 'wing-mode', 'sound', 'volume', 'gentle', 'motion', 'quality', 'restart'].map(id => get('#' + id));
   };
   document.body = makeNode('body'); document.body.classList.add('intro');
   document.activeElement = document.body;
@@ -102,6 +102,8 @@ function harness(storage = new TestStorage()) {
   class TestRenderer {
     frames = 0; yaw = null; dust = [];
     resize() {}
+    resetWorld() {}
+    registerHits() {}
     render() { this.frames++; }
     inspect() { return { renderer: 'test double', frames: this.frames }; }
   }

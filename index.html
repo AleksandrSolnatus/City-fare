@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#293e50"><meta name="description" content="A fast car. The Sonoran desert. A 2,200-mile drive you can return to.">
-<title>City Fare · Sonoran Run</title>
+<meta name="theme-color" content="#293e50"><meta name="description" content="A faster race car, wind and aerodynamics, destructible cacti, and open Sonoran desert. Save a 2,200-mile trip.">
+<title>City Fare · Sonoran Unbound</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%233b5262'/%3E%3Cpath d='M15 27h34v22H15zm6-12h22l6 12H15z' fill='%239ce8de'/%3E%3C/svg%3E">
 <style>:root{color-scheme:light;--ink:#243d40;--cream:#fff3d8;--gold:#ffd16e}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#c7b58c;color:var(--cream);font-family:Arial,Helvetica,sans-serif;user-select:none;-webkit-user-select:none}canvas{display:block;width:100%;height:100%;touch-action:none}.vignette{position:fixed;inset:0;pointer-events:none;background:linear-gradient(180deg,#182f3525,transparent 23%,transparent 62%,#182c3b80)}header{position:fixed;z-index:3;top:max(28px,env(safe-area-inset-top));left:max(32px,env(safe-area-inset-left));right:max(32px,env(safe-area-inset-right));display:flex;align-items:start;justify-content:space-between}.brand{color:var(--ink);text-decoration:none;font-size:24px;font-weight:900;letter-spacing:-1px;line-height:1}.brand span{display:block;font-size:9px;letter-spacing:3.7px;margin-top:8px;font-weight:700}.topright{display:flex;align-items:center;gap:27px}.location{font-size:10px;letter-spacing:2px;font-weight:bold;color:var(--ink);line-height:1.5}.location span{display:block;font-size:8px;opacity:.7;letter-spacing:2.8px}.location i{display:inline-block;background:#426c53;width:6px;height:6px;border-radius:50%;margin-right:6px}button{font:inherit;cursor:pointer;border:0;color:var(--ink);touch-action:manipulation}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1c738a;outline-offset:5px}#pause{background:#fff3d866;border:1px solid #fff3d888;padding:12px 17px;border-radius:30px;font-size:13px;font-weight:700;backdrop-filter:blur(8px)}#pause span{margin-left:7px}#welcome{position:absolute;top:24%;left:7%;max-width:530px;transition:opacity .3s,transform .3s;color:var(--ink);text-shadow:0 1px 22px #e9d3ac55}.eyebrow{font-size:10px;letter-spacing:2.5px;font-weight:bold}h1{font-size:clamp(48px,6.8vw,104px);line-height:.95;letter-spacing:-6px;font-weight:900;margin:23px 0}h1 em{font-family:Georgia,serif;font-weight:400;letter-spacing:-6px}#welcome p{font-size:14px;line-height:1.8;margin:20px 0 28px}.primary{display:flex;justify-content:space-between;align-items:center;gap:50px;background:var(--ink);color:var(--cream);padding:18px 23px;border-radius:6px;font-size:14px;font-weight:bold;box-shadow:0 5px 16px #20333118}.primary span{font-size:23px}.primary:hover{background:#36575a}.keys{display:flex;align-items:center;gap:4px;margin-top:22px;font-size:10px}.keys span{margin-left:7px;opacity:.85}kbd{font:10px Arial;display:inline-grid;place-items:center;border:1px solid currentColor;border-radius:4px;min-width:19px;height:21px;opacity:.65}.drivehud{position:absolute;bottom:max(38px,env(safe-area-inset-bottom));left:34px;right:34px;display:flex;align-items:end;justify-content:space-between;gap:25px;pointer-events:none}.speedometer{min-width:155px}.speedometer strong{font-size:64px;font-weight:400;letter-spacing:-3px;font-variant-numeric:tabular-nums;line-height:1}.speedometer span{font-size:10px;letter-spacing:2px;margin-left:10px}.speedline{height:3px;background:#fff3d84a;width:155px;margin:12px 0}.speedline i{display:block;height:100%;width:0;background:var(--gold)}.speedometer small{font-size:8px;letter-spacing:1.8px}.journey{width:290px;margin-bottom:3px}.journey>div:first-child{display:flex;justify-content:space-between;font-size:9px;letter-spacing:1.5px}.journey b{font-weight:400}.route{height:2px;background:#fff3d855;margin:14px 0}.route i{display:block;width:1%;height:100%;background:var(--gold);position:relative}.route i:after{content:'';position:absolute;width:7px;height:7px;background:var(--gold);border-radius:50%;right:-3px;top:-2.5px}.journey small{font-size:9px;opacity:.8}.viewbutton{display:flex;align-items:center;gap:10px;background:#fff3d819;color:var(--cream);border:1px solid #fff3d866;border-radius:30px;padding:11px 15px;font-size:12px;pointer-events:auto}.viewbutton>span{font-size:10px}.viewbutton kbd{font-size:9px}.intro .drivehud,.intro .controls{opacity:0;pointer-events:none}.playing #welcome{opacity:0;transform:translateY(10px);pointer-events:none}.playing #welcome button{visibility:hidden}.controls{display:none;position:fixed;bottom:max(22px,env(safe-area-inset-bottom));left:max(20px,env(safe-area-inset-left));right:max(20px,env(safe-area-inset-right));justify-content:space-between;pointer-events:none}.group{display:flex;gap:10px}.drive{pointer-events:auto;border:1px solid #fff3d888;background:#263f4780;color:var(--cream);border-radius:16px;width:64px;height:64px;touch-action:none;font-size:24px;backdrop-filter:blur(7px)}.drive.gas{width:94px;background:#f1c46bbd;color:#243d40;font-size:13px;font-weight:bold}.drive.brake{font-size:10px;width:62px}.drive.on{background:#fff3d8;color:#243d40;transform:translateY(2px)}.overlay{position:fixed;inset:0;z-index:5;background:#203a4380;backdrop-filter:blur(8px);display:grid;place-items:center;padding:20px}.overlay[hidden],#error[hidden]{display:none}.pausebox{width:min(420px,100%);max-height:90dvh;overflow:auto;background:#fff0d7;color:var(--ink);padding:32px;border-radius:12px;box-shadow:0 25px 80px #16303d33}.pausebox h2{font:italic 34px Georgia;letter-spacing:-1px;margin:15px 0}.pausebox p{font-size:12px;line-height:1.8;opacity:.8}.pausebox .primary{width:100%;margin:23px 0}.settings{display:grid;gap:13px;font-size:13px}.settings label{display:flex;align-items:center;gap:9px}.settings input[type=range]{width:130px;accent-color:#42686a}.settings input[type=checkbox]{accent-color:#42686a;width:17px;height:17px}#sound{background:#e2d8bc;text-align:left;padding:12px;border-radius:5px}.textbutton{padding:16px 0;background:none;font-size:12px;text-decoration:underline}.pausebox>small{display:block;font-size:10px;opacity:.7}#toast{position:absolute;top:110px;left:50%;transform:translateX(-50%);background:#fff0d7eb;color:#243d40;padding:12px 20px;border-radius:30px;font-size:12px;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}#toast.show{opacity:1}#error{position:fixed;inset:20%;z-index:10;background:#fff0d7;color:#243d40;border-radius:10px;padding:25px}#error button{padding:12px 20px;background:#243d40;color:#fff0d7}
 @media(pointer:coarse),(max-width:700px){.controls{display:flex}.drivehud{bottom:110px;left:22px;right:22px}.speedometer strong{font-size:42px}.speedometer{min-width:100px}.speedline{width:100px}.journey{width:180px}.journey small{display:none}.viewbutton{padding:10px}.viewbutton span,.viewbutton kbd{display:none}.location{display:none}header{left:22px;right:22px;top:24px}.brand{font-size:22px}.brand span{font-size:8px}.topright{gap:10px}#welcome{top:23%;left:7%;max-width:85%}h1{font-size:66px;letter-spacing:-3px}h1 em{letter-spacing:-3px}.keys{max-width:300px;flex-wrap:wrap}#welcome p{font-size:12px}#pause span{display:none}#toast{top:90px;font-size:10px}.journey>div:first-child{font-size:8px;letter-spacing:.5px}}
@@ -14,7 +14,7 @@
 .intro #pause{visibility:hidden}
 
 /* Sonoran Run: minimal interface, cool metal, orange sun. */
-:root{--ink:#263f46;--cream:#f0eadd;--gold:#ffc28b}#welcome{top:auto;bottom:15%;left:7%}#welcome .eyebrow{letter-spacing:4px}h1{font:800 clamp(46px,6vw,86px) Arial,sans-serif;letter-spacing:-3px;line-height:1;margin:14px 0}#welcome p{font-size:13px;letter-spacing:1.2px;margin:14px 0 25px}.keys{opacity:.75}.location{letter-spacing:3px}.brand{letter-spacing:-1.5px}.journey{width:250px}.journey>div:first-child{justify-content:flex-end}#chapter,#surface,#hint{display:none}.speedometer strong{font-size:52px}.speedline{height:2px;width:130px}.viewbutton kbd,.viewbutton span{display:none}.viewbutton{padding:10px 14px}.drivehud{bottom:32px}.drive.gas{background:#bfd8d4c9}.intro .brand{visibility:hidden}#finish-fade{position:fixed;inset:0;background:#172e36;opacity:0;pointer-events:none;z-index:4}#finish{position:fixed;inset:0;z-index:5;display:grid;place-content:center;text-align:center;color:#e6e4d9}#finish[hidden]{display:none}#finish p{letter-spacing:4px;font-size:11px}#finish h2{font-size:50px;font-weight:400;margin:14px 0 35px}#finish button{background:transparent;color:#e6e4d9;border:1px solid #e6e4d966;padding:15px 25px;border-radius:4px}.finished header,.finished .drivehud,.finished .controls{visibility:hidden}@media(max-width:700px),(pointer:coarse){.drivehud{bottom:110px}#welcome{top:auto;bottom:17%}h1{font-size:52px;letter-spacing:-2px}.speedometer strong{font-size:42px}.speedline{width:100px}.journey{width:170px}}@media(max-height:530px){#welcome{bottom:11%;top:auto}h1{font-size:48px}.drivehud{bottom:22px}}
+:root{--ink:#263f46;--cream:#f0eadd;--gold:#ffc28b}#welcome{top:auto;bottom:15%;left:7%}#welcome .eyebrow{letter-spacing:4px}h1{font:800 clamp(46px,6vw,86px) Arial,sans-serif;letter-spacing:-3px;line-height:1;margin:14px 0}#welcome p{font-size:13px;letter-spacing:1.2px;margin:14px 0 25px}.keys{opacity:.75}.location{letter-spacing:3px}.brand{letter-spacing:-1.5px}.journey{width:250px}.journey>div:first-child{justify-content:flex-end}#chapter{display:none}.speedometer strong{font-size:52px}.speedline{height:2px;width:130px}.viewbutton kbd,.viewbutton span{display:none}.viewbutton{padding:10px 14px}.drivehud{bottom:32px}.drive.gas{background:#bfd8d4c9}.intro .brand{visibility:hidden}#finish-fade{position:fixed;inset:0;background:#172e36;opacity:0;pointer-events:none;z-index:4}#finish{position:fixed;inset:0;z-index:5;display:grid;place-content:center;text-align:center;color:#e6e4d9}#finish[hidden]{display:none}#finish p{letter-spacing:4px;font-size:11px}#finish h2{font-size:50px;font-weight:400;margin:14px 0 35px}#finish button{background:transparent;color:#e6e4d9;border:1px solid #e6e4d966;padding:15px 25px;border-radius:4px}.finished header,.finished .drivehud,.finished .controls{visibility:hidden}@media(max-width:700px),(pointer:coarse){.drivehud{bottom:110px}#welcome{top:auto;bottom:17%}h1{font-size:52px;letter-spacing:-2px}.speedometer strong{font-size:42px}.speedline{width:100px}.journey{width:170px}}@media(max-height:530px){#welcome{bottom:11%;top:auto}h1{font-size:48px}.drivehud{bottom:22px}}
 
 /* 2080 dusk: brushed steel, gunmetal, a few living edges. */
 :root{--ink:#d6e2e4;--cream:#e0e9e8;--gold:#8be5dc}body{background:#344b5f}.brand,.location,#welcome{color:#e3e9e5}#welcome{text-shadow:0 2px 24px #172b4980}.primary{background:#273c4bdd;color:#e0efeb;border:1px solid #97d7d077;box-shadow:0 0 22px #56c5ce12,inset 0 0 14px #76e9db08}.primary:hover{background:#345361}.location i{background:#93e8d7;box-shadow:0 0 8px #92eee4}#pause{background:#243a4b77;border-color:#e0eeee55;color:#e3ecea}.vignette{background:linear-gradient(180deg,#172b4933,transparent 26%,transparent 60%,#172b4980)}.speedline i,.route i{box-shadow:0 0 9px #8be5dc55}.pausebox{background:#273c4b;color:#e2e9e5;border:1px solid #a9cad344}.pausebox .primary{background:#385563}#sound{background:#3a5261;color:#e3ece8}.textbutton{color:#d6e9e5}.settings input[type=range],.settings input[type=checkbox]{accent-color:#84d7ce}.drive{background:#273e5077;border-color:#c4e1e66b}.drive.gas{background:#315b66bb;color:#a6f2e5;box-shadow:0 0 20px #77ddd419}.drive.on{background:#90d9d3;color:#233c4b}.viewbutton{border-color:#afced65e;background:#273e5033}#error{background:#273c4b;color:#dce8e7}#error button{background:#466d78;color:white}
@@ -38,44 +38,195 @@ button:disabled{opacity:.45;cursor:default}.pausebox #resume{margin-bottom:12px}
 #toast{z-index:7;max-width:calc(100vw - 32px);white-space:normal;text-align:center}
 @media(max-width:700px){#welcome{bottom:16%}#welcome #trip-summary{font-size:11px}#trip-note{font-size:10px;max-width:290px}.start-actions{gap:18px}.start-actions .primary{padding:15px 19px}.pausebox{max-height:calc(100dvh - 36px)}}
 @media(max-height:530px){#welcome{bottom:9%;max-width:65vw}#welcome .eyebrow{font-size:8px}#welcome h1{font-size:38px;margin:9px 0}#welcome p{margin:7px 0 13px}#welcome #trip-summary{margin-bottom:8px;font-size:11px}#trip-note{margin-top:8px;font-size:10px}.start-actions .primary{padding:10px 18px}.start-actions .textbutton{padding:10px 0}.keys{margin-top:10px}.pausebox{max-height:calc(100dvh - 24px)}.restart-dialog{padding:22px}}
+
+#wing-mode{background:#344f5d;color:#e9f3f1;border:1px solid #86bfc8;border-radius:5px;padding:8px;max-width:210px;font:inherit}
+#surface,#hint{display:block;letter-spacing:.5px;opacity:.92}
+@media(max-width:700px),(pointer:coarse){.journey small{display:block;font-size:8px;white-space:normal}.speedometer small{font-size:8px;letter-spacing:.2px}.journey{width:156px}}
 </style>
 </head>
 <body class="intro">
-<canvas id="view" tabindex="-1" aria-label="Third-person view of a steel and gunmetal car on an Arizona-inspired desert highway"></canvas>
+<canvas id="view" tabindex="-1" aria-label="Third-person view of an aerodynamic race car driving on and off an Arizona-inspired desert highway"></canvas>
 <div id="speedfx" aria-hidden="true"></div><div class="vignette" aria-hidden="true"></div>
-<header><a class="brand" href="#" aria-label="City Fare home">CITY FARE</a><div class="topright"><div class="location"><i></i> SONORAN RUN</div><button id="pause" aria-label="Pause and settings">Ⅱ <span>Pause</span></button></div></header>
+<header><a class="brand" href="#" aria-label="City Fare home">CITY FARE</a><div class="topright"><div class="location"><i></i> SONORAN UNBOUND</div><button id="pause" aria-label="Pause and settings">Ⅱ <span>Pause</span></button></div></header>
 <main id="welcome">
-<div class="eyebrow">SONORAN RUN</div><h1>CITY FARE</h1><p>2,200 miles. One road.</p><p id="trip-summary"></p>
+<div class="eyebrow">SONORAN RUN</div><h1>CITY FARE</h1><p>2,200 miles. No walls. Just drive.</p><p id="trip-summary"></p>
 <div class="start-actions"><button class="primary" id="start"><span id="start-label">Drive</span><span aria-hidden="true">↗</span></button><button class="textbutton" id="new-drive" hidden>New drive</button></div>
 <small id="trip-note">Your progress stays in this browser.</small><div class="keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>/ ARROWS</span></div>
 </main>
 <div class="drivehud" id="drivehud" inert>
 <section class="speedometer" aria-label="Speed"><div><strong id="speed">0</strong><span>MPH</span></div><div class="speedline"><i id="speedbar"></i></div><small id="surface"></small></section>
-<section class="journey"><div><span id="chapter">TO THE CITY</span><span><b id="distance">2,200.0</b> MI TO GO</span></div><div class="route"><i id="progress"></i></div><small id="hint"></small></section>
+<section class="journey"><div><span id="chapter">THE DESERT IS OPEN</span><span><b id="distance">2,200.0</b> MI TO GO</span></div><div class="route"><i id="progress"></i></div><small id="hint"></small></section>
 <button class="viewbutton" id="camera" aria-label="Change chase camera">⌑ <span>Chase cam</span><kbd>C</kbd></button>
 </div>
 <div id="toast" role="status" aria-live="polite"></div>
 <div class="controls" inert><div class="group"><button class="drive steer" data-key="left" aria-label="Steer left">←</button><button class="drive steer" data-key="right" aria-label="Steer right">→</button></div><div class="group"><button class="drive brake" data-key="brake" aria-label="Brake">BRAKE</button><button class="drive gas" data-key="gas" aria-label="Accelerate">DRIVE ↑</button></div></div>
 <div class="overlay" id="overlay" hidden><section class="pausebox" role="dialog" aria-modal="true" aria-labelledby="pause-title">
 <div class="eyebrow">SONORAN RUN</div><h2 id="pause-title">Paused.</h2><p>W / ↑ drive · S / ↓ brake · A D / ← → steer<br>P / Esc pause · C camera · R restart</p>
+<p>Explore the sand. Watch wind and active wing in the drive HUD. Hit a cactus for a poof.</p>
 <button id="resume" class="primary">Continue <span aria-hidden="true">↗</span></button>
 <button id="save-exit" class="secondary">Save &amp; return to title</button>
 <p id="save-status" class="save-status" role="status" aria-live="polite"></p><button id="reload-save" class="secondary" hidden>Reload saved drive</button>
-<div class="settings"><button id="sound">Sound: Off</button><label>Volume <input id="volume" type="range" min="0" max="1" step="0.05" value="0.18"></label><label><input id="gentle" type="checkbox"> Gentle steering</label><label><input id="motion" type="checkbox"> Reduced camera motion</label><label><input id="quality" type="checkbox"> Lower resolution</label></div>
+<div class="settings"><label>Wing setup <select id="wing-mode" aria-label="Aerodynamic wing setup"><option value="auto">Auto wing</option><option value="speed">Low drag</option><option value="grip">High downforce</option></select></label><button id="sound">Sound: Off</button><label>Volume <input id="volume" type="range" min="0" max="1" step="0.05" value="0.18"></label><label><input id="gentle" type="checkbox"> Gentle steering</label><label><input id="motion" type="checkbox"> Reduced camera motion</label><label><input id="quality" type="checkbox"> Lower resolution</label></div>
 <button id="restart" class="textbutton">Start the drive again</button><small>Saves belong to this browser. Clearing site data removes them.</small>
 </section></div>
 <dialog id="restart-dialog" class="restart-dialog" aria-labelledby="restart-title" aria-describedby="restart-note"><h2 id="restart-title">Start a new drive?</h2><p id="restart-note">This replaces your saved trip and returns you to mile zero.</p><div class="restart-actions"><button id="cancel-restart" class="secondary" autofocus>Keep this drive</button><button id="confirm-restart" class="primary">Start over</button></div></dialog>
 <div id="finish-fade" aria-hidden="true"></div><section id="finish" hidden><p>SONORAN RUN</p><h2>2,200 miles.</h2><small id="finish-save-status"></small><button id="again">Drive again ↗</button></section>
 <div id="error" role="alert" hidden><h2>A quick pit stop.</h2><p id="error-message">The drive could not continue. Reload to try again.</p><button onclick="location.reload()">Reload</button></div>
 <script type="module">
+// City Fare 009 — intentionally small, deterministic arcade-aerodynamics model.
+// SI units throughout. Geometry parameters are exposed for experiments, not presented
+// as measured real-car coefficients.
+const AERO = Object.freeze({
+  mass: 1250, airDensity: 1.2, bodyCdA: .55, wingCdA: .13,
+  floorClA: .16, wingClA: 1.55, power: 560000,
+  maxDriveForce: 12500, brakeForce: 17000,
+  roadFriction: 1.30, sandFriction: .62, gravity: 9.81,
+});
+const aeroClamp=(n,lo,hi)=>Math.max(lo,Math.min(hi,n));
+function activeWing(speed,mode='auto') {
+  // The selected shape changes CdA and downforce; auto follows car speed.
+  if(mode==='speed')return .08;
+  if(mode==='grip')return 1;
+  return aeroClamp((speed-22)/80,0,1);
+}
+function windAt(x,z) {
+  // A repeatable wind FIELD, not a random impulse each animation frame.
+  return {x: 4.1*Math.sin(z/950+.31*Math.sin(x/1400)),
+          z: 2.3*Math.cos(z/1700+x/2500)};
+}
+function aeroForces(speed,angle,x,z,wing=activeWing(speed),spec=AERO) {
+  const wind=windAt(x,z), along=Math.sin(angle)*wind.x+Math.cos(angle)*wind.z;
+  const across=Math.cos(angle)*wind.x-Math.sin(angle)*wind.z;
+  const longitudinal=speed-along, apparent=Math.hypot(longitudinal,across);
+  const q=.5*spec.airDensity*apparent*apparent;
+  // Project aerodynamic drag onto forward car motion. Wind does not
+  // spontaneously drive a stopped car backward in this arcade model.
+  const drag=q*(spec.bodyCdA+spec.wingCdA*wing)*
+    Math.max(0,longitudinal)/Math.max(1,apparent);
+  const downforce=q*(spec.floorClA+spec.wingClA*wing);
+  return {wind,along,across,apparent,drag,downforce,wing};
+}
+function vehicleForces(speed,angle,x,z,sand=0,spec=AERO,wingMode='auto') {
+  const aero=aeroForces(speed,angle,x,z,activeWing(speed,wingMode),spec);
+  const surface=aeroClamp(sand,0,1);
+  const mu=spec.roadFriction*(1-surface)+spec.sandFriction*surface;
+  const lateralGrip=mu*(spec.gravity+aero.downforce/spec.mass);
+  const traction=spec.mass*lateralGrip;
+  const drive=Math.min(spec.maxDriveForce, traction,
+    spec.power/Math.max(speed,18));
+  // Sand loss grows with speed instead of applying an arbitrary sand speed cap.
+  const resistance=155+surface*(850+.38*speed*speed);
+  const acceleration=(drive-aero.drag-resistance)/spec.mass;
+  const braking=-(Math.min(spec.brakeForce,traction)+aero.drag+resistance)/spec.mass;
+  return {...aero, mu,lateralGrip,drive,resistance,acceleration,braking};
+}
+
+// Lossless, source-ID-preserving persistence for Sonoran Unbound cacti.
+// Each generated 600m chunk owns 10 rows x 2 sides x 3 variants = 60 cacti.
+// One 60-bit mask per visited chunk makes the full 2,200-mile journey bounded
+// by world geometry instead of an arbitrary 10,000-hit storage ceiling.
+const CACTUS_CHUNK_METRES=600;
+const FIRST_CHUNK=-1; // The last cactus of chunk -1 can extend to +12m.
+const LAST_CHUNK=Math.ceil(2200*1609.344/CACTUS_CHUNK_METRES);
+const MASK_LIMIT=1n<<60n;
+const MAX_EXTRAS=10000; // Previously accepted IDs that do not identify generated cacti.
+const MAX_CACTUS_IDS=(LAST_CHUNK-FIRST_CHUNK+1)*60+MAX_EXTRAS;
+const LEGACY_ID=/^c:-?\d+:\d+:-?1:(?:0|1|near)$/;
+const CANONICAL_ID=/^c:(-?\d+):(\d+):(-?1):(0|1|near)$/;
+const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
+
+function idFromBit(chunk,bit){
+  const offset=30+60*Math.floor(bit/6),side=bit%6<3?-1:1;
+  const kind=['0','1','near'][bit%3];
+  return 'c:'+(chunk*CACTUS_CHUNK_METRES)+':'+offset+':'+side+':'+kind;
+}
+// Return null rather than guessing an identity for an unusual historical ID.
+// Those strings are retained exactly as legacy extras in a compact checkpoint.
+function generatedCactusBit(id){
+  if(typeof id!=='string')return null;
+  const m=CANONICAL_ID.exec(id);
+  if(!m)return null;
+  const start=Number(m[1]),offset=Number(m[2]);
+  if(!Number.isSafeInteger(start)||start%CACTUS_CHUNK_METRES!==0
+    ||!Number.isSafeInteger(offset)||offset<30||offset>570
+    ||(offset-30)%60!==0)return null;
+  const chunk=start/CACTUS_CHUNK_METRES;
+  if(chunk<FIRST_CHUNK||chunk>LAST_CHUNK)return null;
+  const side=m[3]==='-1'?0:3;
+  const kind=m[4]==='near'?2:Number(m[4]);
+  const bit=(offset-30)/60*6+side+kind;
+  // Reject alternate spellings such as c:000:030:1:0 as noncanonical IDs.
+  return idFromBit(chunk,bit)===id?{chunk,bit}:null;
+}
+
+function checkedIds(ids){
+  if(!Array.isArray(ids)||ids.length>MAX_CACTUS_IDS)return null;
+  const seen=new Set();
+  for(const id of ids){
+    if(typeof id!=='string'||!LEGACY_ID.test(id)||seen.has(id))return null;
+    seen.add(id);
+  }
+  return ids;
+}
+function encodeCactusHistory(ids){
+  if(!checkedIds(ids))return null;
+  const masks=new Map(),extras=[];
+  for(const id of ids){
+    const hit=generatedCactusBit(id);
+    if(hit){
+      masks.set(hit.chunk,(masks.get(hit.chunk)||0n)|(1n<<BigInt(hit.bit)));
+    }else{
+      extras.push(id);
+      if(extras.length>MAX_EXTRAS)return null;
+    }
+  }
+  const destroyedCactusBits=[...masks.entries()].sort((a,b)=>a[0]-b[0])
+    .map(([chunk,mask])=>[chunk,mask.toString(16).padStart(15,'0')]);
+  return {destroyedCactusBits,...(extras.length?{destroyedCactusExtras:extras}:{})};
+}
+function decodeCactusHistory(state){
+  if(!state||typeof state!=='object'||Array.isArray(state))return null;
+  if(!own(state,'destroyedCactusBits')){
+    if(own(state,'destroyedCactusExtras'))return null;
+    // 008 checkpoints have no cactus field. Pre-fix 009 stored raw ID arrays.
+    const ids=own(state,'destroyedCacti')?state.destroyedCacti:[];
+    return checkedIds(ids)?[...ids]:null;
+  }
+  if(own(state,'destroyedCacti'))return null; // Ambiguous dual representations.
+  const entries=state.destroyedCactusBits;
+  if(!Array.isArray(entries)||entries.length>LAST_CHUNK-FIRST_CHUNK+1)return null;
+  const ids=[];
+  let prev=FIRST_CHUNK-1;
+  for(const entry of entries){
+    if(!Array.isArray(entry)||entry.length!==2)return null;
+    const [chunk,hex]=entry;
+    if(!Number.isInteger(chunk)||chunk<FIRST_CHUNK||chunk>LAST_CHUNK
+      ||chunk<=prev||typeof hex!=='string'||!/[0-9a-f]{15}/.test(hex)
+      ||!/^([0-9a-f]{15})$/.test(hex))return null;
+    const mask=BigInt('0x'+hex);
+    if(mask===0n||mask>=MASK_LIMIT)return null;
+    for(let bit=0;bit<60;bit++)
+      if(mask&(1n<<BigInt(bit)))ids.push(idFromBit(chunk,bit));
+    prev=chunk;
+  }
+  const extras=own(state,'destroyedCactusExtras')?state.destroyedCactusExtras:[];
+  if(!Array.isArray(extras)||extras.length>MAX_EXTRAS)return null;
+  const seen=new Set(ids);
+  for(const id of extras){
+    if(typeof id!=='string'||!LEGACY_ID.test(id)||generatedCactusBit(id)
+      ||seen.has(id))return null;
+    seen.add(id);ids.push(id);
+  }
+  return ids.length<=MAX_CACTUS_IDS?ids:null;
+}
+
 // City Fare: 006's metre/second driving and smoothed inputs, extended to Sonoran Run.
 // Deterministic road anchors are generated on demand; 2200 miles means integrated travel.
 const ROUTE_LENGTH = 2200 * 1609.344;
 const TUNE = Object.freeze({
-  maxSpeed: 80.4672, acceleration: 7.5, brake: 12, coast: 1.1,
-  shoulderDrag: 2.8, sandSpeedFactor: .78, steerRate: 4.5, turnRate: .42,
-  roadHalf: 3.6, shoulder: 1.7, carHalf: .82,
-  lateralLimit: 32, boundaryStart: 24, maxDt: .1,
+  // 145 m/s is a numerical safety guard; aerodynamic equilibrium sets top speed.
+  maxSpeed: 145, steerRate: 5.2, turnRate: .82,
+  roadHalf: 3.6, shoulder: 1.7, carHalf: .94, maxDt: .1,
 });
 
 const TAU = Math.PI * 2;
@@ -130,53 +281,107 @@ function terrainHeight(x, z) {
 
 function fresh() {
   const z = 0;
-  return { x: center(z) + 1.8, z, v: 0, steer: 0, angle: heading(z), distance: 0, finished: false };
+  return { x: center(z) + 1.8, z, v: 0, steer: 0, angle: heading(z), distance: 0, finished: false, destroyedCacti: [] };
 }
 
-// Mutates and returns state. x/z are world coordinates; angle is absolute yaw,
-// with zero along +z and positive toward +x. Angles remain continuous for camera interpolation.
+// Shared, reproducible cactus positions: visible mesh and collision use identical records.
+function cactusRecords(start) {
+  const records=[];
+  for(let z=start+30;z<start+600;z+=60) for(const side of [-1,1]) {
+    for(let j=0;j<2;j++) {
+      const zz=z+j*23;
+      const seed=z+side+j;
+      records.push({id:'c:'+start+':'+(z-start)+':'+side+':'+j,
+        x:center(zz)+side*(38+decorRandom(seed)*120),z:zz,seed,radius:.55});
+    }
+    // A second, closer belt encourages accessible off-road exploration.
+    const zz=z+42, seed=z+side+513;
+    records.push({id:'c:'+start+':'+(z-start)+':'+side+':near',
+      x:center(zz)+side*(15+decorRandom(seed)*20),z:zz,seed,radius:.55});
+  }
+  return records;
+}
+function decorRandom(n) {
+  const value=Math.sin(n*127.1+311.7)*43758.5453;
+  return value-Math.floor(value);
+}
+// Swept circular hit test avoids tunnelling even when the vehicle is fast.
+function sweptCactusHits(x0,z0,x1,z1,alreadyDestroyed=new Set()) {
+  const hits=[],vx=x1-x0,vz=z1-z0,len2=vx*vx+vz*vz;
+  // The last near cactus belongs to its original chunk but is at start+612m.
+  // Sweep both the physical collision radius and the 12m generator overhang,
+  // including the preceding owning chunk. Do not alter object coordinates/IDs.
+  const reach=TUNE.carHalf+.55;
+  const first=Math.floor((Math.min(z0,z1)-12-reach)/600)*600;
+  const last=Math.floor((Math.max(z0,z1)+reach)/600)*600;
+  for(let chunk=first;chunk<=last;chunk+=600) {
+    for(const cactus of cactusRecords(chunk)) {
+      if(alreadyDestroyed.has(cactus.id))continue;
+      const t=len2>0?clamp(((cactus.x-x0)*vx+(cactus.z-z0)*vz)/len2,0,1):0;
+      const dx=x0+t*vx-cactus.x,dz=z0+t*vz-cactus.z;
+      const impactRadius=TUNE.carHalf+cactus.radius;
+      if(dx*dx+dz*dz<=impactRadius*impactRadius)hits.push(cactus);
+    }
+  }
+  return hits;
+}
+
+// Mutates and returns state. Driving uses SI units and constant substep cadence.
+// Keep the hot-path membership index between frames; rebuilding a Set of an
+// entire 2,200-mile destruction history every 1/60 second is not scalable.
+const cactusIndexCache=new WeakMap();
+function cactusIndexFor(state){
+  const ids=state.destroyedCacti;
+  let index=cactusIndexCache.get(state);
+  if(!index||index.ids!==ids||index.length!==ids.length){
+    index={ids,length:ids.length,set:new Set(ids)};
+    cactusIndexCache.set(state,index);
+  }
+  return index;
+}
 function step(state, input = {}, dt = 0, prefs = {}) {
   if (state.finished || state.distance >= ROUTE_LENGTH) {
-    state.finished = true; state.distance = ROUTE_LENGTH; state.v = 0; return state;
+    state.finished=true;state.distance=ROUTE_LENGTH;state.v=0;return state;
   }
-  if (!Number.isFinite(dt) || dt <= 0) return state;
-  const duration = Math.min(dt, TUNE.maxDt);
-  const count = Math.ceil(duration * 120);
-  const h = duration / count;
-  const target = (input.right ? 1 : 0) - (input.left ? 1 : 0);
+  if(!Number.isFinite(dt)||dt<=0)return state;
+  const duration=Math.min(dt,TUNE.maxDt);
+  const count=Math.ceil(duration*120),h=duration/count;
+  const target=(input.right?1:0)-(input.left?1:0);
+  if(!Array.isArray(state.destroyedCacti))state.destroyedCacti=[];
+  const cactusIndex=cactusIndexFor(state),destroyed=cactusIndex.set;
+  state.impacts=[];
 
-  for (let i = 0; i < count; i++) {
-    const oldSteer = state.steer;
-    state.steer += (target - state.steer) * (1 - Math.exp(-TUNE.steerRate * h));
-    const oldSpeed = state.v;
-    const lateral = state.x - center(state.z);
-    const shoulder = smooth((Math.abs(lateral) + TUNE.carHalf - TUNE.roadHalf) / TUNE.shoulder);
-    const sandLimit = TUNE.maxSpeed * (1 - (1 - TUNE.sandSpeedFactor) * shoulder);
-    const drive = TUNE.acceleration * clamp((sandLimit - oldSpeed) / 4, 0, 1);
-    let acceleration = input.brake ? -TUNE.brake : input.gas ? drive : -TUNE.coast;
-    // Speed-dependent drag keeps a stopped vehicle able to return from the desert.
-    acceleration -= TUNE.shoulderDrag * shoulder * Math.min(1, oldSpeed / 12);
-    state.v = clamp(oldSpeed + acceleration * h, 0, TUNE.maxSpeed);
-    const speed = (oldSpeed + state.v) / 2;
-    const remaining = ROUTE_LENGTH - (state.distance || 0);
-    const travel = Math.min(speed * h, remaining);
-    const fraction = speed > 0 ? travel / (speed * h) : 1;
-    const yawChange = (oldSteer + state.steer) / 2 * TUNE.turnRate
-      * (prefs.gentle ? .68 : 1) * speed / (speed + 8)
-      / Math.max(1, speed / 45) * h * fraction;
-    const midAngle = state.angle + yawChange / 2;
-    let dx = travel * Math.sin(midAngle);
-    const dz = travel * Math.cos(midAngle);
-
-    // A gradual boundary only at the outer desert margin; there is no lane-follow assist.
-    if (dx * lateral > 0) dx *= 1 - smooth((Math.abs(lateral) - TUNE.boundaryStart)
-      / (TUNE.lateralLimit - TUNE.boundaryStart));
-    state.z = Math.max(0, state.z + dz);
-    state.angle += yawChange;
-    state.x = clamp(state.x + dx, center(state.z) - TUNE.lateralLimit,
-      center(state.z) + TUNE.lateralLimit);
-    state.distance = Math.min(ROUTE_LENGTH, (state.distance || 0) + travel);
-    if (state.distance >= ROUTE_LENGTH) { state.finished = true; state.v = 0; break; }
+  for(let i=0;i<count;i++){
+    const oldSteer=state.steer;
+    state.steer+=(target-state.steer)*(1-Math.exp(-TUNE.steerRate*h));
+    const oldSpeed=state.v, x0=state.x,z0=state.z;
+    const lateral=state.x-center(state.z);
+    const sand=smooth((Math.abs(lateral)+TUNE.carHalf-TUNE.roadHalf)/TUNE.shoulder);
+    const forces=vehicleForces(oldSpeed,state.angle,state.x,state.z,sand,undefined,prefs.wingMode);
+    const acceleration=input.brake?forces.braking:input.gas?forces.acceleration:
+      -(forces.drag+forces.resistance)/1250;
+    state.v=clamp(oldSpeed+acceleration*h,0,TUNE.maxSpeed);
+    const speed=(oldSpeed+state.v)/2;
+    const remaining=ROUTE_LENGTH-(state.distance||0);
+    const travel=Math.min(speed*h,remaining);
+    const fraction=speed>0?travel/(speed*h):1;
+    const desiredYaw=(oldSteer+state.steer)/2*TUNE.turnRate*
+      (prefs.gentle?.68:1)*speed/(speed+8)/Math.max(1,speed/40);
+    // The friction + downforce budget limits cornering on both road and sand.
+    const yawRate=clamp(desiredYaw,-forces.lateralGrip/Math.max(4,speed),
+                                   forces.lateralGrip/Math.max(4,speed));
+    const yawChange=yawRate*h*fraction,midAngle=state.angle+yawChange/2;
+    state.x+=travel*Math.sin(midAngle);
+    state.z=Math.max(0,state.z+travel*Math.cos(midAngle));
+    state.angle+=yawChange;
+    state.distance=Math.min(ROUTE_LENGTH,(state.distance||0)+travel);
+    for(const hit of sweptCactusHits(x0,z0,state.x,state.z,destroyed)){
+      destroyed.add(hit.id);state.destroyedCacti.push(hit.id);
+      cactusIndex.length=state.destroyedCacti.length;
+      state.impacts.push({id:hit.id,x:hit.x,z:hit.z,seed:hit.seed});
+      state.v*=.95;
+    }
+    if(state.distance>=ROUTE_LENGTH){state.finished=true;state.v=0;break;}
   }
   return state;
 }
@@ -197,20 +402,27 @@ function cactus(o,x,z,seed){let y=terrainHeight(x,z),h=2.8+rand(seed)*2.5,r=.19+
 function mesa(o,x,z,r,h,seed,base=-2){let rings=[],N=9;for(let j=0;j<4;j++){let rad=[1,.72,.48,.42][j]*r,yy=[0,.32,.86,1][j]*h;let ring=[];for(let i=0;i<N;i++){let a=i/N*Math.PI*2;let q=.83+rand(seed+i)*.25;ring.push([x+Math.cos(a)*rad*q,yy+base,z+Math.sin(a)*rad*q])}rings.push(ring)}let colors=['#6d6678','#837283','#9e818c'];for(let j=0;j<3;j++)for(let i=0;i<N;i++)quad(o,rings[j][i],rings[j][(i+1)%N],rings[j+1][(i+1)%N],rings[j+1][i],colors[j],.86+rand(seed+i+j)*.2);for(let i=0;i<N;i++)tri(o,rings[3][i],rings[3][(i+1)%N],[x,h+base,z],'#b19196')}
 function roadPoint(z,lateral,y=.04){let a=heading(z);return [center(z)+Math.cos(a)*lateral,elevation(z)+y,z-Math.sin(a)*lateral]}
 function stripe(o,z,z2,left,right,color,y){quad(o,roadPoint(z,left,y),roadPoint(z,right,y),roadPoint(z2,right,y),roadPoint(z2,left,y),color)}
-function chunk(start){let o=[],end=start+600, xs=[-2600,-1800,-1100,-650,-350,-160,-70,-28,-12,-5.5,0,5.5,12,28,70,160,350,650,1100,1800,2600];for(let z=start;z<end;z+=30)for(let i=0;i<xs.length-1;i++){let a=xs[i],b=xs[i+1],cc=center(z),cd=center(z+30);let p=[a+cc,terrainHeight(a+cc,z),z],q=[b+cc,terrainHeight(b+cc,z),z],r=[b+cd,terrainHeight(b+cd,z+30),z+30],s=[a+cd,terrainHeight(a+cd,z+30),z+30];let colors=['#a18483','#ac928b','#997d7d','#af948a'];quad(o,p,q,r,s,colors[Math.floor(rand(z+i*71)*4)])}
+function chunk(start,band=0,destroyed=new Set()){let o=[],end=start+600, xs=[-2600,-1800,-1100,-650,-350,-160,-70,-28,-12,-5.5,0,5.5,12,28,70,160,350,650,1100,1800,2600].map(x=>x+band);for(let z=start;z<end;z+=30)for(let i=0;i<xs.length-1;i++){let a=xs[i],b=xs[i+1],cc=center(z),cd=center(z+30);let p=[a+cc,terrainHeight(a+cc,z),z],q=[b+cc,terrainHeight(b+cc,z),z],r=[b+cd,terrainHeight(b+cd,z+30),z+30],s=[a+cd,terrainHeight(a+cd,z+30),z+30];let colors=['#a18483','#ac928b','#997d7d','#af948a'];quad(o,p,q,r,s,colors[Math.floor(rand(z+i*71)*4)])}
 for(let z=start;z<end;z+=6){stripe(o,z,z+6,-5.4,5.4,'#ad9590',.02);stripe(o,z,z+6,-3.6,3.6,'#424c59',.06);for(let side of [-1,1])stripe(o,z,z+6,side*3.35-.055,side*3.35+.055,'#b5c1c3',.073);if(Math.floor(z/6)%3!==2)stripe(o,z,z+6,-.065,.065,'#e6ae83',.08)}
-for(let z=start+30;z<end;z+=60)for(let s of [-1,1]){let x=center(z)+s*5.6,y=terrainHeight(x,z);box(o,x,y+.47,z,.09,.95,.09,'#eee3c7');box(o,x,y+.84,z,.12,.1,.13,s<0?'#eccd89':'#dc8052');for(let j=0;j<2;j++){let zz=z+j*23,xx=center(zz)+s*(38+rand(z+s+j)*120);cactus(o,xx,zz,z+s+j)}let rockx=center(z)+s*(37+rand(z+81)*35);mesa(o,rockx,z+17,1+rand(z)*2,.6+rand(z+21),z,terrainHeight(rockx,z+17))}
+for(let z=start+30;z<end;z+=60)for(let s of [-1,1]){let x=center(z)+s*5.6,y=terrainHeight(x,z);box(o,x,y+.47,z,.09,.95,.09,'#eee3c7');box(o,x,y+.84,z,.12,.1,.13,s<0?'#eccd89':'#dc8052');let rockx=center(z)+s*(37+rand(z+81)*35);mesa(o,rockx,z+17,1+rand(z)*2,.6+rand(z+21),z,terrainHeight(rockx,z+17))}
+// Geometry and hit testing use the SAME stable cactus records.
+if(band===0)for(const item of cactusRecords(start))if(!destroyed.has(item.id))cactus(o,item.x,item.z,item.seed);
 if(Math.floor(start/600)%4===0)for(let s of [-1,1]){let z=start+250,x=s*(1700+rand(z+s)*1300);mesa(o,x,z,180+rand(z)*280,90+rand(z+4)*130,z+s)}
 // Store local chunk coordinates to avoid float jitter millions of metres into the drive.
 for(let i=2;i<o.length;i+=6)o[i]-=start;
 return o}
-function carMesh(brake,steer,spin){let o=[];
+function carMesh(brake,steer,spin,wing=0){let o=[];
 // A familiar coupe silhouette in brushed steel, gunmetal and restrained light strips.
 box(o,0,.47,0,1.82,.3,4.12,'#202c38');box(o,0,.76,0,1.92,.46,4.25,'#677983');box(o,0,1.01,1.26,1.85,.12,1.55,'#9baeb4');box(o,0,.99,-1.58,1.84,.13,.91,'#536774');
 let a=[-.83,1.02,-1.03],b=[.83,1.02,-1.03],c=[.65,1.39,-.52],d=[-.65,1.39,-.52];quad(o,a,b,c,d,'#143a4b');quad(o,[-.83,1.02,.94],[-.65,1.39,.43],[.65,1.39,.43],[.83,1.02,.94],'#295569');
 for(let s of [-1,1]){quad(o,[s*.83,1.02,-.99],[s*.65,1.39,-.49],[s*.65,1.39,.40],[s*.83,1.02,.9],'#204352');box(o,s*.85,1.08,-.04,.06,.12,1.87,'#677983');box(o,s*.74,1.21,-.05,.045,.35,.055,'#5e747f');box(o,s*1.02,1.03,.65,.18,.09,.26,'#899da8');box(o,s*.98,.72,0,.035,.09,2.65,'#79e3db');box(o,s*.95,.97,-.28,.025,.045,.22,'#182d39')}
 box(o,0,1.41,-.03,1.35,.08,1.02,'#a0b4bd');box(o,0,.54,-2.17,1.97,.13,.12,'#435762');box(o,0,.58,2.17,1.92,.12,.12,'#435762');box(o,0,.78,-2.15,.4,.15,.025,'#263b48');box(o,0,.88,-2.19,1.65,.065,.035,brake?'#ff573d':'#ff897b');box(o,0,.82,2.14,.7,.18,.04,'#283c40');for(let s of [-1,1]){box(o,s*.67,.82,-2.145,.36,.12,.06,'#24333e');box(o,s*.68,.84,2.14,.42,.065,.055,'#9af9ec')}
 box(o,0,1.035,1.5,.07,.02,.9,'#70e4db');for(let s of [-1,1]){box(o,s*.61,1.09,-1.51,.17,.045,.56,'#263d49');box(o,s*.65,.46,-2.22,.22,.12,.08,'#263c49')}
+// The active rear wing is a visible consequence of the same speed-dependent
+// wing setting used by the mathematical aero model.
+for(let side of [-1,1])box(o,side*.68,1.00+wing*.16,-1.93,.10,.42+wing*.28,.10,'#405665');
+box(o,0,1.24+wing*.34,-2.02,2.18,.10,.52,'#b5c7cc');
+box(o,0,.36,-2.17,1.72,.09,.35,'#263a44');
 for(let x of [-.94,.94])for(let z of [-1.35,1.35]){let tire=[],N=12;for(let i=0;i<N;i++){let a=i/N*Math.PI*2+spin,b=(i+1)/N*Math.PI*2+spin;let p=[x-.14,.39+Math.sin(a)*.39,z+Math.cos(a)*.39],q=[x+.14,p[1],p[2]],r=[x+.14,.39+Math.sin(b)*.39,z+Math.cos(b)*.39],s=[x-.14,r[1],r[2]];quad(tire,p,q,r,s,'#253135');tri(tire,q,r,[x+.145,.39,z],'#2d393b');tri(tire,p,s,[x-.145,.39,z],'#2d393b');for(let side of [-1,1])tri(tire,[x+side*.15,.39+Math.sin(a)*.23,z+Math.cos(a)*.23],[x+side*.15,.39+Math.sin(b)*.23,z+Math.cos(b)*.23],[x+side*.15,.39,z],i%3===0?'#b2c7cf':'#5e7887')}
 if(z>0){let ang=steer*.16;for(let i=0;i<tire.length;i+=6){let xx=tire[i]-x,zz=tire[i+2]-z;tire[i]=x+xx*Math.cos(ang)+zz*Math.sin(ang);tire[i+2]=z-xx*Math.sin(ang)+zz*Math.cos(ang)}}o.push(...tire)}return o}
 const vertex=`attribute vec3 position;attribute vec3 color;uniform mat4 camera;uniform vec3 shift;varying vec3 vColor;varying float depth;void main(){gl_Position=camera*vec4(position+shift,1.);depth=gl_Position.w;vColor=color;}`;
@@ -218,18 +430,54 @@ const fragment=`precision mediump float;varying vec3 vColor;varying float depth;
 function program(gl,v,f){function shader(type,src){let s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s}let p=gl.createProgram();gl.attachShader(p,shader(gl.VERTEX_SHADER,v));gl.attachShader(p,shader(gl.FRAGMENT_SHADER,f));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(p));return p}
 function cameraMatrix(eye,target,aspect,fov){let f=norm(sub(target,eye)),r=norm(cross([0,1,0],f)),u=cross(f,r);let v=[r[0],u[0],f[0],0,r[1],u[1],f[1],0,r[2],u[2],f[2],0,-dot(r,eye),-dot(u,eye),-dot(f,eye),1];let t=1/Math.tan(fov/2),n=.15,far=8500,p=[t/aspect,0,0,0,0,t,0,0,0,0,(far+n)/(far-n),1,0,0,-2*far*n/(far-n),0],out=new Float32Array(16);for(let c=0;c<4;c++)for(let row=0;row<4;row++)for(let k=0;k<4;k++)out[c*4+row]+=p[k*4+row]*v[c*4+k];return out}
 class Renderer{
-constructor(canvas){this.canvas=canvas;const gl=this.gl=canvas.getContext('webgl',{alpha:false,antialias:true,powerPreference:'low-power'});if(!gl)throw Error('This drive needs WebGL. Try enabling graphics acceleration or another browser.');this.p=program(gl,vertex,fragment);this.pos=gl.getAttribLocation(this.p,'position');this.col=gl.getAttribLocation(this.p,'color');this.cam=gl.getUniformLocation(this.p,'camera');this.shift=gl.getUniformLocation(this.p,'shift');this.opacity=gl.getUniformLocation(this.p,'opacity');this.emission=gl.getUniformLocation(this.p,'emission');this.chunks=new Map();this.car=this.mesh([]);this.shadow=this.mesh([]);this.dustMesh=this.mesh([]);this.glow=this.mesh([]);this.city=this.mesh([]);this.dust=[];this.dustClock=0;this.yaw=null;this.frames=0;this.drawCalls=0;this.origin=0;
+constructor(canvas){this.canvas=canvas;const gl=this.gl=canvas.getContext('webgl',{alpha:false,antialias:true,powerPreference:'low-power'});if(!gl)throw Error('This drive needs WebGL. Try enabling graphics acceleration or another browser.');this.p=program(gl,vertex,fragment);this.pos=gl.getAttribLocation(this.p,'position');this.col=gl.getAttribLocation(this.p,'color');this.cam=gl.getUniformLocation(this.p,'camera');this.shift=gl.getUniformLocation(this.p,'shift');this.opacity=gl.getUniformLocation(this.p,'opacity');this.emission=gl.getUniformLocation(this.p,'emission');this.chunks=new Map();this.car=this.mesh([]);this.shadow=this.mesh([]);this.dustMesh=this.mesh([]);this.poofMesh=this.mesh([]);this.glow=this.mesh([]);this.city=this.mesh([]);this.dust=[];this.poofs=[];this.destroyed=new Set();this.dustClock=0;this.yaw=null;this.frames=0;this.drawCalls=0;this.origin=0;
 this.sky=program(gl,`attribute vec2 position;varying vec2 uv;void main(){uv=position;gl_Position=vec4(position,.9999,1.);}`,`precision mediump float;varying vec2 uv;uniform float aspect;uniform float yaw;void main(){float t=smoothstep(-.15,1.,uv.y);vec3 c=mix(vec3(.79,.53,.43),vec3(.13,.23,.36),t);vec2 sun=vec2(.40-sin(yaw)*1.4,.35);float d=length((uv-sun)*vec2(aspect,1.));c+=vec3(.24,.09,.025)*exp(-d*4.);c=mix(c,vec3(1.,.40,.10),1.-smoothstep(.059,.065,d));gl_FragColor=vec4(c,1.);}`);this.skybuf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,this.skybuf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);gl.enable(gl.DEPTH_TEST);}
 mesh(data){let gl=this.gl,b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);return {buffer:b,count:data.length/6}}
 update(mesh,data){let gl=this.gl;gl.bindBuffer(gl.ARRAY_BUFFER,mesh.buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.DYNAMIC_DRAW);mesh.count=data.length/6}
+resetWorld(destroyed=[]){
+  for(const chunk of this.chunks.values())this.gl.deleteBuffer(chunk.buffer);
+  this.chunks.clear();this.destroyed=new Set(destroyed);this.poofs=[];
+  this.dust=[];this.dustClock=0;this.yaw=null;
+}
+registerHits(hits=[]){
+  for(const hit of hits){
+    if(this.destroyed.has(hit.id))continue;
+    this.destroyed.add(hit.id);
+    const start=Number(hit.id.split(':')[1]);
+    for(const [key,chunk] of this.chunks)if(chunk.z===start){
+      this.gl.deleteBuffer(chunk.buffer);this.chunks.delete(key);
+    }
+    const ground=terrainHeight(hit.x,hit.z);
+    for(let i=0;i<17;i++){
+      const angle=i*Math.PI*2/17+rand(hit.seed+17)*.6;
+      const velocity=3+rand(hit.seed*3+i*13)*5;
+      this.poofs.push({x:hit.x,z:hit.z,y:ground+.65,
+        vx:Math.cos(angle)*velocity,vz:Math.sin(angle)*velocity,
+        vy:1.9+rand(hit.seed+i*11)*4.2,
+        age:0,life:.6+rand(hit.seed+i*19)*.5,
+        green:i%3!==0});
+    }
+  }
+  if(this.poofs.length>220)this.poofs.splice(0,this.poofs.length-220);
+}
 resize(low){let d=Math.min(devicePixelRatio||1,low?1:1.6,1800/innerWidth);this.canvas.width=Math.round(innerWidth*d);this.canvas.height=Math.round(innerHeight*d);this.gl.viewport(0,0,this.canvas.width,this.canvas.height)}
-render(s,prefs,dt,input={}){const gl=this.gl;this.origin=Math.floor(s.z/600)*600;const origin=this.origin;for(let z=origin-3000;z<=origin+6600;z+=600)if(!this.chunks.has(z))this.chunks.set(z,{z,...this.mesh(chunk(z))});for(let [z,c] of this.chunks)if(z<origin-3600||z>origin+7200){gl.deleteBuffer(c.buffer);this.chunks.delete(z)}let yaw=s.angle;if(this.yaw===null||prefs.motion)this.yaw=yaw;else this.yaw+=(yaw-this.yaw)*(1-Math.exp(-5*Math.min(dt,.05)));yaw=this.yaw;let far=prefs.camera==='wide',dist=far?16:11.5,height=far?7:4.7;let ground=terrainHeight(s.x,s.z)+.05,eye=[s.x-Math.sin(yaw)*dist,ground+height,s.z-Math.cos(yaw)*dist],target=[s.x+Math.sin(yaw)*14,ground+1.15,s.z+Math.cos(yaw)*14];eye[1]=Math.max(eye[1],terrainHeight(eye[0],eye[2])+1.8);eye[2]-=origin;target[2]-=origin;let matrix=cameraMatrix(eye,target,this.canvas.width/this.canvas.height,Math.PI/3.1+(prefs.motion?0:.10*Math.pow(Math.min(1,s.v/80.4672),2)));
+render(s,prefs,dt,input={}){const gl=this.gl;
+this.origin=Math.floor(s.z/600)*600;const origin=this.origin;
+const band=Math.round((s.x-center(s.z))/2200)*2200;
+for(let z=origin-3000;z<=origin+6600;z+=600){
+  const key=z+':'+band;
+  if(!this.chunks.has(key))this.chunks.set(key,{z,band,...this.mesh(chunk(z,band,this.destroyed))});
+}
+for(const [key,c] of this.chunks)
+  if(c.band!==band||c.z<origin-3600||c.z>origin+7200){
+    gl.deleteBuffer(c.buffer);this.chunks.delete(key);
+  }let yaw=s.angle;if(this.yaw===null||prefs.motion)this.yaw=yaw;else this.yaw+=(yaw-this.yaw)*(1-Math.exp(-5*Math.min(dt,.05)));yaw=this.yaw;let far=prefs.camera==='wide',dist=far?16:11.5,height=far?7:4.7;let ground=terrainHeight(s.x,s.z)+.05,eye=[s.x-Math.sin(yaw)*dist,ground+height,s.z-Math.cos(yaw)*dist],target=[s.x+Math.sin(yaw)*14,ground+1.15,s.z+Math.cos(yaw)*14];eye[1]=Math.max(eye[1],terrainHeight(eye[0],eye[2])+1.8);eye[2]-=origin;target[2]-=origin;let matrix=cameraMatrix(eye,target,this.canvas.width/this.canvas.height,Math.PI/3.1+(prefs.motion?0:.10*Math.pow(Math.min(1,s.v/80.4672),2)));
 gl.clearColor(.65,.75,.74,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.disable(gl.DEPTH_TEST);gl.useProgram(this.sky);let a=gl.getAttribLocation(this.sky,'position');gl.bindBuffer(gl.ARRAY_BUFFER,this.skybuf);gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);gl.uniform1f(gl.getUniformLocation(this.sky,'aspect'),this.canvas.width/this.canvas.height);gl.uniform1f(gl.getUniformLocation(this.sky,'yaw'),yaw);gl.drawArrays(gl.TRIANGLES,0,3);gl.disableVertexAttribArray(a);gl.enable(gl.DEPTH_TEST);gl.useProgram(this.p);gl.uniform1f(this.opacity,1);gl.uniform1f(this.emission,0);gl.uniformMatrix4fv(this.cam,false,matrix);gl.enableVertexAttribArray(this.pos);gl.enableVertexAttribArray(this.col);this.drawCalls=1;
 const draw=(m,z=0)=>{gl.bindBuffer(gl.ARRAY_BUFFER,m.buffer);gl.vertexAttribPointer(this.pos,3,gl.FLOAT,false,24,0);gl.vertexAttribPointer(this.col,3,gl.FLOAT,false,24,12);gl.uniform3f(this.shift,0,0,z);gl.drawArrays(gl.TRIANGLES,0,m.count);this.drawCalls++};
 for(let c of this.chunks.values())draw(c,c.z-origin);
 // The far city is a stylized journey-progress cue, not a simulated city map.
 let city=[],progress=Math.min(1,s.distance/ROUTE_LENGTH),cityDist=4400-3500*Math.pow(progress,5),cityZ=s.z+cityDist,cityX=center(s.z+300)+500;for(let i=0;i<19;i++){let x=cityX+(i-9)*33,z=cityZ+rand(i+901)*180,y=elevation(s.z);let hh=65+rand(i+12)*160;box(city,x,y+hh/2,z,18+rand(i)*20,hh,22,'#435e70');box(city,x,y+hh*.73,z-11.2,2,hh*.45,.3,'#81dfde');if(i%4===0)box(city,x,y+hh+18,z,2,36,2,'#a7c6d0')}for(let i=2;i<city.length;i+=6)city[i]-=origin;this.update(this.city,city);draw(this.city);
-let car=carMesh(input.brake,s.steer,s.distance/.39),pitch=Math.atan((terrainHeight(s.x+Math.sin(s.angle),s.z+Math.cos(s.angle))-terrainHeight(s.x-Math.sin(s.angle),s.z-Math.cos(s.angle)))/2),roll=prefs.motion?0:-s.steer*Math.min(s.v/80.4672,1)*.035;for(let i=0;i<car.length;i+=6){let x=car[i],y=car[i+1],z=car[i+2];let yy=y*Math.cos(pitch)+z*Math.sin(pitch)+x*Math.sin(roll),zz=z*Math.cos(pitch)-y*Math.sin(pitch);car[i]=s.x+x*Math.cos(s.angle)+zz*Math.sin(s.angle);car[i+1]=ground+yy+.055;car[i+2]=s.z+zz*Math.cos(s.angle)-x*Math.sin(s.angle)}for(let i=2;i<car.length;i+=6)car[i]-=origin;this.update(this.car,car);
+let car=carMesh(input.brake,s.steer,s.distance/.39,activeWing(s.v,prefs.wingMode)),pitch=Math.atan((terrainHeight(s.x+Math.sin(s.angle),s.z+Math.cos(s.angle))-terrainHeight(s.x-Math.sin(s.angle),s.z-Math.cos(s.angle)))/2),roll=prefs.motion?0:-s.steer*Math.min(s.v/80.4672,1)*.035;for(let i=0;i<car.length;i+=6){let x=car[i],y=car[i+1],z=car[i+2];let yy=y*Math.cos(pitch)+z*Math.sin(pitch)+x*Math.sin(roll),zz=z*Math.cos(pitch)-y*Math.sin(pitch);car[i]=s.x+x*Math.cos(s.angle)+zz*Math.sin(s.angle);car[i+1]=ground+yy+.055;car[i+2]=s.z+zz*Math.cos(s.angle)-x*Math.sin(s.angle)}for(let i=2;i<car.length;i+=6)car[i]-=origin;this.update(this.car,car);
 let shadow=[];const shadowPoint=a=>{let x=s.x+Math.cos(a)*1.25*Math.cos(s.angle)+Math.sin(a)*2.5*Math.sin(s.angle),z=s.z+Math.sin(a)*2.5*Math.cos(s.angle)-Math.cos(a)*1.25*Math.sin(s.angle);return [x,terrainHeight(x,z)+.135,z]};for(let i=0;i<20;i++)tri(shadow,[s.x,ground+.085,s.z],shadowPoint(i/20*Math.PI*2),shadowPoint((i+1)/20*Math.PI*2),'#504f46');for(let i=2;i<shadow.length;i+=6)shadow[i]-=origin;this.update(this.shadow,shadow);draw(this.shadow);draw(this.car);
 
 // A few additive, depth-tested light halos: geometry only, no bloom pipeline.
@@ -240,6 +488,22 @@ let under=[s.x,ground+.10,s.z-origin];for(let i=0;i<20;i++){let a=i/20*Math.PI*2
 this.update(this.glow,glow);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.depthMask(false);gl.uniform1f(this.opacity,.32);gl.uniform1f(this.emission,1);draw(this.glow);gl.uniform1f(this.emission,0);gl.uniform1f(this.opacity,1);gl.depthMask(true);gl.disable(gl.BLEND);
 
 let delta=Math.min(.05,Math.max(0,dt));for(let d of this.dust){d.age+=delta;d.x+=delta*.8;d.y+=delta*.45}this.dust=this.dust.filter(d=>d.age<1.8);this.dustClock+=delta;if(s.v>4&&Math.abs(s.x-center(s.z))>2.8&&this.dustClock>.035){this.dustClock=0;for(let side of [-1,1])this.dust.push({x:s.x-Math.sin(s.angle)*2+Math.cos(s.angle)*side*.85,y:ground+.18,z:s.z-Math.cos(s.angle)*2-Math.sin(s.angle)*side*.85,age:0})}if(this.dust.length>100)this.dust.splice(0,this.dust.length-100);let dust=[];for(let d of this.dust){let r=.16+d.age*.55;for(let i=0;i<7;i++){let a=i/7*Math.PI*2,b=(i+1)/7*Math.PI*2;tri(dust,[d.x,d.y,d.z-origin],[d.x+Math.cos(a)*r*Math.cos(yaw),d.y+Math.sin(a)*r,d.z-origin-Math.cos(a)*r*Math.sin(yaw)],[d.x+Math.cos(b)*r*Math.cos(yaw),d.y+Math.sin(b)*r,d.z-origin-Math.cos(b)*r*Math.sin(yaw)],'#c4a4a0')}}this.update(this.dustMesh,dust);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);gl.uniform1f(this.opacity,.17);draw(this.dustMesh);gl.depthMask(true);gl.disable(gl.BLEND);gl.uniform1f(this.opacity,1);
+// Short-lived green fragments + pale dust produce a visible cactus "poof".
+let bits=[],deltaPoof=Math.min(.05,Math.max(0,dt));
+for(const p of this.poofs){
+  p.age+=deltaPoof;
+  p.x+=p.vx*deltaPoof;p.z+=p.vz*deltaPoof;
+  p.y+=p.vy*deltaPoof;p.vy-=8*deltaPoof;
+  const life=Math.max(0,1-p.age/p.life),r=(p.green?.20:.43)*(1+.7*(1-life));
+  const color=p.green?'#6d9b7b':'#d9b9a3';
+  tri(bits,[p.x,p.y+r,p.z-origin],[p.x-r,p.y-r,p.z-origin],
+           [p.x+r,p.y-r,p.z-origin],color,Math.max(.2,life));
+}
+this.poofs=this.poofs.filter(p=>p.age<p.life);
+this.update(this.poofMesh,bits);
+gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
+gl.depthMask(false);gl.uniform1f(this.opacity,.67);draw(this.poofMesh);
+gl.depthMask(true);gl.disable(gl.BLEND);gl.uniform1f(this.opacity,1);
 gl.disableVertexAttribArray(this.pos);gl.disableVertexAttribArray(this.col);this.frames++;}
 inspect(){return {renderer:'native WebGL perspective + depth buffer',frames:this.frames,drawCalls:this.drawCalls,residentChunks:this.chunks.size,worldTriangles:[...this.chunks.values()].reduce((s,c)=>s+c.count/3,0),glError:this.gl.getError()}}
 }
@@ -256,11 +520,15 @@ function tripSaveState(value, requireMatchingFinish = false) {
   const { x, z, angle, distance } = value;
   if (z < 0 || distance < 0 || distance > ROUTE_LENGTH
     || z > distance + tripSaveTolerance
-    || Math.abs(x - center(z)) > TUNE.lateralLimit + tripSaveTolerance) return null;
+    || Math.abs(x-1.8) > distance + 200 || z > 1e9) return null;
+  // 008: no history; first 009 draft: validated ID array;
+  // current 009: compact per-chunk masks plus lossless legacy extras.
+  const destroyedCacti=decodeCactusHistory(value);
+  if(!destroyedCacti)return null;
   const finished = distance === ROUTE_LENGTH;
   if (requireMatchingFinish && value.finished !== finished) return null;
-  // Only journey coordinates survive. Resuming never restores motion or held controls.
-  return { x, z, angle, distance, finished, v: 0, steer: 0, paused: true };
+  // The complete journey and destruction history survive; motion/inputs do not.
+  return { x, z, angle, distance, finished, destroyedCacti:[...destroyedCacti], v: 0, steer: 0, paused: true };
 }
 
 function tripSaveDecode(raw) {
@@ -306,9 +574,12 @@ class TripSave {
         return { status: 'conflict' };
     }
     const savedAt = Date.now();
-    const { x, z, angle, distance, finished } = state;
+    const { x, z, angle, distance, finished, destroyedCacti } = state;
+    const history=encodeCactusHistory(destroyedCacti);
+    if(!history)return {status:'invalid',reason:'invalid-state'};
     const raw = JSON.stringify({ version: 1, route: tripSaveRoute,
-      routeLength: ROUTE_LENGTH, savedAt, state: { x, z, angle, distance, finished } });
+      routeLength: ROUTE_LENGTH, savedAt,
+      state: { x, z, angle, distance, finished, ...history } });
     try { this.#storage.setItem(TRIP_SAVE_KEY, raw); }
     catch { return { status: 'unavailable', reason: 'storage-write' }; }
     this.#raw = raw;
@@ -320,10 +591,10 @@ class TripSave {
 const $=s=>document.querySelector(s);
 const canvas=$('#view'),speedEl=$('#speed'),pause=$('#pause'),overlay=$('#overlay'),speedFX=$('#speedfx');
 let renderer,fatal=false;
-let preferences={gentle:false,motion:matchMedia('(prefers-reduced-motion: reduce)').matches,quality:false,volume:.18,camera:'chase'};
+let preferences={gentle:false,motion:matchMedia('(prefers-reduced-motion: reduce)').matches,quality:false,volume:.18,camera:'chase',wingMode:'auto'};
 let storage=null;
 try{storage=window.localStorage}catch(e){}
-try{let p=JSON.parse(storage?.getItem('cityFarePrefs')||'{}');for(let k of ['gentle','motion','quality'])if(typeof p[k]==='boolean')preferences[k]=p[k];if(Number.isFinite(p.volume))preferences.volume=Math.max(0,Math.min(1,p.volume));if(p.camera==='wide')preferences.camera='wide'}catch(e){}
+try{let p=JSON.parse(storage?.getItem('cityFarePrefs')||'{}');for(let k of ['gentle','motion','quality'])if(typeof p[k]==='boolean')preferences[k]=p[k];if(Number.isFinite(p.volume))preferences.volume=Math.max(0,Math.min(1,p.volume));if(p.camera==='wide')preferences.camera='wide';if(['auto','speed','grip'].includes(p.wingMode))preferences.wingMode=p.wingMode}catch(e){}
 const STEP=1/60,MAX_STEPS=5,MPH=2.236936,SAVE_INTERVAL=15;
 let state=fresh(),previous={...state},held=new Set(),pointers=new Map(),last=0,accumulator=0,raf=0,started=false,overloads=0,toastTimer;
 const tripSave=new TripSave(storage);
@@ -339,6 +610,7 @@ function savePreferences(){try{storage?.setItem('cityFarePrefs',JSON.stringify(p
 function saveMessage(){
   if(saveResult.status==='conflict')return 'Another tab changed the saved drive. Reload to use that save.';
   if(saveResult.status==='unavailable')return 'Progress could not be saved. Keep this tab open; reloading may return to an older save.';
+  if(saveResult.status==='invalid'&&saveResult.reason==='invalid-state')return 'The current drive could not be saved. Your previous checkpoint was not overwritten.';
   if(saveResult.status==='invalid')return 'The saved drive could not be read. Starting a new drive will replace it.';
   if(savedCheckpoint)return 'Saved in this browser at '+new Date(savedCheckpoint.savedAt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'.';
   return 'Progress saves in this browser every 15 seconds and when you pause.';
@@ -351,6 +623,7 @@ function updateSaveUI(){
   $('#start-label').textContent=savedCheckpoint?(savedCheckpoint.state.finished?'View completed drive':'Resume drive'):'Drive';
   $('#trip-summary').textContent=savedCheckpoint?miles(savedCheckpoint.state.distance)+' miles driven · '+miles(ROUTE_LENGTH-savedCheckpoint.state.distance)+' to go':'';
   $('#trip-note').textContent=saveResult.status==='unavailable'?'Saving is unavailable. You can still drive in this tab.'
+    :saveResult.status==='invalid'&&saveResult.reason==='invalid-state'?'The current position could not be saved. The previous checkpoint is still available.'
     :saveResult.status==='invalid'?'Your saved drive could not be read. Start over to begin a new one.'
     :savedCheckpoint&&!savedCheckpoint.state.finished?'Continue from your last stop. Your car will be stationary.':'Your progress stays in this browser.';
 }
@@ -372,8 +645,13 @@ function render(interpolate=false,dt=STEP){
   if(!renderer)return;let visible=state;
   if(interpolate){let a=accumulator/STEP;visible={...state};for(let k of ['x','v','steer','angle','distance','z'])visible[k]=previous[k]+(state[k]-previous[k])*a}
   renderer.render(visible,preferences,dt,actions());
-  speedFX.style.opacity=started&&!state.paused&&!state.finished&&!preferences.motion?String(.58*Math.max(0,Math.min(1,(state.v-31.2928)/(TUNE.maxSpeed-31.2928)))):'0';
-  speedEl.textContent=Math.round(state.v*MPH);$('#speedbar').style.width=(state.v/TUNE.maxSpeed*100)+'%';
+  const forces=aeroForces(state.v,state.angle,state.x,state.z,activeWing(state.v,preferences.wingMode));
+  const lateral=Math.abs(state.x-center(state.z));
+  $('#surface').textContent=lateral>5.1?'SAND · LOWER GRIP':'ASPHALT · HIGH GRIP';
+  $('#hint').textContent='WIND '+Math.round(Math.hypot(forces.wind.x,forces.wind.z)*MPH)+
+    ' MPH · ACTIVE WING '+Math.round(activeWing(state.v,preferences.wingMode)*100)+'%';
+  speedFX.style.opacity=started&&!state.paused&&!state.finished&&!preferences.motion?String(.58*Math.max(0,Math.min(1,(state.v-31.2928)/(125-31.2928)))):'0';
+  speedEl.textContent=Math.round(state.v*MPH);$('#speedbar').style.width=(Math.min(1,state.v/115)*100)+'%';
   $('#distance').textContent=miles(Math.max(0,ROUTE_LENGTH-state.distance));$('#progress').style.width=(state.distance/ROUTE_LENGTH*100)+'%';
   let fade=Math.max(0,Math.min(1,(state.distance-(ROUTE_LENGTH-2500))/2500));
   $('#finish-fade').style.opacity=started?(state.finished?1:Math.pow(fade,1.7)*.85):0;
@@ -385,7 +663,7 @@ function frame(t){
   if(!last)last=t;let elapsed=(t-last)/1000;last=t;
   if(elapsed>.35){setPaused(true);return}
   accumulator+=Math.max(0,elapsed);let steps=0;
-  while(accumulator>=STEP&&steps<MAX_STEPS){previous={...state};step(state,actions(),STEP,preferences);accumulator-=STEP;secondsSinceSave+=STEP;steps++;if(state.finished)break}
+  while(accumulator>=STEP&&steps<MAX_STEPS){previous={...state};step(state,actions(),STEP,preferences);if(state.impacts?.length){renderer.registerHits(state.impacts);playPoof(state.impacts.length)}accumulator-=STEP;secondsSinceSave+=STEP;steps++;if(state.finished)break}
   if(accumulator>=STEP){overloads++;accumulator%=STEP}
   if(state.finished&&!finishedSaved){finishedSaved=checkpoint().status==='saved';previous={...state}}
   else if(secondsSinceSave>=SAVE_INTERVAL){checkpoint();if(saveResult.status==='conflict'){setPaused(true,false);return}}
@@ -404,7 +682,7 @@ function toggle(){if(started)setPaused(!state.paused)}
 function beginDrive(nextState){
   if(fatal)return;if(raf)cancelAnimationFrame(raf);
   raf=0;state={...nextState,paused:false};previous={...state};started=true;
-  finishedSaved=state.finished;last=0;accumulator=0;secondsSinceSave=0;release();renderer.yaw=null;renderer.dust=[];
+  finishedSaved=state.finished;last=0;accumulator=0;secondsSinceSave=0;release();renderer.resetWorld(state.destroyedCacti||[]);
   document.body.classList.remove('intro','finished');document.body.classList.add('playing');
   $('#welcome').inert=true;$('#drivehud').inert=false;$('.controls').inert=false;$('#finish').hidden=true;overlay.hidden=true;
   pause.innerHTML='Ⅱ <span>Pause</span>';pause.setAttribute('aria-label','Pause and settings');render();
@@ -449,10 +727,23 @@ $('.brand').onclick=e=>{e.preventDefault();if(started)setPaused(true)};
 $('#camera span').textContent=preferences.camera==='wide'?'Wide cam':'Chase cam';
 $('#camera').onclick=()=>{preferences.camera=preferences.camera==='wide'?'chase':'wide';savePreferences();$('#camera span').textContent=preferences.camera==='wide'?'Wide cam':'Chase cam';render()};
 for(const name of ['gentle','motion','quality']){let el=$('#'+name);el.checked=preferences[name];el.onchange=()=>{preferences[name]=el.checked;savePreferences();if(name==='quality')renderer.resize(preferences.quality);render()}}
+let wingMode=$('#wing-mode');wingMode.value=preferences.wingMode;
+wingMode.onchange=()=>{preferences.wingMode=wingMode.value;savePreferences();render()};
 let volume=$('#volume');volume.value=preferences.volume;volume.oninput=()=>{preferences.volume=Number(volume.value);savePreferences();updateAudio()};
 
 // Gesture-started electric motor: soft sine pair and filtered air, no gear drone.
 let audio=null,osc=null,gain=null,wind=null,windGain=null,harmonic=null,soundOn=false;
+function playPoof(count){
+  if(!audio||!soundOn)return;
+  for(let i=0;i<Math.min(2,count);i++){
+    const t=audio.currentTime,o=audio.createOscillator(),g=audio.createGain();
+    o.type='triangle';o.frequency.setValueAtTime(230,t);
+    o.frequency.exponentialRampToValueAtTime(72,t+.16);
+    g.gain.setValueAtTime(Math.max(.0001,preferences.volume*.12),t);
+    g.gain.exponentialRampToValueAtTime(.0001,t+.21);
+    o.connect(g);g.connect(audio.destination);o.start(t);o.stop(t+.22);
+  }
+}
 function quietAudio(){if(audio&&gain){gain.gain.setTargetAtTime(0,audio.currentTime,.08);windGain.gain.setTargetAtTime(0,audio.currentTime,.08)}}
 function updateAudio(){if(!audio)return;let active=soundOn&&!state.paused&&!state.finished&&started,a=actions(),ratio=state.v/TUNE.maxSpeed;osc.frequency.setTargetAtTime(55+state.v*1.65+(a.gas?4:0),audio.currentTime,.25);harmonic.frequency.setTargetAtTime(110+state.v*3.3,audio.currentTime,.3);gain.gain.setTargetAtTime(active?preferences.volume*(.008+ratio*.025):0,audio.currentTime,.16);windGain.gain.setTargetAtTime(active?preferences.volume*ratio*.045:0,audio.currentTime,.3)}
 $('#sound').onclick=async()=>{try{if(!audio){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('unavailable');audio=new AC();gain=audio.createGain();gain.gain.value=0;gain.connect(audio.destination);osc=audio.createOscillator();osc.type='sine';osc.connect(gain);osc.start();harmonic=audio.createOscillator();harmonic.type='sine';let hg=audio.createGain();hg.gain.value=.16;harmonic.connect(hg);hg.connect(gain);harmonic.start();let buffer=audio.createBuffer(1,audio.sampleRate*2,audio.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=Math.random()*2-1;wind=audio.createBufferSource();wind.buffer=buffer;wind.loop=true;let filter=audio.createBiquadFilter();filter.type='lowpass';filter.frequency.value=380;windGain=audio.createGain();windGain.gain.value=0;wind.connect(filter);filter.connect(windGain);windGain.connect(audio.destination);wind.start()}soundOn=!soundOn;if(soundOn)await audio.resume();$('#sound').textContent='Sound: '+(soundOn?'On':'Off');if(!soundOn)quietAudio()}catch(e){soundOn=false;$('#sound').textContent='Sound unavailable'}};
@@ -461,7 +752,7 @@ window.addEventListener('keydown',e=>{
   if($('#restart-dialog').open)return;
   const editing=/INPUT|SELECT|TEXTAREA/.test(e.target.tagName),button=e.target.closest?.('button');
   if(e.code==='Tab'&&!overlay.hidden){
-    let items=[...overlay.querySelectorAll('button,input')].filter(el=>!el.disabled&&!el.hidden),first=items[0],lastItem=items.at(-1);
+    let items=[...overlay.querySelectorAll('button,input,select')].filter(el=>!el.disabled&&!el.hidden),first=items[0],lastItem=items.at(-1);
     if(e.shiftKey&&document.activeElement===first){e.preventDefault();lastItem.focus()}
     else if(!e.shiftKey&&document.activeElement===lastItem){e.preventDefault();first.focus()}return;
   }
@@ -489,7 +780,7 @@ window.addEventListener('resize',()=>{if(renderer){renderer.resize(preferences.q
 updateSaveUI();
 try{renderer=new Renderer(canvas);renderer.resize(preferences.quality);render()}catch(e){fail(e.message)}
 // Read-only diagnostics. No debug teleport/control mutations are exposed.
-window.CityFare=Object.freeze({inspect:()=>({version:'008-Sonoran-Save',fatal,state:{...state},input:actions(),preferences:{...preferences},started,overloads,save:{status:saveResult.status,savedAt:savedCheckpoint?.savedAt||null,distance:savedCheckpoint?.state.distance??null},graphics:renderer?.inspect()||null})});
+window.CityFare=Object.freeze({inspect:()=>({version:'009-Sonoran-Unbound',fatal,state:{...state},input:actions(),preferences:{...preferences},started,overloads,save:{status:saveResult.status,savedAt:savedCheckpoint?.savedAt||null,distance:savedCheckpoint?.state.distance??null},graphics:renderer?.inspect()||null})});
 
 </script>
 </body></html>

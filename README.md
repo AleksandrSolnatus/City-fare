@@ -1,48 +1,50 @@
-# City Fare · Sonoran Run
+# City Fare · Sonoran Unbound (009 draft)
 
-A fast car and an Arizona-inspired desert. Minimal native WebGL shapes, a low orange sun just before dusk, distant mountains, a future skyline, and 2,200 miles to cover. The coupe uses steel and gunmetal surfaces with restrained cyan underglow and warm rear light halos.
+A small, offline-capable race-car and **learn-by-driving** experiment set in the Sonoran desert. Race through an open procedural landscape, leave the highway, strike a cactus for a brief green/dust poof, and feel how wind, downforce and surface grip change the car. The original **2,200-mile accumulated-distance journey** and browser-local save/resume remain intact.
 
-## Play offline
+**Release boundary:** version 009 is a draft under review, not an approved production release. Existing City Fare production and historical 002/007/008 work remain separate.
 
-Download and extract this repository, then open the root `index.html` in a modern browser with WebGL support. The game is self-contained: no installation, server, account or internet connection is required.
+## Play and build
 
-To regenerate the standalone game from the existing sources, run `node tools/bundle.mjs` from the repository root with Node.js installed. This writes the same self-contained **008 — Sonoran Save** build to `index.html` and `City-Fare-008.html`; the numbered copy is excluded from Git. No dependency installation is needed.
+Requires a modern WebGL-capable browser. Use the portable root `index.html` (same-origin local serving is recommended for reliable saves), or run a local development server:
 
-For local development, run `npm run dev` (requires npm and Python 3), then visit `http://127.0.0.1:8766`.
+```sh
+npm run dev
+npm test
+npm run build
+```
+
+There are no third-party runtime dependencies. `npm run build` creates the portable root `index.html` and a gitignored `City-Fare-009.html` copy, using `dist/aero.js`, `dist/cactus-ledger.js`, `dist/road.js`, `dist/renderer.js`, `dist/trip-save.js`, `dist/game.js`, `dist/index.html` and `dist/style.css`. GitHub Actions checks test and bundle consistency on pull requests.
 
 ## Drive
 
-W / Up accelerates; S / Down or Space brakes; A D / Left Right steer. P / Escape pauses. C changes camera; R opens the restart confirmation. Touch controls are available on small or coarse-pointer screens. Enable optional electric-motor audio in Pause; adjust volume there. Gentle steering, reduced camera motion and lower resolution are available.
+**W / Up** accelerates; **S / Down / Space** brakes; **A D / Left Right** steer. **P / Escape** pauses; **C** swaps chase camera; **R** asks before restarting. Mobile touch driving controls remain. Reduced camera motion, gentle steering, lower resolution and optional generated audio remain available from Pause.
 
-The car tops out at approximately 180 mph. A light peripheral blur fades in above 70 mph and the camera gently widens with speed; reduced motion disables both. Driving distance is integrated from speed in metres per second and simulation seconds, then converted with 1 mile = 1609.344 metres. Completion is an odometer challenge: all driven distance counts, including turns and off-road travel. Exactly 2,200 accumulated miles ends the drive. At full speed, the trip takes over 12 hours; the saved drive lets that journey span sessions.
+- **Open desert:** the old ±32-metre boundary is removed. Sand has less traction and greater resistance, but is fully drivable. A procedural terrain band follows the car as it roams.
+- **Cactus poof:** visible cacti are generated from stable shared records. A swept collision test catches fast crossings, including the 12m overhang at the end of a cactus-owning chunk. Each hit takes a small amount of speed, hides that cactus and emits lightweight green/dust triangles. If sound is enabled, an impact pop plays. Destruction is remembered in this browser's trip checkpoint.
+- **Faster race car:** an active rear wing, a low-profile rear spoiler and diffuser, and an arcade aerodynamic model replace the flat 180-mph cap. The chosen power/drag values target a substantially faster paved-road equilibrium; the numerical safety limit is not a speed promise.
+- **Physics experiment:** Pause offers **Auto wing**, **Low drag** and **High downforce**. The selected wing geometry changes drag and available grip; wind comes from a deterministic field rather than random frame-by-frame nudges. Driving HUD shows surface, wind and wing state.
 
-The last 2,500 metres gradually fade the scene; completion presents a quiet end screen and restart button. The skyline is a stylized progress cue whose apparent distance shrinks, not an accurately simulated urban map.
+The simplified equations use metres, seconds, kilograms and newtons. They are intended to make mathematical cause and effect visible, not reproduce a measured race car. See [the 009 review packet](docs/SONORAN-UNBOUND-009-REVIEW.md) for equations, constants, limitations and test steps.
 
-## Save and resume
+## The journey and checkpoints
 
-008 keeps one drive in this browser's local storage. It attempts a checkpoint every **15 simulation seconds**, when you pause, when the page loses focus or goes into the background, when you choose **Save & return to title**, and on completion. The pause and completion screens display the save status. A completed trip stays completed after reloading.
+The 2,200 miles are integrated physical travel, including turns and off-road exploration. A local checkpoint attempts to save every 15 simulation seconds, on pause, page backgrounding, explicit return to title, and completion. A resumed car is always stationary. Time outside the tab never adds mileage. The 2,500-metre ending fade and completion screen remain.
 
-The title shows the saved mileage and a **Resume drive** button. Resuming restores the exact saved world position, continuous heading and accumulated odometer, including off-road or backward-facing travel. The car starts stationary with zero steering and released controls. Time spent away from the page adds no miles. Choosing a new drive, pressing R, or restarting after completion opens a confirmation before replacing the saved trip.
+Version 009 keeps the original `cityFareTrip:sonoran-007:v1` local-storage key so **008 saves can open without a destructive migration**. Older 008 checkpoints load without cactus history; earlier 009 ID arrays load unchanged until a new save. New saves store a compact per-chunk cactus bitset, preserving all destroyed objects even beyond 10,000 hits, with unusual older IDs separately retained rather than silently discarded. Save data belongs to the same browser and web origin; it does not transfer automatically between local files, preview addresses, production addresses, browsers or devices. Clearing site storage deletes the drive. Storage errors are shown rather than concealed; cross-tab conflict detection remains best-effort.
 
-Saves belong to the same browser and origin (the same scheme, host and port); they do not sync between devices, browser profiles or different addresses. Clearing site data removes both the drive and preferences. Storage for directly opened `file:` HTML depends on the browser; serving the game at the same local address gives it a consistent origin. Abrupt browser shutdown can miss a final checkpoint, so **Save & return to title** provides an explicit save result before leaving.
+## Source layout and validation
 
-Malformed or incompatible saved data is left intact during automatic saving; the interface offers a deliberate new start. If storage is denied or full, the game reports that progress could not be saved and remains playable in the current tab. A reload may then return to an older checkpoint. Best-effort stale-tab protection compares the stored record with the last loaded or saved value and watches storage-change events: a conflicting tab pauses and offers **Reload saved drive**. This is not an atomic lock across tabs, so simultaneous writes cannot be fully excluded.
+- `dist/aero.js` — repeatable wind, selectable wing, air-relative drag and downforce, power/traction/rolling losses.
+- `dist/cactus-ledger.js` — lossless 60-bit per-chunk destruction masks, legacy ID-array compatibility and validation.
+- `dist/road.js` — deterministic road/terrain, free driving physics, shared cactus records, swept contacts, odometer.
+- `dist/renderer.js` — native WebGL terrain, car/spoiler, cactus geometry, dust and timed poof triangles.
+- `dist/game.js` — keyboard/touch interaction, learning HUD, sound and pause lifecycle.
+- `dist/trip-save.js` — route-scoped checkpoint validation and durable event IDs.
+- `tests/...` — Node route, aero/cactus, checkpoint and lifecycle regressions. Real device/browser behavior is a separate gate.
 
-## Implementation
+No full-distance run, measured top speed, physical iPhone acceptance, or production WebGL validation is claimed by the code tests. A draft GitHub PR permits independent review; **do not merge or deploy without owner authorization.**
 
-- `dist/road.js`: deterministic quintic road anchors and metre/second vehicle dynamics.
-- `dist/renderer.js`: lightweight polygon meshes, perspective projection, depth, haze and dust. Nearby terrain chunks are created on demand and discarded when distant. Chunk-local coordinates avoid floating-point jitter over the long trip.
-- `dist/trip-save.js`: versioned, route-checked local checkpoints, validation, stationary restoration and stale-tab checks.
-- `dist/game.js`: controls, fixed-step timing, save/resume lifecycle, session state and synthesized audio.
-- `dist/index.html`, `dist/style.css`: minimal responsive interface.
-- `tools/bundle.mjs`: combines those exact sources into the portable HTML.
+## Lineage and project home
 
-Run `npm test` for focused driving/distance and save/restore checks. All 25 tests pass for this revision, covering the unchanged road behavior plus checkpoint round trips, invalid records, completion, storage errors and stale-tab conflicts. Six lifecycle tests execute the actual game code with DOM/renderer/frame doubles, including the transient-read regression, restart confirmation, background saving and completed-trip reload. These do not replace real browser tests. Run `node tools/bundle.mjs` after source changes.
-
-## Lineage and scope
-
-Evolves owner-supplied City-Fare-006 controls, metre/second timing and audio lifecycle, with the visible vehicle identity informed by 003. Earlier versions 003, 004, 005A, 005C and 006 remain untouched locally. Sonoran Run 007 changed the authored repeating road to generated sections, extended the run to 2,200 integrated miles, and gave the vehicle a minimal futuristic appearance. Revision 008 adds local save/resume and deliberate restart controls; `road.js` and `renderer.js` are unchanged.
-
-Chrome and Safari rendered the first chase-camera build. Desktop input was exercised; 390 × 720 and 844 × 390 embedded layouts were visually inspected. The dusk/gunmetal Sonoran build also rendered in Chrome; later Sonoran changes received syntax and focused distance/finish checks. The 008 branch preview deployed successfully and its page loaded in the cloud browser, but that browser reported that WebGL was unavailable. Its game canvas, interactive save/resume flow and phone layout remain unverified in a real browser. The local preview also stopped before loading. Physical phone performance, multitouch hardware, a full 12-hour drive and the subjective new sound have not been verified. WebGL support is required. Scenery is decorative, with soft lateral driving bounds rather than prop collision simulation. Slow frames can lose simulation time to preserve stable controls. Control/display preferences and one driving checkpoint persist locally when browser storage is available.
-
-Only City Fare is in scope. This local build and a Git branch do not establish public deployment or a change to the existing City Fare address.
+City Fare 002 PRO and Sonoran Run 007 have preserved historical checkpoints in Git. Sonoran Save 008 added resume and on-device state protection; this 009 draft builds on that version. The archive/benchmark work in draft PR #3 remains separate. The independent City Fare repository is the canonical source for this game. Bridges Group can feature an approved City Fare build as a public educational demo; Squid Inc. remains its own underwater autonomous-logic/diplomacy project, and Outside In its own toy laboratory. Sharing ideas does not merge records or original projects.
