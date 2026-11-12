@@ -1,4 +1,5 @@
-import {fresh,step,TUNE,ROUTE_LENGTH} from './road.js';
+import {fresh,step,TUNE,ROUTE_LENGTH,center} from './road.js';
+import {aeroForces,activeWing} from './aero.js';
 import {Renderer} from './renderer.js';
 import {TripSave,TRIP_SAVE_KEY} from './trip-save.js';
 
@@ -57,8 +58,13 @@ function render(interpolate=false,dt=STEP){
   if(!renderer)return;let visible=state;
   if(interpolate){let a=accumulator/STEP;visible={...state};for(let k of ['x','v','steer','angle','distance','z'])visible[k]=previous[k]+(state[k]-previous[k])*a}
   renderer.render(visible,preferences,dt,actions());
-  speedFX.style.opacity=started&&!state.paused&&!state.finished&&!preferences.motion?String(.58*Math.max(0,Math.min(1,(state.v-31.2928)/(TUNE.maxSpeed-31.2928)))):'0';
-  speedEl.textContent=Math.round(state.v*MPH);$('#speedbar').style.width=(state.v/TUNE.maxSpeed*100)+'%';
+  const forces=aeroForces(state.v,state.angle,state.x,state.z);
+  const lateral=Math.abs(state.x-center(state.z));
+  $('#surface').textContent=lateral>5.1?'SAND · LOWER GRIP':'ASPHALT · HIGH GRIP';
+  $('#hint').textContent='WIND '+Math.round(Math.hypot(forces.wind.x,forces.wind.z)*MPH)+
+    ' MPH · ACTIVE WING '+Math.round(activeWing(state.v)*100)+'%';
+  speedFX.style.opacity=started&&!state.paused&&!state.finished&&!preferences.motion?String(.58*Math.max(0,Math.min(1,(state.v-31.2928)/(125-31.2928)))):'0';
+  speedEl.textContent=Math.round(state.v*MPH);$('#speedbar').style.width=(Math.min(1,state.v/115)*100)+'%';
   $('#distance').textContent=miles(Math.max(0,ROUTE_LENGTH-state.distance));$('#progress').style.width=(state.distance/ROUTE_LENGTH*100)+'%';
   let fade=Math.max(0,Math.min(1,(state.distance-(ROUTE_LENGTH-2500))/2500));
   $('#finish-fade').style.opacity=started?(state.finished?1:Math.pow(fade,1.7)*.85):0;
@@ -70,7 +76,7 @@ function frame(t){
   if(!last)last=t;let elapsed=(t-last)/1000;last=t;
   if(elapsed>.35){setPaused(true);return}
   accumulator+=Math.max(0,elapsed);let steps=0;
-  while(accumulator>=STEP&&steps<MAX_STEPS){previous={...state};step(state,actions(),STEP,preferences);accumulator-=STEP;secondsSinceSave+=STEP;steps++;if(state.finished)break}
+  while(accumulator>=STEP&&steps<MAX_STEPS){previous={...state};step(state,actions(),STEP,preferences);if(state.impacts?.length){renderer.registerHits(state.impacts);playPoof(state.impacts.length)}accumulator-=STEP;secondsSinceSave+=STEP;steps++;if(state.finished)break}
   if(accumulator>=STEP){overloads++;accumulator%=STEP}
   if(state.finished&&!finishedSaved){finishedSaved=checkpoint().status==='saved';previous={...state}}
   else if(secondsSinceSave>=SAVE_INTERVAL){checkpoint();if(saveResult.status==='conflict'){setPaused(true,false);return}}
@@ -89,7 +95,7 @@ function toggle(){if(started)setPaused(!state.paused)}
 function beginDrive(nextState){
   if(fatal)return;if(raf)cancelAnimationFrame(raf);
   raf=0;state={...nextState,paused:false};previous={...state};started=true;
-  finishedSaved=state.finished;last=0;accumulator=0;secondsSinceSave=0;release();renderer.yaw=null;renderer.dust=[];
+  finishedSaved=state.finished;last=0;accumulator=0;secondsSinceSave=0;release();renderer.resetWorld(state.destroyedCacti||[]);
   document.body.classList.remove('intro','finished');document.body.classList.add('playing');
   $('#welcome').inert=true;$('#drivehud').inert=false;$('.controls').inert=false;$('#finish').hidden=true;overlay.hidden=true;
   pause.innerHTML='Ⅱ <span>Pause</span>';pause.setAttribute('aria-label','Pause and settings');render();
@@ -138,6 +144,17 @@ let volume=$('#volume');volume.value=preferences.volume;volume.oninput=()=>{pref
 
 // Gesture-started electric motor: soft sine pair and filtered air, no gear drone.
 let audio=null,osc=null,gain=null,wind=null,windGain=null,harmonic=null,soundOn=false;
+function playPoof(count){
+  if(!audio||!soundOn)return;
+  for(let i=0;i<Math.min(2,count);i++){
+    const t=audio.currentTime,o=audio.createOscillator(),g=audio.createGain();
+    o.type='triangle';o.frequency.setValueAtTime(230,t);
+    o.frequency.exponentialRampToValueAtTime(72,t+.16);
+    g.gain.setValueAtTime(Math.max(.0001,preferences.volume*.12),t);
+    g.gain.exponentialRampToValueAtTime(.0001,t+.21);
+    o.connect(g);g.connect(audio.destination);o.start(t);o.stop(t+.22);
+  }
+}
 function quietAudio(){if(audio&&gain){gain.gain.setTargetAtTime(0,audio.currentTime,.08);windGain.gain.setTargetAtTime(0,audio.currentTime,.08)}}
 function updateAudio(){if(!audio)return;let active=soundOn&&!state.paused&&!state.finished&&started,a=actions(),ratio=state.v/TUNE.maxSpeed;osc.frequency.setTargetAtTime(55+state.v*1.65+(a.gas?4:0),audio.currentTime,.25);harmonic.frequency.setTargetAtTime(110+state.v*3.3,audio.currentTime,.3);gain.gain.setTargetAtTime(active?preferences.volume*(.008+ratio*.025):0,audio.currentTime,.16);windGain.gain.setTargetAtTime(active?preferences.volume*ratio*.045:0,audio.currentTime,.3)}
 $('#sound').onclick=async()=>{try{if(!audio){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('unavailable');audio=new AC();gain=audio.createGain();gain.gain.value=0;gain.connect(audio.destination);osc=audio.createOscillator();osc.type='sine';osc.connect(gain);osc.start();harmonic=audio.createOscillator();harmonic.type='sine';let hg=audio.createGain();hg.gain.value=.16;harmonic.connect(hg);hg.connect(gain);harmonic.start();let buffer=audio.createBuffer(1,audio.sampleRate*2,audio.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=Math.random()*2-1;wind=audio.createBufferSource();wind.buffer=buffer;wind.loop=true;let filter=audio.createBiquadFilter();filter.type='lowpass';filter.frequency.value=380;windGain=audio.createGain();windGain.gain.value=0;wind.connect(filter);filter.connect(windGain);windGain.connect(audio.destination);wind.start()}soundOn=!soundOn;if(soundOn)await audio.resume();$('#sound').textContent='Sound: '+(soundOn?'On':'Off');if(!soundOn)quietAudio()}catch(e){soundOn=false;$('#sound').textContent='Sound unavailable'}};
@@ -174,4 +191,4 @@ window.addEventListener('resize',()=>{if(renderer){renderer.resize(preferences.q
 updateSaveUI();
 try{renderer=new Renderer(canvas);renderer.resize(preferences.quality);render()}catch(e){fail(e.message)}
 // Read-only diagnostics. No debug teleport/control mutations are exposed.
-window.CityFare=Object.freeze({inspect:()=>({version:'008-Sonoran-Save',fatal,state:{...state},input:actions(),preferences:{...preferences},started,overloads,save:{status:saveResult.status,savedAt:savedCheckpoint?.savedAt||null,distance:savedCheckpoint?.state.distance??null},graphics:renderer?.inspect()||null})});
+window.CityFare=Object.freeze({inspect:()=>({version:'009-Sonoran-Unbound',fatal,state:{...state},input:actions(),preferences:{...preferences},started,overloads,save:{status:saveResult.status,savedAt:savedCheckpoint?.savedAt||null,distance:savedCheckpoint?.state.distance??null},graphics:renderer?.inspect()||null})});
