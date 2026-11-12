@@ -121,6 +121,105 @@ function vehicleForces(speed,angle,x,z,sand=0,spec=AERO,wingMode='auto') {
   return {...aero, mu,lateralGrip,drive,resistance,acceleration,braking};
 }
 
+// Lossless, source-ID-preserving persistence for Sonoran Unbound cacti.
+// Each generated 600m chunk owns 10 rows x 2 sides x 3 variants = 60 cacti.
+// One 60-bit mask per visited chunk makes the full 2,200-mile journey bounded
+// by world geometry instead of an arbitrary 10,000-hit storage ceiling.
+const CACTUS_CHUNK_METRES=600;
+const FIRST_CHUNK=-1; // The last cactus of chunk -1 can extend to +12m.
+const LAST_CHUNK=Math.ceil(2200*1609.344/CACTUS_CHUNK_METRES);
+const MASK_LIMIT=1n<<60n;
+const MAX_EXTRAS=10000; // Previously accepted IDs that do not identify generated cacti.
+const MAX_CACTUS_IDS=(LAST_CHUNK-FIRST_CHUNK+1)*60+MAX_EXTRAS;
+const LEGACY_ID=/^c:-?\d+:\d+:-?1:(?:0|1|near)$/;
+const CANONICAL_ID=/^c:(-?\d+):(\d+):(-?1):(0|1|near)$/;
+const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
+
+function idFromBit(chunk,bit){
+  const offset=30+60*Math.floor(bit/6),side=bit%6<3?-1:1;
+  const kind=['0','1','near'][bit%3];
+  return 'c:'+(chunk*CACTUS_CHUNK_METRES)+':'+offset+':'+side+':'+kind;
+}
+// Return null rather than guessing an identity for an unusual historical ID.
+// Those strings are retained exactly as legacy extras in a compact checkpoint.
+function generatedCactusBit(id){
+  if(typeof id!=='string')return null;
+  const m=CANONICAL_ID.exec(id);
+  if(!m)return null;
+  const start=Number(m[1]),offset=Number(m[2]);
+  if(!Number.isSafeInteger(start)||start%CACTUS_CHUNK_METRES!==0
+    ||!Number.isSafeInteger(offset)||offset<30||offset>570
+    ||(offset-30)%60!==0)return null;
+  const chunk=start/CACTUS_CHUNK_METRES;
+  if(chunk<FIRST_CHUNK||chunk>LAST_CHUNK)return null;
+  const side=m[3]==='-1'?0:3;
+  const kind=m[4]==='near'?2:Number(m[4]);
+  const bit=(offset-30)/60*6+side+kind;
+  // Reject alternate spellings such as c:000:030:1:0 as noncanonical IDs.
+  return idFromBit(chunk,bit)===id?{chunk,bit}:null;
+}
+
+function checkedIds(ids){
+  if(!Array.isArray(ids)||ids.length>MAX_CACTUS_IDS)return null;
+  const seen=new Set();
+  for(const id of ids){
+    if(typeof id!=='string'||!LEGACY_ID.test(id)||seen.has(id))return null;
+    seen.add(id);
+  }
+  return ids;
+}
+function encodeCactusHistory(ids){
+  if(!checkedIds(ids))return null;
+  const masks=new Map(),extras=[];
+  for(const id of ids){
+    const hit=generatedCactusBit(id);
+    if(hit){
+      masks.set(hit.chunk,(masks.get(hit.chunk)||0n)|(1n<<BigInt(hit.bit)));
+    }else{
+      extras.push(id);
+      if(extras.length>MAX_EXTRAS)return null;
+    }
+  }
+  const destroyedCactusBits=[...masks.entries()].sort((a,b)=>a[0]-b[0])
+    .map(([chunk,mask])=>[chunk,mask.toString(16).padStart(15,'0')]);
+  return {destroyedCactusBits,...(extras.length?{destroyedCactusExtras:extras}:{})};
+}
+function decodeCactusHistory(state){
+  if(!state||typeof state!=='object'||Array.isArray(state))return null;
+  if(!own(state,'destroyedCactusBits')){
+    if(own(state,'destroyedCactusExtras'))return null;
+    // 008 checkpoints have no cactus field. Pre-fix 009 stored raw ID arrays.
+    const ids=own(state,'destroyedCacti')?state.destroyedCacti:[];
+    return checkedIds(ids)?[...ids]:null;
+  }
+  if(own(state,'destroyedCacti'))return null; // Ambiguous dual representations.
+  const entries=state.destroyedCactusBits;
+  if(!Array.isArray(entries)||entries.length>LAST_CHUNK-FIRST_CHUNK+1)return null;
+  const ids=[];
+  let prev=FIRST_CHUNK-1;
+  for(const entry of entries){
+    if(!Array.isArray(entry)||entry.length!==2)return null;
+    const [chunk,hex]=entry;
+    if(!Number.isInteger(chunk)||chunk<FIRST_CHUNK||chunk>LAST_CHUNK
+      ||chunk<=prev||typeof hex!=='string'||!/[0-9a-f]{15}/.test(hex)
+      ||!/^([0-9a-f]{15})$/.test(hex))return null;
+    const mask=BigInt('0x'+hex);
+    if(mask===0n||mask>=MASK_LIMIT)return null;
+    for(let bit=0;bit<60;bit++)
+      if(mask&(1n<<BigInt(bit)))ids.push(idFromBit(chunk,bit));
+    prev=chunk;
+  }
+  const extras=own(state,'destroyedCactusExtras')?state.destroyedCactusExtras:[];
+  if(!Array.isArray(extras)||extras.length>MAX_EXTRAS)return null;
+  const seen=new Set(ids);
+  for(const id of extras){
+    if(typeof id!=='string'||!LEGACY_ID.test(id)||generatedCactusBit(id)
+      ||seen.has(id))return null;
+    seen.add(id);ids.push(id);
+  }
+  return ids.length<=MAX_CACTUS_IDS?ids:null;
+}
+
 // City Fare: 006's metre/second driving and smoothed inputs, extended to Sonoran Run.
 // Deterministic road anchors are generated on demand; 2200 miles means integrated travel.
 const ROUTE_LENGTH = 2200 * 1609.344;
@@ -209,21 +308,37 @@ function decorRandom(n) {
 // Swept circular hit test avoids tunnelling even when the vehicle is fast.
 function sweptCactusHits(x0,z0,x1,z1,alreadyDestroyed=new Set()) {
   const hits=[],vx=x1-x0,vz=z1-z0,len2=vx*vx+vz*vz;
-  const first=Math.floor((Math.min(z0,z1)-3)/600)*600;
-  const last=Math.floor((Math.max(z0,z1)+3)/600)*600;
+  // The last near cactus belongs to its original chunk but is at start+612m.
+  // Sweep both the physical collision radius and the 12m generator overhang,
+  // including the preceding owning chunk. Do not alter object coordinates/IDs.
+  const reach=TUNE.carHalf+.55;
+  const first=Math.floor((Math.min(z0,z1)-12-reach)/600)*600;
+  const last=Math.floor((Math.max(z0,z1)+reach)/600)*600;
   for(let chunk=first;chunk<=last;chunk+=600) {
     for(const cactus of cactusRecords(chunk)) {
       if(alreadyDestroyed.has(cactus.id))continue;
       const t=len2>0?clamp(((cactus.x-x0)*vx+(cactus.z-z0)*vz)/len2,0,1):0;
       const dx=x0+t*vx-cactus.x,dz=z0+t*vz-cactus.z;
-      const reach=TUNE.carHalf+cactus.radius;
-      if(dx*dx+dz*dz<=reach*reach)hits.push(cactus);
+      const impactRadius=TUNE.carHalf+cactus.radius;
+      if(dx*dx+dz*dz<=impactRadius*impactRadius)hits.push(cactus);
     }
   }
   return hits;
 }
 
 // Mutates and returns state. Driving uses SI units and constant substep cadence.
+// Keep the hot-path membership index between frames; rebuilding a Set of an
+// entire 2,200-mile destruction history every 1/60 second is not scalable.
+const cactusIndexCache=new WeakMap();
+function cactusIndexFor(state){
+  const ids=state.destroyedCacti;
+  let index=cactusIndexCache.get(state);
+  if(!index||index.ids!==ids||index.length!==ids.length){
+    index={ids,length:ids.length,set:new Set(ids)};
+    cactusIndexCache.set(state,index);
+  }
+  return index;
+}
 function step(state, input = {}, dt = 0, prefs = {}) {
   if (state.finished || state.distance >= ROUTE_LENGTH) {
     state.finished=true;state.distance=ROUTE_LENGTH;state.v=0;return state;
@@ -233,7 +348,7 @@ function step(state, input = {}, dt = 0, prefs = {}) {
   const count=Math.ceil(duration*120),h=duration/count;
   const target=(input.right?1:0)-(input.left?1:0);
   if(!Array.isArray(state.destroyedCacti))state.destroyedCacti=[];
-  const destroyed=new Set(state.destroyedCacti);
+  const cactusIndex=cactusIndexFor(state),destroyed=cactusIndex.set;
   state.impacts=[];
 
   for(let i=0;i<count;i++){
@@ -262,6 +377,7 @@ function step(state, input = {}, dt = 0, prefs = {}) {
     state.distance=Math.min(ROUTE_LENGTH,(state.distance||0)+travel);
     for(const hit of sweptCactusHits(x0,z0,state.x,state.z,destroyed)){
       destroyed.add(hit.id);state.destroyedCacti.push(hit.id);
+      cactusIndex.length=state.destroyedCacti.length;
       state.impacts.push({id:hit.id,x:hit.x,z:hit.z,seed:hit.seed});
       state.v*=.95;
     }
@@ -405,15 +521,13 @@ function tripSaveState(value, requireMatchingFinish = false) {
   if (z < 0 || distance < 0 || distance > ROUTE_LENGTH
     || z > distance + tripSaveTolerance
     || Math.abs(x-1.8) > distance + 200 || z > 1e9) return null;
-  // Existing 008 checkpoint records have no cactus history: accept as empty.
-  const destroyedCacti=value.destroyedCacti===undefined?[]:value.destroyedCacti;
-  if(!Array.isArray(destroyedCacti)||destroyedCacti.length>10000
-    || destroyedCacti.some(id=>typeof id!=='string'||
-       !/^c:-?\d+:\d+:-?1:(?:0|1|near)$/.test(id))
-    || new Set(destroyedCacti).size!==destroyedCacti.length)return null;
+  // 008: no history; first 009 draft: validated ID array;
+  // current 009: compact per-chunk masks plus lossless legacy extras.
+  const destroyedCacti=decodeCactusHistory(value);
+  if(!destroyedCacti)return null;
   const finished = distance === ROUTE_LENGTH;
   if (requireMatchingFinish && value.finished !== finished) return null;
-  // Only journey coordinates survive. Resuming never restores motion or held controls.
+  // The complete journey and destruction history survive; motion/inputs do not.
   return { x, z, angle, distance, finished, destroyedCacti:[...destroyedCacti], v: 0, steer: 0, paused: true };
 }
 
@@ -461,8 +575,11 @@ class TripSave {
     }
     const savedAt = Date.now();
     const { x, z, angle, distance, finished, destroyedCacti } = state;
+    const history=encodeCactusHistory(destroyedCacti);
+    if(!history)return {status:'invalid',reason:'invalid-state'};
     const raw = JSON.stringify({ version: 1, route: tripSaveRoute,
-      routeLength: ROUTE_LENGTH, savedAt, state: { x, z, angle, distance, finished, destroyedCacti } });
+      routeLength: ROUTE_LENGTH, savedAt,
+      state: { x, z, angle, distance, finished, ...history } });
     try { this.#storage.setItem(TRIP_SAVE_KEY, raw); }
     catch { return { status: 'unavailable', reason: 'storage-write' }; }
     this.#raw = raw;
@@ -493,6 +610,7 @@ function savePreferences(){try{storage?.setItem('cityFarePrefs',JSON.stringify(p
 function saveMessage(){
   if(saveResult.status==='conflict')return 'Another tab changed the saved drive. Reload to use that save.';
   if(saveResult.status==='unavailable')return 'Progress could not be saved. Keep this tab open; reloading may return to an older save.';
+  if(saveResult.status==='invalid'&&saveResult.reason==='invalid-state')return 'The current drive could not be saved. Your previous checkpoint was not overwritten.';
   if(saveResult.status==='invalid')return 'The saved drive could not be read. Starting a new drive will replace it.';
   if(savedCheckpoint)return 'Saved in this browser at '+new Date(savedCheckpoint.savedAt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'.';
   return 'Progress saves in this browser every 15 seconds and when you pause.';
@@ -505,6 +623,7 @@ function updateSaveUI(){
   $('#start-label').textContent=savedCheckpoint?(savedCheckpoint.state.finished?'View completed drive':'Resume drive'):'Drive';
   $('#trip-summary').textContent=savedCheckpoint?miles(savedCheckpoint.state.distance)+' miles driven · '+miles(ROUTE_LENGTH-savedCheckpoint.state.distance)+' to go':'';
   $('#trip-note').textContent=saveResult.status==='unavailable'?'Saving is unavailable. You can still drive in this tab.'
+    :saveResult.status==='invalid'&&saveResult.reason==='invalid-state'?'The current position could not be saved. The previous checkpoint is still available.'
     :saveResult.status==='invalid'?'Your saved drive could not be read. Start over to begin a new one.'
     :savedCheckpoint&&!savedCheckpoint.state.finished?'Continue from your last stop. Your car will be stationary.':'Your progress stays in this browser.';
 }
