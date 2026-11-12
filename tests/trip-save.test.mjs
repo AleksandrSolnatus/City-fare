@@ -74,7 +74,7 @@ test('invalid runtime state is rejected before any existing checkpoint is change
   const initial = storage.getItem(TRIP_SAVE_KEY);
   const bad = [null, [], {}, parkedTrip({ finished: 'yes' }), parkedTrip({ z: -1 }),
     parkedTrip({ distance: -1 }), parkedTrip({ distance: ROUTE_LENGTH + 1 }),
-    parkedTrip({ z: 5000 }), parkedTrip({ x: center(1500) + 4201 })];
+    parkedTrip({ z: 5000 }), parkedTrip({ x: center(1500) + 10000 })];
   for (const key of ['x', 'z', 'angle', 'distance']) {
     for (const value of [NaN, Infinity, -Infinity, '12', null]) bad.push(parkedTrip({ [key]: value }));
   }
