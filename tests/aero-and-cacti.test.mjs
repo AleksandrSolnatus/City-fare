@@ -68,3 +68,38 @@ test('wing setup changes both drag and available turning grip at the same speed'
   assert.ok(grip.lateralGrip>speed.lateralGrip);
   assert.ok(speed.acceleration>grip.acceleration);
 });
+
+test('all 1,200 direct sweeps hit the unchanged cactus records from both directions',()=>{
+  let checked=0;
+  for(let chunk=0;chunk<6000;chunk+=600){
+    for(const cactus of cactusRecords(chunk)){
+      for(const dir of [-1,1]){
+        const hits=sweptCactusHits(cactus.x-dir*6,cactus.z,cactus.x+dir*6,cactus.z);
+        assert.ok(hits.some(hit=>hit.id===cactus.id),
+          'missed '+cactus.id+' from direction '+dir);
+        checked++;
+      }
+    }
+  }
+  assert.equal(checked,1200);
+});
+test('120 high-speed driving crossings include both sides of the 612m boundary',()=>{
+  let checked=0;
+  for(let chunk=0;chunk<6000;chunk+=600){
+    for(const side of [-1,1]){
+      const target=cactusRecords(chunk).find(c=>c.id==='c:'+chunk+':570:'+side+':near');
+      assert.ok(target);
+      assert.equal(target.z,chunk+612);
+      for(const dir of [-1,1])for(const v of [50,100,145]){
+        const state={...fresh(),x:target.x-dir*3,z:target.z,
+          v,angle:dir*Math.PI/2,distance:target.z+30};
+        step(state,{gas:true},.08);
+        assert.ok(state.destroyedCacti.includes(target.id),
+          'missed '+target.id+' at '+v+' m/s in '+dir+' direction');
+        assert.ok(state.impacts.some(hit=>hit.id===target.id));
+        checked++;
+      }
+    }
+  }
+  assert.equal(checked,120);
+});
