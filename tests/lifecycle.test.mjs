@@ -93,7 +93,7 @@ function harness(storage = new TestStorage()) {
   };
   get('#overlay').querySelectorAll = selector => {
     assert.equal(selector, 'button,input,select');
-    return ['resume', 'save-exit', 'reload-save', 'sound', 'volume', 'gentle', 'motion', 'quality', 'restart'].map(id => get('#' + id));
+    return ['resume', 'save-exit', 'reload-save', 'wing-mode', 'sound', 'volume', 'gentle', 'motion', 'quality', 'restart'].map(id => get('#' + id));
   };
   document.body = makeNode('body'); document.body.classList.add('intro');
   document.activeElement = document.body;
