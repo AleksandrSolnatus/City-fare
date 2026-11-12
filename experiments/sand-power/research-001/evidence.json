@@ -1,0 +1,89 @@
+{
+  "schema": "city-fare-sand-power-research-evidence/1",
+  "study": "research-001",
+  "date": "2026-11-12",
+  "record_kind": "Selected exact numerical outputs from local probes; not a game test or raw browser log",
+  "environment": {"python": "3.13.5", "numpy": "2.3.5"},
+  "source_sha256": {
+    "probes.py": "642749447998dee6e2dcc66436fd9678a6ceba2e492f120bf2b46582d3b8ae33",
+    "dive_probe.py": "e80a55c96bdd17b728205ea5a81c6cf0c1dee5104c44bd0cba8231d7dc78085d"
+  },
+  "scale": {
+    "speed_mps": 24,
+    "rider_height_m": 1.8,
+    "viewport_height_px": 720,
+    "vertical_fov_deg": 55,
+    "size_cases": [
+      {"length_m": 120, "diameter_m": 12, "body_passage_s": 5.0, "turn_radius_m": 72, "seconds_for_90deg_turn": 4.71238898038469},
+      {"length_m": 200, "diameter_m": 20, "body_passage_s": 8.333333333333334, "turn_radius_m": 120, "seconds_for_90deg_turn": 7.853981633974482},
+      {"length_m": 300, "diameter_m": 30, "body_passage_s": 12.5, "turn_radius_m": 180, "seconds_for_90deg_turn": 11.780972450961725}
+    ],
+    "rider_projection": [
+      {"camera_distance_m": 60, "rider_pixels": 20.746606971288593},
+      {"camera_distance_m": 90, "rider_pixels": 13.831071314192394},
+      {"camera_distance_m": 180, "rider_pixels": 6.915535657096197},
+      {"camera_distance_m": 400, "rider_pixels": 3.111991045693289}
+    ],
+    "limits": "Pinhole calculations, not rendered phone visibility or perceived scale."
+  },
+  "body": {
+    "sample_count": 288,
+    "nodes": 129,
+    "lengths_m": [120, 200, 300],
+    "amplitude_to_length": [0.05, 0.1, 0.2],
+    "naive_growth_percent_200m_case": [2.423044726402135, 9.23661000385556, 32.06037646153419],
+    "equal_segment_worst_relative_error_all_cases": 1.0989727646422883e-14,
+    "fixed_time_delay_200m_reference_at_24mps": [
+      {"speed_mps": 12, "apparent_length_m": 100},
+      {"speed_mps": 24, "apparent_length_m": 200},
+      {"speed_mps": 36, "apparent_length_m": 300}
+    ],
+    "limits": "Geometry only. No propulsion, inertial dynamics, self-collision or fun test."
+  },
+  "terrain": {
+    "grid": [96, 96],
+    "cell_width_m": 2,
+    "brush_stamps": 61,
+    "settling_steps": 240,
+    "simulation_dt_s": 0.016666666666666666,
+    "authored_repose_deg": 32,
+    "cumulative_redistributed_bulk_m3": 2973.0271739512546,
+    "initial_bulk_m3": 934244.2995858276,
+    "max_total_discrepancy_at_tested_float_sum_precision_m3": 0.0,
+    "max_neighbour_slope_before_deg": 36.9394669343796,
+    "max_neighbour_slope_after_deg": 32.00000000005458,
+    "max_depression_m": 1.3992913975219885,
+    "max_berm_m": 1.5217301438611486,
+    "cells_changed_more_than_10cm": 1346,
+    "nonnegative_and_finite": true,
+    "exact_json_roundtrip": true,
+    "identical_repeat_summary": true,
+    "final_array_sha256": "ec555445e711493ab07b27f8fd6a342f3db214efe75fedacce36298099778eac",
+    "limits": "Authored conservative surface brush and slope relaxation. No real granular mechanics, buried-body occupancy, tunnel, calibrated time or browser performance."
+  },
+  "settling_1d": {
+    "initial_max_slope_deg": 59.0362434679265,
+    "cases": [
+      {"dt_s": 0.03333333333333333, "final_max_slope_deg": 33.81181413815724, "area_error_m2": 0.0},
+      {"dt_s": 0.016666666666666666, "final_max_slope_deg": 33.826886584262645, "area_error_m2": 0.0},
+      {"dt_s": 0.008333333333333333, "final_max_slope_deg": 33.834420952128376, "area_error_m2": 6.821210263296962e-13}
+    ],
+    "dt60_vs_dt120_max_height_difference_m": 0.0011726264081879378,
+    "limits": "Overdamped authored relaxation, not physical calibration or 3D symmetry certification."
+  },
+  "dive": {
+    "length_m": 200,
+    "diameter_m": 20,
+    "segments": 64,
+    "nominal_forward_speed_mps": 24,
+    "world_path_sample_dt_s": 0.004166666666666667,
+    "inspection_frames": 144,
+    "max_relative_resampled_segment_chord_error": 5.272415502702188e-05,
+    "exposed_rider_below_surface_frames": 47,
+    "emergence_snapshot_at_20s": {"fully_buried_proxy_rings": 42, "surface_crossing_proxy_rings": 11, "fully_above_proxy_rings": 12, "open_rider_foot_clearance_m": 24.762465637749763},
+    "limits": "Prescribed continuous world-space trajectory and vertical-radius proxies; not forces or exact tilted cross sections. No rendering or terrain displacement."
+  },
+  "not_established": ["physical fidelity", "giant-animal scaling", "full worm-sand coupling", "self-collision", "rider protection mechanism", "camera comfort", "fun", "browser rendering", "iPhone performance", "independent review"],
+  "no_game_implementation_modified": true,
+  "no_merge_or_deployment_action": true
+}
