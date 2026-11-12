@@ -26,7 +26,11 @@ This is a bounded **arcade model**, not CFD, a differential tire-force model, re
 
 ## Save compatibility
 
-The original `cityFareTrip:sonoran-007:v1` browser key, route identity, 2,200-mile length, stale-tab detection and deliberate restart remain. Version 008 records without the optional `destroyedCacti` field load with an empty set. The new field is a bounded, validated list of stable IDs (10,000 maximum). Old saves are not silently replaced on load; a normal save writes the additive field.
+The original `cityFareTrip:sonoran-007:v1` browser key, route identity, 2,200-mile length, stale-tab detection and deliberate restart remain. Version 008 records without cactus history load with an empty set. Earlier 009 ID arrays (including 10,000-element ones) also load without rewriting existing bytes.
+
+The corrected 009 record serializes cactus destruction as **lossless 60-bit masks per owning 600-metre chunk** in `destroyedCactusBits`. A separately retained `destroyedCactusExtras` array protects unusual but previously accepted old IDs instead of silently renaming or dropping them. Every generated cactus has an unchanged coordinate and ID. The physical 2,200-mile world bounds the number of chunks; the old 10,000-hit game-breaking limit is gone. The live game can keep a larger ID set, and saves decode it back into the established runtime representation. Invalid runtime saves now report that the *current* drive cannot be checkpointed rather than claiming that the prior stored checkpoint is unreadable.
+
+This is a set of destroyed object identities, not a timestamped chronological impact log. Lossless means every identity remains represented, not that ID-array iteration order is preserved.
 
 The car resumes stationary and with controls released. Browser/site-origin isolation, denied/full storage behavior and best-effort cross-tab conflict limits remain.
 
@@ -38,9 +42,15 @@ npm run build
 git diff --exit-code -- index.html
 ```
 
-The root portable `index.html` and separate source files should be identical after the bundler runs; the numbered `City-Fare-009.html` is a locally generated copy and is gitignored. Node tests cover prior route/lifecycle/save behavior plus wind, wing modes, off-road movement, deterministic cacti, swept collisions, one-shot destruction, and legacy-save compatibility.
+The root portable `index.html` and separate source files should be identical after the bundler runs; the numbered `City-Fare-009.html` is a locally generated copy and is gitignored. Node tests cover prior route/lifecycle/save behavior plus wind, wing modes, off-road movement, deterministic cacti, swept collisions, one-shot destruction, and legacy-save compatibility. The adversarial corrections add 1,200 bidirectional direct cactus sweeps, 120 high-speed boundary crossings, 10,001st-impact save/reload, pre-fix 009 arrays, corrupt-mask rejection, and a full-world bitset capacity test. At commit `fe5b2884ff6104bd5c585bd5aa9ee969f673cc60`, GitHub Actions reported **43/43 passing** and a matching portable HTML rebuild. Later commits require their own checks.
 
 **Not yet established by Node tests:** WebGL scene quality, causal sense of speed, sound quality, frame rate or terrain-band pop on physical iPhone Safari, any full-trip run, actual 240–260 mph top speed under all wind/terrain conditions, or public deployment quality.
+
+## Independent review disposition — November 11
+
+The owner's independent review of `1a379615de0b56a815de30038c5bf55a3e73272b` found two real defects: (1) near cacti at owning chunk +612m were visible but missed by the collision search and (2) the 10,001st destruction made the runtime state unsavable. The original 35/35 CI result did not cover either case.
+
+Both causes have been addressed in this **draft branch**. The collision candidate window includes the 12-metre overhang and the swept contact radius without regenerating/moving any cactus. Per-chunk bitsets replace the 10,000-ID persistence cap while accepting old checkpoint arrays. These are developer and CI results, **not independent Root sign-off of the patched head**.
 
 ## Manual acceptance for Root / owner
 
