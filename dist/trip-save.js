@@ -1,4 +1,4 @@
-import { ROUTE_LENGTH, TUNE, center } from './road.js';
+import { ROUTE_LENGTH } from './road.js';
 
 export const TRIP_SAVE_KEY = 'cityFareTrip:sonoran-007:v1';
 const tripSaveRoute = 'sonoran-007';
@@ -11,11 +11,17 @@ function tripSaveState(value, requireMatchingFinish = false) {
   const { x, z, angle, distance } = value;
   if (z < 0 || distance < 0 || distance > ROUTE_LENGTH
     || z > distance + tripSaveTolerance
-    || Math.abs(x - center(z)) > TUNE.lateralLimit + tripSaveTolerance) return null;
+    || Math.abs(x) > 1e9 || z > 1e9) return null;
+  // Existing 008 checkpoint records have no cactus history: accept as empty.
+  const destroyedCacti=value.destroyedCacti===undefined?[]:value.destroyedCacti;
+  if(!Array.isArray(destroyedCacti)||destroyedCacti.length>10000
+    || destroyedCacti.some(id=>typeof id!=='string'||
+       !/^c:-?\\d+:\\d+:-?1:(?:0|1|near)$/.test(id))
+    || new Set(destroyedCacti).size!==destroyedCacti.length)return null;
   const finished = distance === ROUTE_LENGTH;
   if (requireMatchingFinish && value.finished !== finished) return null;
   // Only journey coordinates survive. Resuming never restores motion or held controls.
-  return { x, z, angle, distance, finished, v: 0, steer: 0, paused: true };
+  return { x, z, angle, distance, finished, destroyedCacti:[...destroyedCacti], v: 0, steer: 0, paused: true };
 }
 
 function tripSaveDecode(raw) {
@@ -61,9 +67,9 @@ export class TripSave {
         return { status: 'conflict' };
     }
     const savedAt = Date.now();
-    const { x, z, angle, distance, finished } = state;
+    const { x, z, angle, distance, finished, destroyedCacti } = state;
     const raw = JSON.stringify({ version: 1, route: tripSaveRoute,
-      routeLength: ROUTE_LENGTH, savedAt, state: { x, z, angle, distance, finished } });
+      routeLength: ROUTE_LENGTH, savedAt, state: { x, z, angle, distance, finished, destroyedCacti } });
     try { this.#storage.setItem(TRIP_SAVE_KEY, raw); }
     catch { return { status: 'unavailable', reason: 'storage-write' }; }
     this.#raw = raw;
