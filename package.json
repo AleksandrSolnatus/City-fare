@@ -1,11 +1,11 @@
 {
-  "name": "city-fare-sonoran-run",
-  "version": "0.8.0",
+  "name": "city-fare-sonoran-drive",
+  "version": "0.13.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test tests/*.test.mjs",
-    "dev": "python3 -m http.server 8766 --bind 127.0.0.1 --directory dist",
+    "test": "node --test tests/*.test.mjs && cd src/sonoran-drive-013 && node --test *.test.cjs",
+    "dev": "python3 -m http.server 8766 --bind 127.0.0.1 --directory .",
     "build": "node tools/bundle.mjs"
   }
 }

@@ -1,48 +1,39 @@
-# City Fare · Sonoran Run
+# CITY fare
 
-A fast car and an Arizona-inspired desert. Minimal native WebGL shapes, a low orange sun just before dusk, distant mountains, a future skyline, and 2,200 miles to cover. The coupe uses steel and gunmetal surfaces with restrained cyan underglow and warm rear light halos.
+A quiet alien desert. A skimmer waiting outside a small portal station. Two colossal sunworms and the RibbonHawk, living their own lives.
 
-## Play offline
+[Visit CITY fare](https://city-fare.pages.dev/) · [Download the standalone game](https://city-fare.pages.dev/CITY-FARE-Sonoran-Drive-013.html)
 
-Download and extract this repository, then open the root `index.html` in a modern browser with WebGL support. The game is self-contained: no installation, server, account or internet connection is required.
+Sonoran Drive013 — Sun Colonies is a public playtest. Enter through the green portal, walk to the skimmer, then explore freely. The copper western worm and jade eastern worm carry angle-shifting crystalline frills. Their sun-gathering and cooling routines are authored alien ecology, not a validated biological model.
 
-To regenerate the standalone game from the existing sources, run `node tools/bundle.mjs` from the repository root with Node.js installed. This writes the same self-contained **008 — Sonoran Save** build to `index.html` and `City-Fare-008.html`; the numbered copy is excluded from Git. No dependency installation is needed.
+## Controls
 
-For local development, run `npm run dev` (requires npm and Python 3), then visit `http://127.0.0.1:8766`.
+- WASD: walk; in the skimmer W accelerates, A/D steer, S slows and reverses.
+- E: enter nearby. In motion, brake and settle. Release and press E again to step out.
+- Space: hop. Shift: surge. They work together.
+- Drag the open view to look, including upward. I/J/K/L also look; R centers the driving view.
+- P or the small corner menu: pause, map, sound, reduced detail, touch controls and recovery.
 
-## Drive
+Touch devices show translucent directional and action buttons. Hold movement with one thumb and swipe the open view with the other. Pause includes a manual visibility override. Audio begins only after interaction and stops on pause or loss of focus.
 
-W / Up accelerates; S / Down or Space brakes; A D / Left Right steer. P / Escape pauses. C changes camera; R opens the restart confirmation. Touch controls are available on small or coarse-pointer screens. Enable optional electric-motor audio in Pause; adjust volume there. Gentle steering, reduced camera motion and lower resolution are available.
+## Build and test
 
-The car tops out at approximately 180 mph. A light peripheral blur fades in above 70 mph and the camera gently widens with speed; reduced motion disables both. Driving distance is integrated from speed in metres per second and simulation seconds, then converted with 1 mile = 1609.344 metres. Completion is an odometer challenge: all driven distance counts, including turns and off-road travel. Exactly 2,200 accumulated miles ends the drive. At full speed, the trip takes over 12 hours; the saved drive lets that journey span sessions.
+No external runtime assets, network requests, dependencies or analytics are required. The downloadable HTML works offline in a browser with WebGL2.
 
-The last 2,500 metres gradually fade the scene; completion presents a quiet end screen and restart button. The skyline is a stylized progress cue whose apparent distance shrinks, not an accurately simulated urban map.
+```sh
+npm run build
+npm test
+npm run dev
+```
 
-## Save and resume
+Open `http://127.0.0.1:8766/`. Editable runtime source lives in `src/sonoran-drive-013`. `tools/bundle.mjs` reproducibly builds `index.html`, the offline HTML and `version.json`. The manifest records the exact SHA-256. Node22 or newer is suitable for the tests. The development server uses Python3.
 
-008 keeps one drive in this browser's local storage. It attempts a checkpoint every **15 simulation seconds**, when you pause, when the page loses focus or goes into the background, when you choose **Save & return to title**, and on completion. The pause and completion screens display the save status. A completed trip stays completed after reloading.
+Visitor records store only visits, the optional parcel and display preferences. New outings begin in the hut. Saved terrain and animals are not persisted between outings. Earlier Sonoran Drive visitor JSON can be imported; the original driving game's saves remain separate.
 
-The title shows the saved mileage and a **Resume drive** button. Resuming restores the exact saved world position, continuous heading and accumulated odometer, including off-road or backward-facing travel. The car starts stationary with zero steering and released controls. Time spent away from the page adds no miles. Choosing a new drive, pressing R, or restarting after completion opens a confirmation before replacing the saved trip.
+## Limits and history
 
-Saves belong to the same browser and origin (the same scheme, host and port); they do not sync between devices, browser profiles or different addresses. Clearing site data removes both the drive and preferences. Storage for directly opened `file:` HTML depends on the browser; serving the game at the same local address gives it a consistent origin. Abrupt browser shutdown can miss a final checkpoint, so **Save & return to title** provides an explicit save result before leaving.
+This is an authored browser game: granular deformation uses a conservative sparse heightfield, finite coarse parcels and a bounded editable surface layer. Crystal colour is a lighting approximation. Worm avoidance is not a general deformable-body solver. Full-size Retina rendering can cost more than the30FPS target; reduced detail is available. Desktop Chrome interaction and automated tests do not establish physical iPhone performance or player enjoyment.
 
-Malformed or incompatible saved data is left intact during automatic saving; the interface offers a deliberate new start. If storage is denied or full, the game reports that progress could not be saved and remains playable in the current tab. A reload may then return to an older checkpoint. Best-effort stale-tab protection compares the stored record with the last loaded or saved value and watches storage-change events: a conflicting tab pauses and offers **Reload saved drive**. This is not an atomic lock across tabs, so simultaneous writes cannot be fully excluded.
+The prior Sonoran Run008 source remains unchanged in `dist/`, with its tests in `tests/` and its former bundler preserved as `tools/bundle-sonoran-run-008.mjs`. That historical bundler writes the root old game if invoked; use the normal `npm run build` for the current game. Git retains the prior live version at `87d6e1c2ed21ede40d8227ba1a6b9baacdfd8abc`. The complete local research archive and evidence are preserved separately and are not part of this website's deployment.
 
-## Implementation
-
-- `dist/road.js`: deterministic quintic road anchors and metre/second vehicle dynamics.
-- `dist/renderer.js`: lightweight polygon meshes, perspective projection, depth, haze and dust. Nearby terrain chunks are created on demand and discarded when distant. Chunk-local coordinates avoid floating-point jitter over the long trip.
-- `dist/trip-save.js`: versioned, route-checked local checkpoints, validation, stationary restoration and stale-tab checks.
-- `dist/game.js`: controls, fixed-step timing, save/resume lifecycle, session state and synthesized audio.
-- `dist/index.html`, `dist/style.css`: minimal responsive interface.
-- `tools/bundle.mjs`: combines those exact sources into the portable HTML.
-
-Run `npm test` for focused driving/distance and save/restore checks. All 25 tests pass for this revision, covering the unchanged road behavior plus checkpoint round trips, invalid records, completion, storage errors and stale-tab conflicts. Six lifecycle tests execute the actual game code with DOM/renderer/frame doubles, including the transient-read regression, restart confirmation, background saving and completed-trip reload. These do not replace real browser tests. Run `node tools/bundle.mjs` after source changes.
-
-## Lineage and scope
-
-Evolves owner-supplied City-Fare-006 controls, metre/second timing and audio lifecycle, with the visible vehicle identity informed by 003. Earlier versions 003, 004, 005A, 005C and 006 remain untouched locally. Sonoran Run 007 changed the authored repeating road to generated sections, extended the run to 2,200 integrated miles, and gave the vehicle a minimal futuristic appearance. Revision 008 adds local save/resume and deliberate restart controls; `road.js` and `renderer.js` are unchanged.
-
-Chrome and Safari rendered the first chase-camera build. Desktop input was exercised; 390 × 720 and 844 × 390 embedded layouts were visually inspected. The dusk/gunmetal Sonoran build also rendered in Chrome; later Sonoran changes received syntax and focused distance/finish checks. The 008 branch preview deployed successfully and its page loaded in the cloud browser, but that browser reported that WebGL was unavailable. Its game canvas, interactive save/resume flow and phone layout remain unverified in a real browser. The local preview also stopped before loading. Physical phone performance, multitouch hardware, a full 12-hour drive and the subjective new sound have not been verified. WebGL support is required. Scenery is decorative, with soft lateral driving bounds rather than prop collision simulation. Slow frames can lose simulation time to preserve stable controls. Control/display preferences and one driving checkpoint persist locally when browser storage is available.
-
-Only City Fare is in scope. This local build and a Git branch do not establish public deployment or a change to the existing City Fare address.
+Built with Amar through iterative design, engineering and independent review. Coram Deo.

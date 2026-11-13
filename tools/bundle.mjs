@@ -1,11 +1,12 @@
 import {readFileSync,writeFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {dirname,resolve} from 'node:path';
-const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
-let html=readFileSync(resolve(root,'dist/index.html'),'utf8');
-const css=readFileSync(resolve(root,'dist/style.css'),'utf8');
-const js=['road.js','renderer.js','trip-save.js','game.js'].map(name=>readFileSync(resolve(root,'dist',name),'utf8').replace(/^import .*;\n/gm,'').replace(/^export /gm,'')).join('\n');
-html=html.replace('<link rel="stylesheet" href="style.css">',()=>'<style>'+css+'</style>').replace('<script type="module" src="game.js"></script>',()=>'<script type="module">\n'+js+'\n</script>');
-writeFileSync(resolve(root,'index.html'),html);
-writeFileSync(resolve(root,'City-Fare-008.html'),html);
-console.log('Built index.html and City-Fare-008.html ('+Buffer.byteLength(html)+' bytes)');
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),src=resolve(root,'src/sonoran-drive-013');
+const names=['world.js','geometry.js','worm.js','flight.js','aggression.js','game.js','visitor.js','gpu.js','arrival.js','contact.js','view.js','app.js'];
+let html=readFileSync(resolve(src,'template.html'),'utf8');
+for(const name of names){const marker='/*__'+name.split('.')[0].toUpperCase()+'__*/';if(html.split(marker).length!==2)throw Error('Expected exactly one marker '+marker);html=html.replace(marker,()=>readFileSync(resolve(src,name),'utf8'));}
+const artifact='CITY-FARE-Sonoran-Drive-013.html',sha256=createHash('sha256').update(html).digest('hex');
+writeFileSync(resolve(root,'index.html'),html);writeFileSync(resolve(root,artifact),html);
+writeFileSync(resolve(root,'version.json'),JSON.stringify({game:'CITY fare',edition:'Sonoran Drive 013 — Sun Colonies',artifact,sha256,bytes:Buffer.byteLength(html)},null,2)+'\n');
+console.log('Built Sonoran Drive013 · '+Buffer.byteLength(html)+' bytes · '+sha256);
