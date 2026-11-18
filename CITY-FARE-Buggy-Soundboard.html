@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buggy Soundboard · City Fare</title>
+<style>
+ :root{color-scheme:dark;--paper:#f6e6d4;--muted:#d2bda6;--floor:#211812;--line:#735344;--accent:#fac38e}
+ *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 8% 0%,#4b2e23 0%,#271b17 46%,#191512 90%);color:var(--paper);font-family:system-ui,sans-serif;line-height:1.5}
+ main{max-width:52rem;margin:auto;padding:clamp(1.2rem,5vw,4.5rem) clamp(1.1rem,5vw,3rem) 3rem}
+ header{margin-bottom:2.3rem}.identity{font-size:.77rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+ h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(2.6rem,8vw,4.8rem);line-height:1;margin:.45rem 0 .9rem}h2{font-size:1.05rem;font-weight:650;margin:0 0 .3rem}
+ p{color:var(--muted);margin:0}button,input{font:inherit}button{cursor:pointer;min-height:44px;padding:.56rem .92rem;border:1px solid var(--line);border-radius:.4rem;background:#312119;color:var(--paper)}
+ button:hover{border-color:var(--accent)}button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}button:disabled{opacity:.53;cursor:default}
+ .profile{display:flex;align-items:center;justify-content:space-between;gap:1rem;border-block-start:1px solid var(--line);padding:1rem 0}.profile:last-child{border-block-end:1px solid var(--line)}
+ .profile button{min-width:5.2rem}.profile button[aria-pressed="true"]{background:var(--accent);color:#342015;border-color:var(--accent);font-weight:650}
+ .events,.transport{margin-top:1.7rem}.events p{margin-bottom:.7rem}.cues,.transport{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}.transport{padding:1rem 0;border-block:1px solid var(--line);justify-content:space-between}
+ .volume{display:flex;gap:.65rem;align-items:center}.volume input{width:7rem;accent-color:var(--accent)}
+ #status{margin-top:.85rem;min-height:1.5em;color:var(--accent);font-size:.92rem}
+ @media(max-width:430px){header{margin-bottom:1.5rem}.profile p{font-size:.88rem}.transport{gap:1rem}.volume input{width:5.5rem}}
+</style>
+<main>
+ <header>
+  <p class="identity">City Fare</p>
+  <h1>Buggy Soundboard</h1>
+  <p>Compare three mechanical mixes on the same short drive over rock, gravel and sand.</p>
+ </header>
+ <section id="profiles" aria-label="Buggy sound proposals"></section>
+ <section class="events" aria-labelledby="events-title">
+  <h2 id="events-title">Driving sounds</h2>
+  <p>Listen to individual sounds using <strong id="selected-profile">Engine Forward</strong>.</p>
+  <div class="cues" id="cues"></div>
+ </section>
+ <div class="transport">
+  <button id="stop" type="button" disabled>Stop playback</button>
+  <label class="volume">Volume <input id="volume" type="range" min="0" max="100" value="72"></label>
+ </div>
+ <p id="status" role="status">Ready to audition.</p>
+</main>
+<script>
+/* Original buggy synthesis shared by the game and the offline audition board. */
+(function(root){'use strict';
+
+const clamp=(value,min=0,max=1)=>Math.max(min,Math.min(max,value));
+const finite=value=>Number.isFinite(value)?value:0;
+const surfaces=Object.freeze({bedrock:[460,.46],hardpan:[640,.57],gravel:[1210,1],sand:[820,.76]});
+const profiles=Object.freeze({
+ sandline:{name:'Sandline',description:'Low electric pull and a soft tyre texture.',wave:'triangle',motor:72,range:49,load:30,body:.082,whine:.012,ratio:2.01,tyres:.076,rattle:.013},
+ twin:{name:'Twin Motor',description:'Two brighter motor tones with a slight beating pulse.',wave:'triangle',motor:88,range:65,load:35,body:.060,whine:.035,ratio:1.025,tyres:.070,rattle:.019},
+ dry:{name:'Dry Drive',description:'A quieter motor with more tread and chassis detail.',wave:'sawtooth',motor:61,range:42,load:22,body:.048,whine:.010,ratio:2.97,tyres:.111,rattle:.038}
+});
+const previewCues=['gravel','sand','surge','landing'];
+
+function stateOf(vehicle,live){
+ const engine=!!vehicle&&live&&!vehicle.parked&&!vehicle.disabled&&!vehicle.stranded;
+ return {
+  id:vehicle?.id,engine,speed:clamp(Math.abs(finite(vehicle?.speed))/42.5),
+  effort:clamp(Math.abs(finite(vehicle?.throttle))),slip:clamp(finite(vehicle?.slip)),
+  support:clamp(finite(vehicle?.supportCount)/4),surface:vehicle?.surface||'bedrock',
+  surge:engine&&!!vehicle.boosting,landingCount:finite(vehicle?.landingCount),
+  impact:clamp(finite(vehicle?.lastLandingSpeed)/7)
+ };
+}
+
+class BuggyVoice{
+ constructor(audio,profile='sandline'){
+  this.audio=audio;
+  this.profile=profiles[profile]||profiles.sandline;
+  this.previous=null;
+  this.voices=null;
+ }
+ stop(time){
+  if(this.voices)for(const voice of Object.values(this.voices))this.audio.stopVoice(voice,time);
+  this.voices=null;
+  this.previous=null;
+ }
+ update(state,time){
+  if(!state.engine){this.stop(time);return;}
+  if(this.previous?.id!==state.id)this.stop(time);
+  const {audio,profile}=this;
+  if(!this.voices){
+   this.voices={
+    motor:audio.voice(profile.wave,profile.motor,'lowpass',340,time),
+    overtone:audio.voice('sine',profile.motor*profile.ratio,null,0,time),
+    tyre:audio.voice('noise',0,'bandpass',640,time),
+    chassis:audio.voice('noise',0,'lowpass',220,time)
+   };
+   this.cue('power',time);
+  }
+  if(this.previous&&state.surge&&!this.previous.surge)this.cue('surge',time);
+  if(this.previous&&state.landingCount>this.previous.landingCount)this.cue('landing',time,state.impact);
+  this.previous=state;
+
+  const {motor,overtone,tyre,chassis}=this.voices;
+  const rolling=Math.sqrt(state.speed)*state.support;
+  const frequency=profile.motor+state.speed*profile.range+state.effort*profile.load+(state.surge?12:0);
+  const [cutoff,texture]=surfaces[state.surface]||surfaces.bedrock;
+  audio.target(motor.source.frequency,frequency,time,.11);
+  audio.target(motor.filter.frequency,260+frequency*2.1,time,.15);
+  audio.target(motor.gain.gain,profile.body*(.25+.60*state.effort+.2*state.speed),time,.09);
+  audio.target(overtone.source.frequency,frequency*profile.ratio,time,.13);
+  audio.target(overtone.gain.gain,profile.whine*(.22+.78*state.effort),time,.09);
+  audio.target(tyre.filter.frequency,cutoff+state.speed*500,time,.13);
+  audio.target(tyre.gain.gain,profile.tyres*texture*rolling*(.40+.60*state.slip),time,.07);
+  audio.target(chassis.gain.gain,profile.rattle*rolling*(.30+.70*state.slip),time,.1);
+ }
+ cue(kind,time,weight=1){
+  const {audio,profile}=this;
+  if(kind==='power'){
+   audio.tone(profile.motor*.68,profile.motor*1.34,profile.body*.65,.42,time,'triangle');
+  }else if(kind==='surge'){
+   audio.tone(profile.motor*1.18,profile.motor*2.65,profile.body,.52,time,'triangle');
+   audio.puff(300,1030,.033,.38,time,null,.016);
+  }else if(kind==='landing'){
+   const impact=.36+.64*weight;
+   audio.tone(108,53,.105*impact,.27,time,'sine',null,.014);
+   audio.puff(710,150,.15*impact,.30,time,null,.012);
+   audio.puff(380,108,.042*impact,.25,time+.045,null,.012);
+  }
+ }
+}
+
+// The same scripted drive is used for every profile so differences are audible.
+function auditionState(time,scene='drive'){
+ const span=scene==='drive'?5.8:2.5,phase=clamp(time/span);
+ const state={id:'audition',engine:true,speed:.42,effort:.38,slip:.32,support:1,surface:'bedrock',surge:false,landingCount:0,impact:.74};
+ if(scene==='gravel'||scene==='sand')return {...state,surface:scene,speed:.12+.62*Math.sin(Math.PI*phase),slip:.38+.46*Math.sin(Math.PI*phase)};
+ if(scene==='surge')return {...state,speed:.22+.65*phase,effort:phase>.25?.93:.45,surge:phase>.25&&phase<.78};
+ if(scene==='landing')return {...state,speed:.54*(1-.72*phase),surface:'sand',support:phase>.16&&phase<.53?0:1,landingCount:phase>=.53?1:0};
+ return {...state,speed:.84*Math.sin(Math.PI*phase),effort:phase<.72?Math.sin(Math.PI*phase/.92):.08,
+  surface:phase<.3?'bedrock':phase<.56?'gravel':'sand',slip:phase<.3?.18:.55,
+  support:phase>.60&&phase<.72?0:1,surge:phase>.36&&phase<.52,landingCount:phase>=.72?1:0};
+}
+
+const api={BuggyVoice,auditionState,previewCues,profiles,stateOf};
+root.SDBuggyAudio=api;
+if(typeof module!=='undefined'&&module.exports)module.exports=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+/* Authored contact cues. Audio is presentation; sensing is deterministic without audio. */
+(function(root){'use strict';
+const Buggy=typeof module!=='undefined'&&module.exports?require('./buggy-audio.js'):root.SDBuggyAudio;
+const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
+const transmission=Object.freeze({sand:1,hardpan:.32,gravel:.16,bedrock:0});
+class Contact{
+ constructor(game){this.game=game;this.lastId=-1;this.energy=0;this.lastStep=null;this.soundSteps=[];}
+ update(session,dt){
+  const game=this.game,c=session.contact||{},walking=session.mode==='walk';if(this.record!==c){this.record=c;this.lastId=-1;this.energy=0;this.lastStep=null;}this.energy*=Math.exp(-dt/2.4);this.soundSteps=[];
+  for(const step of c.footfalls||[]){if(step.id<=this.lastId)continue;this.lastId=step.id;if(!walking)continue;this.lastStep={...step};this.soundSteps.push({...step});const t=transmission[step.surface]||0;this.energy=clamp(this.energy+.36*t,0,1.6);if(t===0)this.energy=0;}
+  if(!walking){this.energy=0;game.footstepSignal=null;}else if(this.lastStep&&this.energy>.01){game.footstepSignal={x:this.lastStep.x,y:this.lastStep.y,time:this.lastStep.time,strength:this.energy,surface:this.lastStep.surface};}else game.footstepSignal=null;
+  const returnAnchor=session.returnVehicle||session.bounds||game.car;
+  const p=session.walker||game.focusVehicle||game.car,animals=game.worms||[game.worm],responsive=animals.filter(w=>w.state==='listen'||w.state==='foot-investigate'),w=(responsive.length?responsive:animals).reduce((best,w)=>Math.hypot(w.head.x-p.x,w.head.y-p.y)<Math.hypot(best.head.x-p.x,best.head.y-p.y)?w:best),d=Math.hypot(w.head.x-p.x,w.head.y-p.y),state=w.state==='listen'?'listening':w.state==='foot-investigate'?'approaching':'quiet';
+  game.footContact={state,animal:w.id||'western',strength:state==='quiet'?0:clamp(1-d/520),distance:d,bearing:Math.atan2(w.head.y-p.y,w.head.x-p.x),lastStep:this.lastStep?{...this.lastStep}:null,surface:game.world.metadata(p.x,p.y).substrate,returnDistance:Math.hypot(p.x-returnAnchor.x,p.y-returnAnchor.y),energy:this.energy,walking};
+  return game.footContact;
+ }
+}
+// Read-only presentation mapping. No input, physics, worm or contact mutation.
+function skimmerAudioState(game,mode,previous=null){
+ const c=game?.car||{},finite=n=>Number.isFinite(n)?n:0;
+ const live=!!game&&(game.status==='playing'||game.status==='arrived');
+ const engine=live&&!c.parked&&!c.disabled&&!c.stranded&&(game.occupiedVehicle?game.occupiedVehicle===c:!game.parked)&&(mode==='drive'||mode==='entering'||mode===undefined);
+ const speed=clamp(Math.hypot(finite(c.vx),finite(c.vy))/80.4672),effort=engine?clamp(Math.abs(finite(c.throttle))):0;
+ const time=finite(game?.time),dt=previous?time-previous.time:0,phase=engine?(c.hopPhase||'hover'):'parked';
+ // Real deceleration, not a keypress approximation: coasting and braking share a regenerative whirr.
+ const slowing=engine&&previous?.engine&&phase==='hover'&&previous.phase==='hover'&&finite(c.throttle)<=0&&speed>.008&&dt>0&&dt<=.2?clamp((previous.speed-speed)*80.4672/dt/34):0;
+ return {engine,time,speed:engine?speed:0,effort,slowing,surge:engine&&!!c.boosting,phase,vertical:engine?clamp(Math.abs(finite(c.vz))/12):0};
+}
+function skimmerAudioEdges(previous,next){
+ const p=previous||{engine:false,surge:false,phase:'parked'},events=[];
+ if(!p.engine&&next.engine)events.push('startup');
+ if(p.engine&&!next.engine)events.push('shutdown');
+ if(next.engine&&next.surge&&!p.surge)events.push('surge');
+ if(next.engine&&p.engine&&next.phase==='flight'&&p.phase!=='flight')events.push('hop');
+ if(next.engine&&p.engine&&['flight','landing'].includes(p.phase)&&next.phase==='hover')events.push('landing');
+ return events;
+}
+// Authored wildlife voices follow world-time cycles. Listening never changes an animal.
+function creatureAudioState(game,observer){
+ if(!game||!Number.isFinite(game.time)||!observer)return [];
+ const finite=n=>Number.isFinite(n)?n:0,descriptors=[];
+ const animals=(game.worms||(game.worm?[game.worm]:[])).slice(0,2).map((w,i)=>({id:w.id||'worm-'+i,kind:'worm',point:w.head,radius:w.sections?.[0]?.r||20,period:i?43:41}));
+ if(game.sky)animals.push({id:'ribbonhawk',kind:'sky',point:game.sky,radius:0,period:37});
+ for(const animal of animals){
+  const p=animal.point;if(!p||![p.x,p.y,p.z].every(Number.isFinite))continue;
+  let hash=(game.seed||0)>>>0;for(const c of animal.id)hash=(Math.imul(hash,33)+c.charCodeAt(0))>>>0;
+  const phase=hash%animal.period,cycle=Math.floor((game.time+phase)/animal.period),at=cycle*animal.period-phase;
+  const dx=p.x-finite(observer.x),dy=p.y-finite(observer.y),dz=p.z-finite(observer.z),distance=Math.hypot(dx,dy,dz),range=animal.kind==='worm'?1400:2000;
+  const floor=game.world?.height?game.world.height(p.x,p.y):game.world?.terrain?.height?.(p.x,p.y)||0;
+  const burial=animal.kind==='worm'?Math.max(0,floor-p.z-animal.radius):0;
+  const distanceGain=distance>=range?0:(1-(distance/range)**2)**2/(1+distance/400);
+  const gain=distanceGain*(burial>28?0:Math.exp(-burial/7)),pan=Math.sin(Math.atan2(dy,dx)-finite(observer.yaw))*.65;
+  descriptors.push({id:animal.id,kind:animal.kind,period:animal.period,cycle,at,distance,burial,gain,pan});
+ }
+ return descriptors;
+}
+class ContactAudio{
+ constructor({context=null,offline=false}={}){this.context=context;this.offline=offline;this._enabled=true;this.active=false;this.failed=false;this.ready=offline;this.sources=new Set();this.previous=null;this._injected=!!context;this._activationManaged=false;this._epoch=0;this._pending=0;this._sessionClaim=null;this._suspending=null;this.creatureClock=null;this.creatureGame=null;this.creatureCycles=new Map();this.creatureCalls={worm:0,sky:0};this.lastCreatureCalls=[];this.buggy=new Buggy.BuggyVoice(this);if(context)this.init();}
+ get enabled(){return this._enabled;}
+ set enabled(value){this._enabled=!!value;if(!this._enabled){this._epoch++;this.deactivate();}}
+ get time(){return this.offline?(this.renderTime||0):this.context.currentTime;}
+ wantsAudio(){return this.enabled&&(this.active||(this._injected&&!this._activationManaged));}
+ init(){if(this.master)return;const a=this.context;this.master=a.createGain();this.master.gain.value=0;this.master.connect(a.destination);if(!this.offline){const changed=()=>{this.syncState();if(!this.wantsAudio())this.deactivate();};if(a.addEventListener)a.addEventListener('statechange',changed);else a.onstatechange=changed;}}
+ syncState(){
+  const wasReady=this.ready;this.ready=this.offline||this.context?.state==='running';
+  // A browser interruption is temporary; a recovered context must not stay latched silent.
+  if(this.ready)this.failed=false;else if(wasReady)this.silence();
+  return this.ready;
+ }
+ claimSession(){
+  if(this.offline||!this.active||!this.enabled||this._sessionClaim)return;
+  try{const session=root.navigator?.audioSession;if(!session)return;const previous=session.type;if(previous==='playback')return;session.type='playback';this._sessionClaim={session,previous};}catch{/* Optional platform API; ordinary Web Audio remains available. */}
+ }
+ releaseSession(){
+  const claim=this._sessionClaim;this._sessionClaim=null;
+  if(claim)try{if(claim.session.type==='playback')claim.session.type=claim.previous;}catch{/* Do not make silence depend on platform category support. */}
+ }
+ suspendContext(){
+  const a=this.context;if(this.offline||!a||!a.suspend||a.state==='closed'||a.state==='suspended'||this._suspending)return;
+  const token={};this._suspending=token;
+  try{Promise.resolve(a.suspend()).then(()=>{if(this._suspending===token)this._suspending=null;this.syncState();},()=>{if(this._suspending===token)this._suspending=null;});}catch{if(this._suspending===token)this._suspending=null;}
+ }
+ deactivate(){this.silence();this.releaseSession();this.suspendContext();}
+ unlock(){
+  // Only the app's real gesture handlers call this. Never restart from a statechange.
+  if(!this.wantsAudio())return Promise.resolve(false);
+  if(this.offline)return Promise.resolve(true);
+  const epoch=++this._epoch;let counted=false;
+  try{
+   const Audio=root.AudioContext||root.webkitAudioContext;
+   if(!this.context){if(!Audio){this.failed=true;return Promise.resolve(false);}this.context=new Audio();}
+   this.init();this.claimSession();const a=this.context;this._pending++;counted=true;
+   const settled=()=>{this._pending=Math.max(0,this._pending-1);if(!this.wantsAudio()){this.deactivate();return false;}if(epoch!==this._epoch)return false;return this.syncState();};
+   return Promise.resolve(a.resume()).then(settled,()=>{this._pending=Math.max(0,this._pending-1);if(epoch!==this._epoch){if(!this.wantsAudio())this.deactivate();return false;}this.failed=true;this.ready=false;this.deactivate();return false;});
+  }catch{if(counted)this._pending=Math.max(0,this._pending-1);this.failed=true;this.ready=false;this.deactivate();return Promise.resolve(false);}
+ }
+ inspect(){let sessionType='unsupported';try{sessionType=root.navigator?.audioSession?.type||'unsupported';}catch{}return {enabled:this.enabled,active:this.active,state:this.offline?'offline':this.context?.state||'unavailable',ready:this.ready,failed:this.failed,sessionType,sources:this.sources.size,pending:this._pending,creatureCalls:{...this.creatureCalls},lastCreatureCalls:this.lastCreatureCalls.map(c=>({...c}))};}
+ // Opt-in recording tap: no context creation, resume, or speaker change.
+ captureStream(){if(!this.context||!this.master||!this.context.createMediaStreamDestination)return null;if(!this.capture){this.capture=this.context.createMediaStreamDestination();this.master.connect(this.capture);}return this.capture.stream;}
+ releaseCapture(){if(!this.capture)return;this.master.disconnect(this.capture);for(const track of this.capture.stream.getTracks())track.stop();this.capture=null;}
+ setActive(active){this._activationManaged=true;this.active=!!active;if(!this.active){this._epoch++;this.deactivate();}}
+ target(param,value,t,lag=.08){param.setTargetAtTime(value,t,lag);}
+ stopVoice(voice,t=this.time){if(!voice||voice.stopped)return;voice.stopped=true;if(voice.endTime<=t)return;const gain=voice.gain.gain;if(gain.cancelAndHoldAtTime)gain.cancelAndHoldAtTime(t);else gain.cancelScheduledValues(t);this.target(gain,0,t,.025);try{voice.source.stop(Math.min(voice.endTime??Infinity,t+.14));}catch{}}
+ silence(){this.creatureClock=null;this.creatureGame=null;this.creatureCycles.clear();if(!this.context||!this.master)return;const t=this.time;this.master.gain.cancelScheduledValues(t);this.target(this.master.gain,0,t,.015);for(const v of this.sources)this.stopVoice(v,t);this.buggy.stop(t);this.engine=null;this.rumble=null;this.previous=null;}
+ voice(type,frequency,filterType,cutoff,t,pan=null){
+  const a=this.context,source=type==='noise'?a.createBufferSource():a.createOscillator(),gain=a.createGain(),filter=filterType?a.createBiquadFilter():null;
+  if(type==='noise'){if(!this.noise){this.noise=a.createBuffer(1,a.sampleRate*2,a.sampleRate);const data=this.noise.getChannelData(0);let seed=9009;for(let i=0;i<data.length;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;data[i]=seed/2147483648-1;}}source.buffer=this.noise;source.loop=true;}else{source.type=type;source.frequency.value=frequency;}
+  gain.gain.value=0;if(filter){filter.type=filterType;filter.frequency.value=cutoff;filter.Q.value=.65;source.connect(filter);filter.connect(gain);}else source.connect(gain);const panner=pan!==null&&a.createStereoPanner?a.createStereoPanner():null;if(panner){panner.pan.value=clamp(pan,-1,1);gain.connect(panner);panner.connect(this.master);}else gain.connect(this.master);
+  const voice={source,gain,filter,panner,stopped:false};this.sources.add(voice);source.onended=()=>{source.disconnect();filter?.disconnect();gain.disconnect();panner?.disconnect();this.sources.delete(voice);};source.start(t);return voice;
+ }
+ tone(from,to,level,duration,t,type='sine',pan=null,attack=.035){
+  const v=this.voice(type,from,null,0,t,pan);v.source.frequency.setValueAtTime(from,t);v.source.frequency.exponentialRampToValueAtTime(to,t+duration);v.gain.gain.setValueAtTime(0,t);v.gain.gain.linearRampToValueAtTime(level,t+attack);v.gain.gain.exponentialRampToValueAtTime(.00001,t+duration);v.endTime=t+duration+.02;v.source.stop(v.endTime);
+ }
+ puff(from,to,level,duration,t,pan=null,attack=.04){const v=this.voice('noise',0,'bandpass',from,t,pan);v.filter.frequency.setValueAtTime(from,t);v.filter.frequency.exponentialRampToValueAtTime(to,t+duration);v.gain.gain.setValueAtTime(0,t);v.gain.gain.linearRampToValueAtTime(level,t+attack);v.gain.gain.exponentialRampToValueAtTime(.00001,t+duration);v.endTime=t+duration+.02;v.source.stop(v.endTime);}
+ cue(kind,t){
+  if(kind==='startup'){this.tone(48,112,.065,.7,t,'triangle');this.tone(190,336,.016,.9,t+.06);this.puff(180,800,.025,.65,t);}
+  if(kind==='shutdown'){this.tone(105,38,.07,.6,t,'triangle');this.tone(260,95,.023,.5,t);this.puff(700,120,.025,.55,t);}
+  if(kind==='surge'){this.tone(150,340,.052,.55,t);this.tone(225,510,.019,.65,t);this.puff(430,1300,.045,.62,t);}
+  if(kind==='hop'){this.tone(100,260,.05,.3,t);this.puff(240,1600,.13,.5,t);}
+  if(kind==='landing'){this.tone(105,46,.13,.32,t);this.tone(230,95,.035,.25,t);this.puff(650,130,.11,.32,t);}
+ }
+ engineUpdate(state,t){
+  const edges=skimmerAudioEdges(this.previous,state);for(const event of edges)this.cue(event,t);this.previous=state;
+  if(!state.engine){if(this.engine){for(const v of Object.values(this.engine))this.stopVoice(v,t);this.engine=null;}return;}
+  if(!this.engine)this.engine={regen:this.voice('triangle',220,'lowpass',850,t),regenUpper:this.voice('sine',440,null,0,t),undertone:this.voice('triangle',60,'lowpass',230,t),undertoneOctave:this.voice('sine',120,null,0,t),body:this.voice('triangle',70,'lowpass',650,t),overtone:this.voice('sine',141,null,0,t),rotor:this.voice('sine',213,null,0,t),wind:this.voice('noise',0,'lowpass',180,t),surge:this.voice('sine',420,null,0,t),surgeHigh:this.voice('sine',633,null,0,t)};
+  const e=this.engine,flight=state.phase==='flight',f=80+state.effort*18+state.speed*16;
+  // A nearly steady low motor floor carries weight; its octave survives small speakers.
+  const bass=60+state.effort*8+state.speed*3;
+  this.target(e.undertone.source.frequency,bass,t,.22);this.target(e.undertoneOctave.source.frequency,bass*2.004,t,.22);
+  this.target(e.undertone.gain.gain,(.046+state.effort*.012)*(flight?.6:1),t,.12);
+  this.target(e.undertoneOctave.gain.gain,(.018+state.effort*.005)*(flight?.6:1),t,.12);
+  this.target(e.body.source.frequency,f,t,.13);this.target(e.overtone.source.frequency,f*2.013,t,.16);this.target(e.rotor.source.frequency,f*3.006,t,.18);
+  this.target(e.body.filter.frequency,210+state.effort*130+state.speed*80,t,.14);
+  this.target(e.body.gain.gain,(.022+state.effort*.012)*(flight?.4:1),t);
+  this.target(e.overtone.gain.gain,(.004+state.effort*.003)*(flight?.45:1),t);
+  this.target(e.rotor.gain.gain,.0005+state.effort*.001,t);
+  // Air is a low, distant texture. No idle fan; the electric body owns the mix.
+  this.target(e.wind.filter.frequency,180+state.speed*420+(flight?100:0),t,.24);
+  this.target(e.wind.gain.gain,.008*state.speed**2+(flight?.002+state.vertical*.002:0),t,.24);
+  const regen=180+state.speed*240;this.target(e.regen.source.frequency,regen,t,.12);this.target(e.regenUpper.source.frequency,regen*2.003,t,.14);
+  this.target(e.regen.gain.gain,state.slowing*.044,t,.12);this.target(e.regenUpper.gain.gain,state.slowing*.010,t,.14);
+  this.target(e.surge.source.frequency,310+state.speed*230,t,.1);this.target(e.surgeHigh.source.frequency,465+state.speed*345,t,.1);
+  this.target(e.surge.gain.gain,state.surge?.030:0,t,.1);this.target(e.surgeHigh.gain.gain,state.surge?.012:0,t,.12);
+ }
+ creatureUpdate(game,observer,t){
+  const states=creatureAudioState(game,observer),now=game.time,delta=this.creatureClock===null?Infinity:now-this.creatureClock;
+  const uninterrupted=this.creatureGame===game&&delta>0&&delta<=.5;
+  for(const state of states){
+   const previous=this.creatureCycles.get(state.id);this.creatureCycles.set(state.id,state.cycle);
+   // First hearing, gaps, re-entry and inaudible crossings never cause catch-up calls.
+   if(!uninterrupted||previous===undefined||state.cycle!==previous+1||state.gain<.004)continue;
+   this.creatureCall(state,t);this.creatureCalls[state.kind]++;
+   this.lastCreatureCalls.push({id:state.id,kind:state.kind,time:state.at,gain:state.gain,pan:state.pan});if(this.lastCreatureCalls.length>4)this.lastCreatureCalls.shift();
+  }
+  this.creatureClock=now;this.creatureGame=game;
+ }
+ creatureCall(state,t){
+  const g=state.gain,p=state.pan;
+  if(state.kind==='worm'){
+   // A long exhalation under a mineral chest resonance; no roar on approach.
+   this.puff(190,85,.12*g,2.7,t,p,.45);
+   this.tone(59,43,.10*g,2.5,t,'sine',p,.4);
+   this.tone(128,91,.042*g,2.2,t+.18,'sine',p,.35);
+  }else{
+   // Two airy phrases belonging to one call, carried across the basin.
+   this.tone(430,620,.060*g,.85,t,'sine',p,.14);
+   this.puff(1400,700,.045*g,1.05,t,p,.18);
+   this.tone(590,390,.050*g,1.2,t+.63,'sine',p,.18);
+   this.puff(1100,520,.030*g,1.25,t+.62,p,.2);
+  }
+ }
+ update(contact={},steps=[],game,sessionMode,observer,session){
+  if(!this.context||!this.master||!this.syncState())return;
+  const a=this.context,t=this.time,on=this.active&&this.enabled;
+  if(!on)return;this.target(this.master.gain,.38,t,.05);
+  if(game){
+   const vehicle=sessionMode==='entering'?session?.controlVehicle||game.focusVehicle:game.occupiedVehicle;
+   const buggy=vehicle?.type==='buggy',live=(game.status==='playing'||game.status==='arrived')&&(sessionMode==='drive'||sessionMode==='entering');
+   this.engineUpdate(skimmerAudioState(game,buggy?'walk':sessionMode,this.previous),t);
+   this.buggy.update(Buggy.stateOf(buggy?vehicle:null,live),t);
+   if(observer)this.creatureUpdate(game,observer,t);
+  }
+  // Contact sensing/cadence remains 008. Foot textures use two restrained physical contacts, no pitched chirp.
+  const strength=contact.walking?clamp(contact.strength||0)*.07:0;
+  if(strength>.0001&&!this.rumble)this.rumble=this.voice('sine',48,null,0,t);
+  if(this.rumble){this.target(this.rumble.gain.gain,strength,t,.25);if(!strength){this.stopVoice(this.rumble,t);this.rumble=null;}}
+  for(const step of steps){
+   const soft=step.surface==='sand',duration=soft?.19:.15,b=a.createBuffer(1,Math.ceil(a.sampleRate*duration),a.sampleRate),samples=b.getChannelData(0);let seed=(step.id+1)*1709,low=0;
+   for(let i=0;i<samples.length;i++){
+    seed=(Math.imul(seed,1664525)+1013904223)>>>0;const noise=seed/2147483648-1,x=i/a.sampleRate;low=low*.82+noise*.18;
+    // Sand: rounded weight into a short dragging grain tail. Firm: heel, then a softer sole tap 54 ms later.
+    if(soft){const weight=(1-Math.exp(-x/.007))*Math.exp(-x/.032),scuff=Math.sin(Math.PI*clamp((x-.027)/.16))**2*.23;samples[i]=(noise*.42+low*1.6)*(weight+scuff)*(1-x/duration);}
+    else{const contact=age=>age<0?0:(1-Math.exp(-age/.0012))*Math.exp(-age/.011);const heel=contact(x),sole=contact(x-.054);samples[i]=(noise*.57+low*1.9)*(heel+sole*.62);}
+   }
+   const source=a.createBufferSource(),filter=a.createBiquadFilter(),gain=a.createGain();source.buffer=b;filter.type='lowpass';filter.frequency.value=soft?1050:2300;gain.gain.value=soft?.2:.17;source.connect(filter);filter.connect(gain);gain.connect(this.master);const voice={source,gain,filter,stopped:false};this.sources.add(voice);source.onended=()=>{source.disconnect();filter.disconnect();gain.disconnect();this.sources.delete(voice);};source.start(t);
+  }
+ }
+}
+const api={Contact,ContactAudio,transmission,skimmerAudioState,skimmerAudioEdges,creatureAudioState};root.SDContact=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+/* Mechanically textured audition mixes, separate from the live vehicle mix. */
+(function(root){'use strict';
+const profiles=Object.freeze({
+ belt:{name:'Engine Forward',description:'A four-cylinder growl over quieter belt, tire, and frame sounds.',engine:.68,drive:.16,belt:.06,tread:.13,frame:.06},
+ frame:{name:'Loose Frame',description:'More chassis movement and a dry suspension knock.',engine:.24,drive:.16,belt:.08,tread:.24,frame:.24},
+ tread:{name:'Tires First',description:'Gravel and sand carry the sound, with a quiet drivetrain.',engine:.14,drive:.05,belt:.04,tread:.38,frame:.11}
+});
+const surfaces={bedrock:[690,.40],gravel:[1480,1],sand:[870,.82]};
+
+// One uneven four-cylinder firing cycle, repeated at the current engine rate.
+const firingOffsets=[0,.246,.5,.741],firingStrength=[1,.83,.92,.77];
+function firingVoice(audio,time){
+ const context=audio.context;
+ const buffer=context.createBuffer(1,Math.round(context.sampleRate/16),context.sampleRate);
+ const samples=buffer.getChannelData(0);
+ for(let i=0;i<samples.length;i++){
+  const phase=i/samples.length;
+  for(let j=0;j<firingOffsets.length;j++){
+   const age=(phase-firingOffsets[j]+1)%1;
+   samples[i]+=firingStrength[j]*1.45*(Math.exp(-age*19)-Math.exp(-age*135));
+  }
+ }
+ const source=context.createBufferSource(),filter=context.createBiquadFilter(),gain=context.createGain();
+ source.buffer=buffer;source.loop=true;source.playbackRate.value=.61;
+ filter.type='bandpass';filter.frequency.value=180;filter.Q.value=.62;gain.gain.value=0;
+ source.connect(filter);filter.connect(gain);gain.connect(audio.master);
+ source.onended=()=>{source.disconnect();filter.disconnect();gain.disconnect();};
+ source.start(time);
+ return {source,filter,gain,stopped:false};
+}
+
+class AuditionVoice{
+ constructor(audio,id){
+  this.audio=audio;
+  this.profile=profiles[id];
+  this.previous=null;
+  this.voices=null;
+  this.phase=0;
+  this.lastTime=0;
+ }
+ stop(time){
+  if(!this.voices)return;
+  for(const voice of Object.values(this.voices))this.audio.stopVoice(voice,time);
+  this.voices=null;
+  this.previous=null;
+ }
+ update(state,time){
+  const {audio,profile}=this;
+  if(!this.voices){
+   this.voices={
+    engine:firingVoice(audio,time),
+    drive:audio.voice('noise',0,'bandpass',175,time),
+    belt:audio.voice('noise',0,'bandpass',460,time),
+    tread:audio.voice('noise',0,'bandpass',900,time),
+    frame:audio.voice('noise',0,'bandpass',570,time)
+   };
+   this.phase=0;
+   this.lastTime=time;
+  }
+  const {engine,drive,belt,tread,frame}=this.voices;
+  const dt=Math.min(.12,Math.max(0,time-this.lastTime));
+  this.phase=(this.phase+dt*(4+state.speed*6))%1;
+  this.lastTime=time;
+  const pulse=.46+.54*Math.exp(-6*this.phase);
+  const rolling=Math.sqrt(state.speed)*state.support;
+  const [frequency,texture]=surfaces[state.surface]||surfaces.bedrock;
+  const load=state.effort,rate=.61+.62*state.speed+.33*load+(state.surge?.09:0);
+  audio.target(engine.source.playbackRate,rate,time,.12);
+  audio.target(engine.filter.frequency,142+122*load+37*state.speed,time,.10);
+  audio.target(engine.gain.gain,profile.engine*(.30+.62*load+.19*state.speed),time,.07);
+  audio.target(drive.filter.frequency,150+55*state.effort+36*state.speed,time,.12);
+  audio.target(drive.gain.gain,profile.drive*(.29+.57*state.effort+.28*state.speed)*pulse,time,.034);
+  audio.target(belt.filter.frequency,390+210*state.effort,time,.11);
+  audio.target(belt.gain.gain,profile.belt*(.15+.85*state.effort)*pulse,time,.04);
+  audio.target(tread.filter.frequency,frequency+state.speed*380,time,.10);
+  audio.target(tread.gain.gain,profile.tread*texture*rolling*(.54+.46*state.slip),time,.075);
+  audio.target(frame.gain.gain,profile.frame*rolling*(.22+.78*texture)*(1-pulse*.6),time,.04);
+  if(this.previous){
+   if(state.surge&&!this.previous.surge){
+    audio.puff(540,220,.07+profile.belt*.6,.26,time,null,.019);
+    audio.puff(280,150,.11+profile.drive*.32,.21,time+.055,null,.018);
+   }
+   if(state.landingCount>this.previous.landingCount){
+    const impact=.48+.52*state.impact;
+    audio.puff(300,148,.23*impact,.24,time,null,.009);
+    audio.puff(1500,460,(.09+profile.frame*.55)*impact,.13,time+.015,null,.009);
+   }
+  }
+  this.previous=state;
+ }
+}
+root.SDBuggyAudition={AuditionVoice,profiles};
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+(function(){'use strict';
+const {auditionState,previewCues}=SDBuggyAudio;
+const {AuditionVoice,profiles}=SDBuggyAudition;
+const $=id=>document.getElementById(id);
+const profileButtons=new Map();
+const labels={drive:'short drive',gravel:'gravel',sand:'sand',surge:'surge',landing:'landing'};
+let sound,voice,selected='belt',playing=false,serial=0,timer;
+for(const [id,profile] of Object.entries(profiles)){
+ const row=document.createElement('div'),copy=document.createElement('div'),heading=document.createElement('h2'),description=document.createElement('p'),play=document.createElement('button');
+ row.className='profile';heading.textContent=profile.name;description.textContent=profile.description;
+ play.type='button';play.textContent='Play';play.setAttribute('aria-label',`Play ${profile.name} drive`);
+ play.setAttribute('aria-pressed',String(id===selected));play.onclick=()=>playClip(id,'drive');profileButtons.set(id,play);
+ copy.append(heading,description);row.append(copy,play);$('profiles').append(row);
+}
+for(const name of previewCues){
+ const play=document.createElement('button');play.type='button';play.textContent=name[0].toUpperCase()+name.slice(1);play.onclick=()=>playClip(selected,name);$('cues').append(play);
+}
+function volume(){return Number($('volume').value)/100*.85;}
+function stopPlayback(message='Playback stopped.'){
+ serial++;clearInterval(timer);playing=false;$('stop').disabled=true;
+ if(sound){const time=sound.time;voice?.stop(time);voice=null;sound.silence();}
+ $('status').textContent=message;
+}
+async function playClip(profile,scene){
+ stopPlayback('Preparing sound…');
+ const request=serial;selected=profile;
+ for(const [id,button] of profileButtons)button.setAttribute('aria-pressed',String(id===profile));
+ $('selected-profile').textContent=profiles[profile].name;$('stop').disabled=false;
+ try{
+  if(!sound){const Context=window.AudioContext||window.webkitAudioContext;if(!Context)throw new Error('Audio unavailable');sound=new SDContact.ContactAudio({context:new Context()});}
+  await sound.context.resume();if(request!==serial)return;
+  if(sound.context.state!=='running')throw new Error('Audio unavailable');
+  const start=sound.time+.15,duration=scene==='drive'?5.8:2.5;
+  voice=new AuditionVoice(sound,profile);playing=true;
+  const master=sound.master.gain;master.cancelScheduledValues(sound.time);master.setValueAtTime(0,sound.time);sound.target(master,volume(),start,.045);
+  voice.update(auditionState(0,scene),start);
+  $('status').textContent=`Playing ${profiles[profile].name} · ${labels[scene]}`;
+  timer=setInterval(()=>{
+   const elapsed=sound.time-start;
+   if(elapsed>=duration){stopPlayback('Preview finished.');return;}
+   if(elapsed>0)voice.update(auditionState(elapsed,scene),sound.time);
+  },25);
+ }catch{if(request===serial)stopPlayback('Sound is unavailable. Tap Play to try again.');}
+}
+$('stop').onclick=()=>stopPlayback();
+$('volume').oninput=()=>{if(playing)sound.target(sound.master.gain,volume(),sound.time,.05);};
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&!$('stop').disabled)stopPlayback();});
+})();
+</script>
+</html>

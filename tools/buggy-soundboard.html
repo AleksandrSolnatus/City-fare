@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buggy Soundboard · City Fare</title>
+<style>
+ :root{color-scheme:dark;--paper:#f6e6d4;--muted:#d2bda6;--floor:#211812;--line:#735344;--accent:#fac38e}
+ *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 8% 0%,#4b2e23 0%,#271b17 46%,#191512 90%);color:var(--paper);font-family:system-ui,sans-serif;line-height:1.5}
+ main{max-width:52rem;margin:auto;padding:clamp(1.2rem,5vw,4.5rem) clamp(1.1rem,5vw,3rem) 3rem}
+ header{margin-bottom:2.3rem}.identity{font-size:.77rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+ h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(2.6rem,8vw,4.8rem);line-height:1;margin:.45rem 0 .9rem}h2{font-size:1.05rem;font-weight:650;margin:0 0 .3rem}
+ p{color:var(--muted);margin:0}button,input{font:inherit}button{cursor:pointer;min-height:44px;padding:.56rem .92rem;border:1px solid var(--line);border-radius:.4rem;background:#312119;color:var(--paper)}
+ button:hover{border-color:var(--accent)}button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}button:disabled{opacity:.53;cursor:default}
+ .profile{display:flex;align-items:center;justify-content:space-between;gap:1rem;border-block-start:1px solid var(--line);padding:1rem 0}.profile:last-child{border-block-end:1px solid var(--line)}
+ .profile button{min-width:5.2rem}.profile button[aria-pressed="true"]{background:var(--accent);color:#342015;border-color:var(--accent);font-weight:650}
+ .events,.transport{margin-top:1.7rem}.events p{margin-bottom:.7rem}.cues,.transport{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}.transport{padding:1rem 0;border-block:1px solid var(--line);justify-content:space-between}
+ .volume{display:flex;gap:.65rem;align-items:center}.volume input{width:7rem;accent-color:var(--accent)}
+ #status{margin-top:.85rem;min-height:1.5em;color:var(--accent);font-size:.92rem}
+ @media(max-width:430px){header{margin-bottom:1.5rem}.profile p{font-size:.88rem}.transport{gap:1rem}.volume input{width:5.5rem}}
+</style>
+<main>
+ <header>
+  <p class="identity">City Fare</p>
+  <h1>Buggy Soundboard</h1>
+  <p>Compare three mechanical mixes on the same short drive over rock, gravel and sand.</p>
+ </header>
+ <section id="profiles" aria-label="Buggy sound proposals"></section>
+ <section class="events" aria-labelledby="events-title">
+  <h2 id="events-title">Driving sounds</h2>
+  <p>Listen to individual sounds using <strong id="selected-profile">Engine Forward</strong>.</p>
+  <div class="cues" id="cues"></div>
+ </section>
+ <div class="transport">
+  <button id="stop" type="button" disabled>Stop playback</button>
+  <label class="volume">Volume <input id="volume" type="range" min="0" max="100" value="72"></label>
+ </div>
+ <p id="status" role="status">Ready to audition.</p>
+</main>
+<script>
+/*__BUGGY_AUDIO__*/
+/*__CONTACT__*/
+/*__BUGGY_AUDITION__*/
+(function(){'use strict';
+const {auditionState,previewCues}=SDBuggyAudio;
+const {AuditionVoice,profiles}=SDBuggyAudition;
+const $=id=>document.getElementById(id);
+const profileButtons=new Map();
+const labels={drive:'short drive',gravel:'gravel',sand:'sand',surge:'surge',landing:'landing'};
+let sound,voice,selected='belt',playing=false,serial=0,timer;
+for(const [id,profile] of Object.entries(profiles)){
+ const row=document.createElement('div'),copy=document.createElement('div'),heading=document.createElement('h2'),description=document.createElement('p'),play=document.createElement('button');
+ row.className='profile';heading.textContent=profile.name;description.textContent=profile.description;
+ play.type='button';play.textContent='Play';play.setAttribute('aria-label',`Play ${profile.name} drive`);
+ play.setAttribute('aria-pressed',String(id===selected));play.onclick=()=>playClip(id,'drive');profileButtons.set(id,play);
+ copy.append(heading,description);row.append(copy,play);$('profiles').append(row);
+}
+for(const name of previewCues){
+ const play=document.createElement('button');play.type='button';play.textContent=name[0].toUpperCase()+name.slice(1);play.onclick=()=>playClip(selected,name);$('cues').append(play);
+}
+function volume(){return Number($('volume').value)/100*.85;}
+function stopPlayback(message='Playback stopped.'){
+ serial++;clearInterval(timer);playing=false;$('stop').disabled=true;
+ if(sound){const time=sound.time;voice?.stop(time);voice=null;sound.silence();}
+ $('status').textContent=message;
+}
+async function playClip(profile,scene){
+ stopPlayback('Preparing sound…');
+ const request=serial;selected=profile;
+ for(const [id,button] of profileButtons)button.setAttribute('aria-pressed',String(id===profile));
+ $('selected-profile').textContent=profiles[profile].name;$('stop').disabled=false;
+ try{
+  if(!sound){const Context=window.AudioContext||window.webkitAudioContext;if(!Context)throw new Error('Audio unavailable');sound=new SDContact.ContactAudio({context:new Context()});}
+  await sound.context.resume();if(request!==serial)return;
+  if(sound.context.state!=='running')throw new Error('Audio unavailable');
+  const start=sound.time+.15,duration=scene==='drive'?5.8:2.5;
+  voice=new AuditionVoice(sound,profile);playing=true;
+  const master=sound.master.gain;master.cancelScheduledValues(sound.time);master.setValueAtTime(0,sound.time);sound.target(master,volume(),start,.045);
+  voice.update(auditionState(0,scene),start);
+  $('status').textContent=`Playing ${profiles[profile].name} · ${labels[scene]}`;
+  timer=setInterval(()=>{
+   const elapsed=sound.time-start;
+   if(elapsed>=duration){stopPlayback('Preview finished.');return;}
+   if(elapsed>0)voice.update(auditionState(elapsed,scene),sound.time);
+  },25);
+ }catch{if(request===serial)stopPlayback('Sound is unavailable. Tap Play to try again.');}
+}
+$('stop').onclick=()=>stopPlayback();
+$('volume').oninput=()=>{if(playing)sound.target(sound.master.gain,volume(),sound.time,.05);};
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&!$('stop').disabled)stopPlayback();});
+})();
+</script>
+</html>

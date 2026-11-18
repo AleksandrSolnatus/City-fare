@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 import vm from 'node:vm';
 const read=name=>readFileSync(new URL('../'+name,import.meta.url),'utf8');
 test('published standalone matches runtime sources and manifest and starts without external resources',()=>{
- const html=read('index.html'),manifest=JSON.parse(read('version.json'));assert.equal(createHash('sha256').update(html).digest('hex'),manifest.sha256);assert.equal(read(manifest.artifact),html);
+ const html=read('CITY-FARE-Sonoran-Drive-014.html'),manifest=JSON.parse(read('versions/014.json'));assert.equal(createHash('sha256').update(html).digest('hex'),manifest.sha256);assert.equal(read(manifest.artifact),html);
  let expected=read('src/sonoran-drive-014/template.html');for(const n of ['world','geometry','worm','flight','aggression','game','visitor','gpu','arrival','contact','view','app'])expected=expected.replace('/*__'+n.toUpperCase()+'__*/',()=>read('src/sonoran-drive-014/'+n+'.js'));assert.equal(expected,html);const returnLink='<a href="https://bridges.c-amar.chatgpt.site/#work">Return to Bridges</a>';
  assert(html.match(/<div id="fatal" hidden>([\s\S]*?)<\/div>/)?.[1].includes(returnLink));
  assert(!/fetch\(|https?:\/\//.test(html.replace(returnLink,'')));
